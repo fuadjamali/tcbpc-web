@@ -1,6 +1,8 @@
 import Logo from "@/components/Logo";
 import { FEATURES, TIERS, COMPARE_CATEGORIES } from "@/lib/planFeatures";
 import { getBusinessInfo } from "@/lib/businessInfo";
+import { getContactInfo } from "@/lib/contactInfo";
+import { getSocialSettings, getWhatsappHref } from "@/lib/socialSettings";
 import { buildPageMetadata } from "@/lib/seo";
 
 export async function generateMetadata() {
@@ -26,6 +28,22 @@ function Check({ included }) {
   );
 }
 
+// Answers come straight from the deal terms in docs/package-plans.md — update both together.
+const FAQS = [
+  {
+    q: "Can I upgrade later?",
+    a: "Yes. Moving from Basic to Plus or Premium keeps your site, your content and your login. Nothing is rebuilt.",
+  },
+  {
+    q: "Am I tied into a long contract?",
+    a: "No. The minimum is 3 months, then 30 days' notice. We'd rather earn your monthly fee than lock you in.",
+  },
+  {
+    q: "Do I need to be technical?",
+    a: "No. You edit text, photos, products and bookings from a simple admin panel — and we set the site up for you.",
+  },
+];
+
 // Regroups FEATURES into the visitor-facing topics in COMPARE_CATEGORIES (e.g. "Get booked"),
 // keeping source order within each. FEATURES' own `group` values stay matched to admin Settings
 // → Feature Config, so only this display grouping differs from that page.
@@ -39,6 +57,8 @@ function categorise(features) {
 export default async function ComparePlansPage() {
   const categories = categorise(FEATURES);
   const business = await getBusinessInfo();
+  const contact = await getContactInfo();
+  const whatsappHref = getWhatsappHref(await getSocialSettings());
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -171,28 +191,68 @@ export default async function ComparePlansPage() {
           ))}
         </div>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-3">
-          <a
-            href="/#enquiry"
-            className="rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
-          >
-            Get my free quote
-          </a>
-          <a
-            href="/downloads/falcon-web-suite-flyer.pdf"
-            download
-            className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-surface-alt"
-          >
-            Download PDF
-          </a>
-          <a
-            href="/"
-            className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-surface-alt"
-          >
-            Back to home
-          </a>
-        </div>
+        <section className="mt-16" aria-labelledby="faq-heading">
+          <h2 id="faq-heading" className="text-center text-2xl font-extrabold sm:text-3xl">
+            Questions people ask first
+          </h2>
+          <div className="mt-6 grid gap-4 sm:grid-cols-3">
+            {FAQS.map((item) => (
+              <div key={item.q} className="rounded-2xl border border-border bg-surface p-5">
+                <h3 className="text-base font-bold">{item.q}</h3>
+                <p className="mt-2 text-sm text-muted">{item.a}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-6 flex flex-wrap justify-center gap-x-5 gap-y-2 text-sm font-medium">
+            <a href="/downloads/falcon-web-suite-flyer.pdf" download className="text-accent hover:underline">
+              Download the plans &amp; pricing PDF
+            </a>
+            <a href="/#plans" className="text-accent hover:underline">
+              Back to plans
+            </a>
+          </p>
+        </section>
       </main>
+
+      {/* Closing call to action — full width, outside <main>'s max-width. WhatsApp/phone buttons
+          only render when set in admin (Social / Contact), so nothing here is hard-coded. */}
+      <section className="mt-14 bg-gradient-to-br from-foreground to-primary py-14 text-center text-primary-foreground">
+        <div className="mx-auto max-w-3xl px-6">
+          <h2 className="text-2xl font-extrabold tracking-tight sm:text-4xl">
+            Not sure which plan fits?
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-primary-foreground/85">
+            Book a free walkthrough. Click through the real product — not a slide deck — and we&apos;ll
+            point you to the right one.
+          </p>
+          <div className="mt-7 flex flex-wrap justify-center gap-3">
+            <a
+              href="/#enquiry"
+              className="rounded-full bg-white px-7 py-3 text-sm font-semibold text-[#0c2d48] hover:bg-white/90"
+            >
+              Book a free walkthrough
+            </a>
+            {whatsappHref && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border-[1.5px] border-white/50 px-7 py-3 text-sm font-semibold hover:bg-white/10"
+              >
+                Chat on WhatsApp
+              </a>
+            )}
+            {contact.phone && (
+              <a
+                href={`tel:${contact.phone.replace(/[^+\d]/g, "")}`}
+                className="rounded-full border-[1.5px] border-white/50 px-7 py-3 text-sm font-semibold hover:bg-white/10"
+              >
+                Call {contact.phone}
+              </a>
+            )}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
