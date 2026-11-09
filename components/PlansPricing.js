@@ -33,10 +33,10 @@ function Highlighted({ text }) {
   );
 }
 
-function BillingToggle({ yearly, onChange }) {
+export function BillingToggle({ yearly, onChange, className = "mt-8" }) {
   const base = "rounded-full px-5 py-2 text-sm font-semibold transition";
   return (
-    <div className="mt-8 flex justify-center">
+    <div className={`flex justify-center ${className}`}>
       <div
         role="group"
         aria-label="Billing period"

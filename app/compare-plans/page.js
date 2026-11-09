@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import ComparePricingCards from "@/components/ComparePricingCards";
 import { FEATURES, TIERS, COMPARE_CATEGORIES } from "@/lib/planFeatures";
 import { getBusinessInfo } from "@/lib/businessInfo";
 import { getContactInfo } from "@/lib/contactInfo";
@@ -89,46 +90,8 @@ export default async function ComparePlansPage() {
       </section>
 
       <main className="mx-auto max-w-5xl px-6 pb-16">
-        {/* Pricing cards */}
-        <div className="-mt-8 grid gap-5 sm:-mt-10 sm:grid-cols-3">
-          {TIERS.map((tier) => (
-            <div
-              key={tier.key}
-              className={`relative rounded-2xl border bg-surface p-6 text-center shadow-lg ${
-                tier.popular ? "border-primary ring-2 ring-primary" : "border-border"
-              }`}
-            >
-              {tier.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground shadow">
-                  Most popular
-                </span>
-              )}
-              <p className="text-base font-bold">{tier.label}</p>
-              <p className="mt-1 min-h-[34px] text-sm font-semibold text-primary">{tier.tagline}</p>
-              <p className="mt-4 text-3xl font-extrabold">
-                <sup className="text-base font-bold align-top">£</sup>
-                {tier.setupPrice.replace("£", "")}
-              </p>
-              <p className="mt-1 text-xs text-muted">
-                setup ·{" "}
-                <span className="font-semibold text-green-600 dark:text-green-400">
-                  {tier.monthlyPrice}
-                </span>
-                /mo
-              </p>
-              <a
-                href="/#enquiry"
-                className={`mt-5 block rounded-full py-2.5 text-sm font-semibold ${
-                  tier.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary-hover"
-                    : "border border-border text-foreground hover:bg-surface-alt"
-                }`}
-              >
-                Get my free quote
-              </a>
-            </div>
-          ))}
-        </div>
+        {/* Pricing cards + Monthly/Yearly toggle */}
+        <ComparePricingCards tiers={TIERS} />
 
         {/* Comparison by topic — native <details> so each topic opens/closes with no client JS, and
             the same stacked-row layout works on phones and desktops alike. */}
