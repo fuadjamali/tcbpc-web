@@ -6,6 +6,10 @@ import { getContactInfo } from "@/lib/contactInfo";
 import { getSocialSettings, getWhatsappHref } from "@/lib/socialSettings";
 import { buildPageMetadata } from "@/lib/seo";
 
+// ISR like the home page: the closing band reads WhatsApp/phone from the database, so without
+// this the page is frozen at build time. Admin Social/Contact saves also revalidate it.
+export const revalidate = 3600;
+
 export async function generateMetadata() {
   return buildPageMetadata({
     title: "Compare Plans",

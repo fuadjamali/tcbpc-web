@@ -27,6 +27,7 @@ export async function updateSocialSettingsAction(prevState, formData) {
 
   // Both WhatsApp buttons and the social icon row only render on the home page.
   revalidatePath("/");
+  revalidatePath("/compare-plans");
   revalidatePath("/admin/social");
 
   return { success: "Social & WhatsApp settings saved." };

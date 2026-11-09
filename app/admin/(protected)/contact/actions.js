@@ -15,5 +15,6 @@ export async function updateContactInfoAction(formData) {
 
   // Revalidate immediately rather than waiting for the home page's ISR window.
   revalidatePath("/");
+  revalidatePath("/compare-plans");
   revalidatePath("/admin/contact");
 }
