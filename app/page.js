@@ -51,6 +51,8 @@ import { getModuleStates, isEnabled, isPublicPathEnabled } from "@/lib/plan";
 import { getHomeLayout } from "@/lib/homeLayout";
 import { TIERS } from "@/lib/planFeatures";
 import PlansPricing from "@/components/PlansPricing";
+import PlansFaq from "@/components/PlansFaq";
+import PlansCta from "@/components/PlansCta";
 import { buildPageMetadata } from "@/lib/seo";
 
 // ISR: cached for up to an hour, but /admin/products' Server Actions call revalidatePath("/")
@@ -217,6 +219,14 @@ export default async function Home({ searchParams }) {
     socialSettings,
     socialSettings.footer_whatsapp_message || socialSettings.whatsapp_message
   );
+
+  // Where the Plans area's "get a quote" / "book a walkthrough" buttons point, depending on
+  // which contact route this deployment has switched on.
+  const plansQuoteHref = isEnabled("enquiryForm", moduleStates)
+    ? "#enquiry"
+    : contactInfo.enabled
+      ? "#contact-info"
+      : "#plans";
 
   // Sidebar Layout's aside content — one of three already-feed-shaped sections, admin's choice
   // (homeLayout.asideContent). Each has its own item shape (dated + typed for News & Events,
@@ -588,6 +598,7 @@ export default async function Home({ searchParams }) {
           Basic/Plus/Premium tiers to its visitors, so this should be `null` in config/site.js
           for every client deployment — see lib/planFeatures.js for the shared tier data. */}
       {plans && (
+        <>
         <section
           id="plans"
           className="bg-surface-alt py-20"
@@ -616,13 +627,7 @@ export default async function Home({ searchParams }) {
 
             <PlansPricing
               tiers={TIERS}
-              quoteHref={
-                isEnabled("enquiryForm", moduleStates)
-                  ? "#enquiry"
-                  : contactInfo.enabled
-                    ? "#contact-info"
-                    : "#plans"
-              }
+              quoteHref={plansQuoteHref}
             />
 
             <p className="mt-8 text-center">
@@ -645,6 +650,24 @@ export default async function Home({ searchParams }) {
             </p>
           </div>
         </section>
+
+        <section
+          className="py-16"
+          aria-labelledby="faq-heading"
+          style={{ order: sectionOrder.plans }}
+        >
+          <div className={`mx-auto ${sectionMaxW} px-6`}>
+            <PlansFaq />
+          </div>
+        </section>
+
+        <PlansCta
+          bookHref={plansQuoteHref}
+          whatsappHref={getWhatsappHref(socialSettings)}
+          phone={contactInfo.phone}
+          style={{ order: sectionOrder.plans }}
+        />
+        </>
       )}
 
       {/* COMPONENT: portfolio (optional — live from Postgres, editable at /admin/portfolio) */}
