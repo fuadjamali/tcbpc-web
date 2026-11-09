@@ -58,7 +58,7 @@ export default function SocialSettingsForm({ settings }) {
               type="text"
               name="whatsappNumber"
               defaultValue={settings.whatsapp_number || ""}
-              placeholder="447488382205"
+              placeholder="447840443408"
               className={fieldClass}
             />
             <p className="mt-1 text-xs text-muted">
