@@ -666,6 +666,16 @@ export default async function Home({ searchParams }) {
               >
                 Explore full features comparison &rarr;
               </a>
+              <span className="mx-3 text-muted" aria-hidden="true">
+                &middot;
+              </span>
+              <a
+                href="/downloads/falcon-web-suite-flyer.pdf"
+                download
+                className="text-sm font-medium text-accent hover:underline"
+              >
+                Download the plans &amp; pricing PDF (2 pages)
+              </a>
             </p>
           </div>
         </section>

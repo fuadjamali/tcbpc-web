@@ -6,35 +6,32 @@ locked, not just a sales description.
 
 ## At a glance
 
-### Founding Client pricing (first ~10-15 clients)
+### Current pricing
 
-Flat rates, not ranges — a deliberate launch discount to remove hesitation while there's no
-track record yet. Locked for every client who signs at this rate for as long as they stay a
-customer, even after the founding cohort is full and new clients move to Standard pricing below.
-This is the price shown on the live site's Plans section right now (`lib/planFeatures.js`).
+Flat rates, not ranges. Setup fees were raised in Nov 2026; monthly fees were kept the same.
+This is the price shown on the live site's Plans section and the printed flyer
+(`lib/planFeatures.js`, `docs/falcon-web-suite-flyer.html`). The downloadable flyer PDF served by the site is `public/downloads/falcon-web-suite-flyer.pdf` — copy `docs/falcon-web-suite-flyer.pdf` over it whenever the flyer is regenerated.
 
 | | **Basic** | **Plus** | **Premium** |
 |---|:---:|:---:|:---:|
 | Positioning | Brochure site | Content, credibility & booking | Commerce & accounts |
-| Setup fee | £250 | £400 | £750 |
+| Setup fee | £325 | £550 | £900 |
 | Monthly | £15 | £30 | £50 |
 | Annual (pay upfront, 3 months free) | £135/yr | £270/yr | £450/yr |
 
-### Standard pricing (switch new clients to this once the founding cohort is full)
+### Earlier founding clients
 
-| | **Basic** | **Plus** | **Premium** |
-|---|:---:|:---:|:---:|
-| Setup fee | £325 | £550 | £900 |
-| Monthly | £22 | £40 | £65 |
+Clients who signed at the earlier founding setup fees (Basic £250, Plus £400, Premium £750) keep
+that locked rate for as long as they stay a customer. Only new signups pay the current setup fee.
+Don't change an existing client's invoiced amount when editing prices.
 
-To switch: update the flat prices in `lib/planFeatures.js`'s `TIERS` array. Existing founding
-clients keep their locked rate — only new signups move to Standard.
+To change prices: update the flat prices in `lib/planFeatures.js`'s `TIERS` array, then the flyer.
 
 ## Deal terms
 
 - **Deposit**: 50% on signing, 50% on go-live.
 - **Minimum term**: 3 months, then 30 days' notice to cancel. Deliberately short — a long
-  tie-in undermines the "low risk, try us" pitch the founding rate is meant to create.
+  tie-in undermines the "low risk, try us" pitch.
 - **Payment**: Direct Debit (GoCardless) for the monthly fee once past a couple of manually
   invoiced clients — chasing payments by hand doesn't scale past a handful of customers.
 - **VAT**: not currently charged (below the UK VAT registration threshold). Revisit whether
@@ -46,18 +43,21 @@ clients keep their locked rate — only new signups move to Standard.
 | Module | Basic | Plus | Premium |
 |---|:---:|:---:|:---:|
 | Home page (hero, stats, how-it-works, about, map) | ✅ | ✅ | ✅ |
+| Hero banner — multi-slide carousel, image or video backgrounds, adjustable height & focus | ✅ | ✅ | ✅ |
+| About, Vision & Mission, History (dated text becomes a timeline automatically) | ✅ | ✅ | ✅ |
+| Home page layout editor — reorder sections, sidebar layout, on/off switches | ✅ | ✅ | ✅ |
 | Contact info block + enquiry form (→ admin inbox) | ✅ | ✅ | ✅ |
-| WhatsApp CTA (floating + footer) + social links | ✅ | ✅ | ✅ |
-| Products **or** Portfolio showcase (pick one at onboarding) | ✅ | ✅ | ✅ |
+| WhatsApp CTA (floating + footer, number or group invite link) + social links | ✅ | ✅ | ✅ |
+| Products **or** Portfolio showcase — multi-photo galleries with crop (pick one at onboarding) | ✅ | ✅ | ✅ |
 | Both Products **and** Portfolio | — | ✅ | ✅ |
 | Color theme | 1 fixed theme | Full 8-theme switcher + dark mode | Full 8-theme switcher + dark mode |
 | Basic analytics (visit counter) | ✅ | ✅ | ✅ |
-| Blog | — | ✅ | ✅ |
-| Gallery | — | ✅ | ✅ |
+| Blog with rich-text editor | — | ✅ | ✅ |
+| Gallery — masonry, search, tag & date filters, zoom lightbox | — | ✅ | ✅ |
 | News & Events | — | ✅ | ✅ |
-| Reviews (third-party ratings) + Partners strip | — | ✅ | ✅ |
+| Reviews (third-party ratings) + Partners strip (clickable logos) | — | ✅ | ✅ |
 | Customer-submitted reviews (public form → admin moderation) | — | ✅ | ✅ |
-| Team & Team Members | — | ✅ | ✅ |
+| Team & People directory (current / former teams) | — | ✅ | ✅ |
 | Certifications | — | ✅ | ✅ |
 | "Write with AI" content assistant (admin panel) | — | ✅ | ✅ |
 | Online booking / appointment scheduling (real-time slots) | — | ✅ | ✅ |

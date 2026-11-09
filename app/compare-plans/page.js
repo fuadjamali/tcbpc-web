@@ -220,6 +220,13 @@ export default async function ComparePlansPage() {
             Get my free quote
           </a>
           <a
+            href="/downloads/falcon-web-suite-flyer.pdf"
+            download
+            className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-surface-alt"
+          >
+            Download PDF
+          </a>
+          <a
             href="/"
             className="rounded-full border border-border px-6 py-3 text-sm font-semibold text-foreground hover:bg-surface-alt"
           >

@@ -1,292 +1,115 @@
-<title>Falcon Web Suite Flyer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
-<style>
-  /* Ocean Blue (light) — same values as the live site's default theme, app/globals.css */
-  :root {
-    --ink: #0c2d48;
-    --blue: #0284c7;
-    --blue-hover: #0369a1;
-    --blue-soft: #e0f2fe;
-    --accent: #06b6d4;
-    --paper: #ffffff;
-    --paper-alt: #e0f2fe;
-    --line: #bae6fd;
-    --muted: #475569;
-    --good: #0d9488;
-    --page-bg: #f0f9ff;
-    --on-dark-muted: #bae6fd;
-  }
-
-  * { box-sizing: border-box; }
-
-  html, body { height: 100%; }
-
-  body {
-    margin: 0;
-    background: var(--page-bg);
-    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
-    color: var(--ink);
-    display: flex;
-    justify-content: center;
-    padding: 24px 16px;
-  }
-
-  /* A4 at 96dpi ≈ 794 x 1123px. Sized in mm so a real browser print/PDF of this page comes out
-     as an exact single A4 sheet — see the @page rule below. */
-  .flyer {
-    width: 210mm;
-    min-height: 297mm;
-    background: var(--paper);
-    box-shadow: 0 24px 50px -18px rgba(15, 47, 92, 0.35);
-    display: flex;
-    flex-direction: column;
-  }
-
-  @media print {
-    @page { size: A4; margin: 0; }
-    body { padding: 0; background: white; }
-    .flyer { box-shadow: none; width: 210mm; min-height: 297mm; }
-  }
-
-  /* ---------- Header ---------- */
-  .header {
-    position: relative;
-    padding: 20px 34px 16px;
-    background: linear-gradient(135deg, var(--ink) 0%, var(--blue) 100%);
-    color: white;
-    overflow: hidden;
-  }
-
-  .header::after {
-    content: "";
-    position: absolute;
-    right: -50px;
-    top: -70px;
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(255,255,255,0.14), transparent 70%);
-  }
-
-  .brand-row {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .mark { width: 36px; height: 36px; flex-shrink: 0; }
-
-  .brand-title {
-    font-family: "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: 22px;
-    letter-spacing: -0.01em;
-    line-height: 1;
-  }
-
-  .brand-slogan {
-    margin-top: 3px;
-    font-size: 11.5px;
-    font-weight: 500;
-    color: var(--on-dark-muted);
-  }
-
-  .hero-copy { position: relative; margin-top: 14px; }
-
-  .hero-line {
-    font-family: "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1.25;
-    letter-spacing: -0.01em;
-  }
-  .hero-line .tomorrow { color: #67e8f9; }
-
-  .hero-sub {
-    margin-top: 6px;
-    max-width: 520px;
-    font-size: 11.5px;
-    line-height: 1.5;
-    color: var(--on-dark-muted);
-  }
-
-  /* ---------- Plan pricing header ---------- */
-  .plans {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border-bottom: 2px solid var(--ink);
-  }
-  .plan-head {
-    padding: 12px 14px 10px;
-    text-align: center;
-    border-right: 1px solid var(--line);
-    position: relative;
-  }
-  .plan-head:last-child { border-right: none; }
-  .plan-head.popular { background: var(--blue-soft); }
-
-  .popular-tag {
-    position: absolute;
-    top: 4px; left: 50%;
-    transform: translateX(-50%);
-    background: var(--blue);
-    color: white;
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    padding: 2px 8px;
-    border-radius: 999px;
-  }
-
-  .plan-name {
-    margin-top: 4px;
-    font-family: "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: 14px;
-  }
-  .plan-blurb {
-    margin-top: 2px;
-    font-size: 9px;
-    color: var(--muted);
-    line-height: 1.35;
-  }
-  .plan-price {
-    margin-top: 6px;
-    font-family: "Manrope", sans-serif;
-    font-weight: 800;
-    font-size: 18px;
-  }
-  .plan-price sup { font-size: 10px; font-weight: 700; top: -0.7em; }
-  .plan-mo { margin-top: 1px; font-size: 9.5px; color: var(--muted); }
-  .plan-mo b { color: var(--good); font-weight: 700; }
-
-  /* ---------- Comparison matrix ---------- */
-  .matrix-wrap { flex: 1; }
-  table.matrix {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 10px;
-    table-layout: fixed;
-  }
-  table.matrix col.feat-col { width: auto; }
-  table.matrix col.plan-col { width: 78px; }
-
-  table.matrix td { border-right: 1px solid var(--line); }
-  table.matrix td:last-child { border-right: none; }
-
-  .group-row td {
-    background: var(--ink);
-    color: white;
-    font-family: "Manrope", sans-serif;
-    font-weight: 700;
-    font-size: 9px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 14px;
-  }
-
-  .feat-row td {
-    padding: 4.5px 10px;
-    border-bottom: 1px solid var(--line);
-    vertical-align: middle;
-  }
-  .feat-row:nth-child(odd) td { background: var(--paper-alt); }
-
-  .feat-label {
-    padding-left: 14px !important;
-    color: var(--ink);
-    font-weight: 500;
-  }
-
-  .feat-cell { text-align: center; }
-  .check { color: var(--good); font-weight: 800; font-size: 12px; }
-  .dash { color: #93c5e8; font-weight: 700; }
-  .text-cell { font-size: 8.5px; color: var(--ink); line-height: 1.25; }
-
-  /* ---------- Footer / CTA ---------- */
-  .footer {
-    margin-top: auto;
-    padding: 14px 34px 18px;
-    background: linear-gradient(135deg, var(--ink), var(--blue));
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-  .footer-cta-label { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 14px; }
-  .footer-cta-sub { margin-top: 2px; font-size: 10.5px; color: var(--on-dark-muted); }
-
-  .phone-block {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.25);
-    padding: 7px 14px;
-    border-radius: 8px;
-  }
-  .phone-icon { width: 16px; height: 16px; flex-shrink: 0; }
-  .phone-number { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 14px; }
-  .phone-label { font-size: 8.5px; color: var(--on-dark-muted); text-transform: uppercase; letter-spacing: 0.06em; }
-
-  @media (max-width: 860px) {
-    .flyer { width: 100%; min-height: 0; }
-  }
-</style>
-
-<div class="flyer">
-
-  <!-- Header -->
-  <div class="header">
-    <div class="brand-row">
-      <svg class="mark" viewBox="0 0 100 100" fill="#ffffff" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg">
-        <path d="M50,10 L85,20 L92,50 L80,80 L55,92 L40,92 L48,70 L35,66 L12,72 L25,56 L5,48 L25,38 L18,26 L32,18 Z M38,34 A6,6 0 1,1 37.99,34 Z"/>
-      </svg>
-      <div>
-        <div class="brand-title">Falcon Web Suite</div>
-        <div class="brand-slogan">Simple to start. Built to grow.</div>
-      </div>
-    </div>
-
-    <div class="hero-copy">
-      <div class="hero-line">Today: a website.<br>Tomorrow: a <span class="tomorrow">business platform.</span></div>
-      <p class="hero-sub">Upgrade to booking and online sales whenever you're ready — same site, same login.</p>
-    </div>
-  </div>
-
-  <!-- Plan headers with pricing -->
-  <div class="plans">
-    <div class="plan-head">
-      <div class="plan-name">Basic</div>
-      <div class="plan-blurb">A credible online presence — what you do, how to reach you.</div>
-      <div class="plan-price"><sup>£</sup>250</div>
-      <div class="plan-mo">setup · <b>£15</b>/mo</div>
-    </div>
-    <div class="plan-head popular">
-      <span class="popular-tag">Most popular</span>
-      <div class="plan-name">Plus</div>
-      <div class="plan-blurb">Actively marketing yourself and taking bookings.</div>
-      <div class="plan-price"><sup>£</sup>400</div>
-      <div class="plan-mo">setup · <b>£30</b>/mo</div>
-    </div>
-    <div class="plan-head">
-      <div class="plan-name">Premium</div>
-      <div class="plan-blurb">Ready to transact online and build repeat customers.</div>
-      <div class="plan-price"><sup>£</sup>750</div>
-      <div class="plan-mo">setup · <b>£50</b>/mo</div>
-    </div>
-  </div>
-
-  <!-- Full feature comparison matrix, grouped by module -->
-  <div class="matrix-wrap">
-    <table class="matrix">
+<!doctype html><html><head><meta charset="utf-8"><title>Falcon Web Suite Flyer</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Manrope:wght@600;700;800&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet"><style>
+:root{--ink:#0c2d48;--blue:#0284c7;--blue-soft:#e0f2fe;--accent:#06b6d4;--paper:#fff;--paper-alt:#e0f2fe;--line:#bae6fd;--muted:#475569;--good:#0d9488;--page-bg:#f0f9ff;--on-dark-muted:#bae6fd}
+*{box-sizing:border-box}
+body{margin:0;background:#cfe6f5;font-family:"IBM Plex Sans",ui-sans-serif,system-ui,sans-serif;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:28px;padding:24px 0}
+.page{width:210mm;height:297mm;background:var(--paper);box-shadow:0 24px 50px -18px rgba(15,47,92,.35);display:flex;flex-direction:column;overflow:hidden;position:relative}
+@media print{@page{size:A4;margin:0}body{padding:0;gap:0;background:#fff;display:block}.page{box-shadow:none;page-break-after:always;break-after:page}.page:last-child{page-break-after:auto;break-after:auto}}
+.header{position:relative;padding:26px 36px 22px;background:linear-gradient(135deg,var(--ink) 0%,var(--blue) 100%);color:#fff;overflow:hidden}
+.header::after{content:"";position:absolute;right:-60px;top:-90px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.16),transparent 70%)}
+.brand-row{position:relative;display:flex;align-items:center;gap:12px}
+.mark{width:40px;height:40px;flex-shrink:0}
+.brand-title{font-family:Manrope,sans-serif;font-weight:800;font-size:23px;letter-spacing:-.01em;line-height:1}
+.brand-slogan{margin-top:4px;font-size:12px;font-weight:500;color:var(--on-dark-muted)}
+.hero-line{position:relative;margin-top:18px;font-family:Manrope,sans-serif;font-weight:800;font-size:27px;line-height:1.18;letter-spacing:-.015em}
+.hero-line .tm{color:#67e8f9}
+.hero-sub{position:relative;margin-top:8px;font-size:12.5px;line-height:1.5;color:var(--on-dark-muted);max-width:480px}
+.strip{background:var(--ink);color:#fff;text-align:center;font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;font-weight:600;padding:7px 12px}
+.strip b{color:#67e8f9}
+.tiers{flex:1;display:flex;flex-direction:column;gap:13px;padding:16px 28px 14px;background:var(--page-bg)}
+.tier{position:relative;flex:1;display:grid;grid-template-columns:150px 1fr 118px;align-items:center;gap:16px;padding:14px 16px;background:#fff;border:1.5px solid var(--line);border-radius:16px;box-shadow:0 10px 24px -16px rgba(12,45,72,.4)}
+.tier.popular{background:linear-gradient(180deg,#f3fbff,var(--blue-soft));border:2.5px solid var(--blue);box-shadow:0 18px 34px -18px rgba(2,132,199,.7)}
+.pop-tag{position:absolute;top:-11px;left:22px;background:var(--blue);color:#fff;font-size:9.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:3px 12px;border-radius:999px}
+.art svg{width:100%;height:auto;display:block}
+.tier-name{font-family:Manrope,sans-serif;font-weight:800;font-size:25px;line-height:1}
+.tier-blurb{margin-top:5px;font-size:11.5px;line-height:1.4;color:var(--muted)}
+.incl{margin-top:7px;font-size:10px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--blue)}
+.tier ul{list-style:none;margin:8px 0 0;padding:0;display:flex;flex-direction:column;gap:5px}
+.tier li{display:flex;align-items:flex-start;gap:7px;font-size:11px;line-height:1.35}
+.tick{width:13px;height:13px;flex-shrink:0;margin-top:1.5px}
+mark{background:linear-gradient(transparent 52%,rgba(6,182,212,.38) 52%);color:inherit;font-weight:600;padding:0 1px}
+.price-col{align-self:stretch;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;border-left:1.5px dashed var(--line);padding-left:10px}
+.price-label{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.price{font-family:Manrope,sans-serif;font-weight:800;font-size:38px;line-height:1.05;margin-top:2px}
+.price sup{font-size:17px;font-weight:700;top:-.75em}
+.mo{margin-top:7px;font-size:11px;color:var(--muted)}
+.mo b{display:block;font-family:Manrope,sans-serif;font-size:18px;color:var(--good)}
+.footer{padding:16px 36px 20px;background:linear-gradient(135deg,var(--ink),var(--blue));color:#fff;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.cta-label{font-family:Manrope,sans-serif;font-weight:800;font-size:16px}
+.cta-sub{margin-top:3px;font-size:11px;color:var(--on-dark-muted)}
+.phone-block{display:flex;align-items:center;gap:9px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);padding:8px 16px;border-radius:9px;flex-shrink:0}
+.phone-icon{width:18px;height:18px}
+.phone-label{font-size:8.5px;color:var(--on-dark-muted);text-transform:uppercase;letter-spacing:.07em}
+.phone-number{font-family:Manrope,sans-serif;font-weight:800;font-size:15px}
+.header.slim{padding:20px 36px 16px;display:flex;align-items:center;justify-content:space-between}
+.header.slim .brand-row{gap:10px}
+.header.slim .mark{width:30px;height:30px}
+.header.slim .brand-title{font-size:18px}
+.back-title{position:relative;text-align:right}
+.back-title .t{font-family:Manrope,sans-serif;font-weight:800;font-size:20px}
+.back-title .s{font-size:11px;color:var(--on-dark-muted);margin-top:2px}
+.plans{display:grid;grid-template-columns:1fr 78px 78px 78px;border-bottom:2px solid var(--ink)}
+.plans .blank{display:flex;align-items:center;padding:0 14px;font-size:10px;color:var(--muted);font-weight:600;letter-spacing:.05em;text-transform:uppercase}
+.ph{text-align:center;padding:10px 4px 8px;border-left:1px solid var(--line);position:relative}
+.ph.popular{background:var(--blue-soft)}
+.ph .n{font-family:Manrope,sans-serif;font-weight:800;font-size:13px}
+.ph .p{font-family:Manrope,sans-serif;font-weight:800;font-size:15px;margin-top:3px}
+.ph .p sup{font-size:8px}
+.ph .m{font-size:8.5px;color:var(--muted);margin-top:1px}.ph .m b{color:var(--good)}
+.ph .pt{position:absolute;top:2px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-size:6.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:1px 6px;border-radius:999px;white-space:nowrap}
+.matrix-wrap{flex:1;min-height:0}.header,.plans,.terms,.footer,.strip{flex-shrink:0}
+table.matrix{width:100%;border-collapse:collapse;font-size:9.5px;table-layout:fixed}
+table.matrix col.plan-col{width:78px}
+table.matrix td{border-right:1px solid var(--line)}table.matrix td:last-child{border-right:none}
+.group-row td{background:var(--ink);color:#fff;font-family:Manrope,sans-serif;font-weight:700;font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:3.5px 14px}
+.feat-row td{padding:4.8px 10px;line-height:1.2;border-bottom:1px solid var(--line);vertical-align:middle}
+.feat-row:nth-child(odd) td{background:var(--paper-alt)}
+.feat-label{padding-left:14px!important;font-weight:500}
+.feat-cell{text-align:center}.check{color:var(--good);font-weight:800;font-size:12px}.dash{color:#93c5e8;font-weight:700}
+.text-cell{font-size:8.5px;line-height:1.25}
+.terms{display:flex;gap:18px;padding:12px 36px;background:var(--page-bg);font-size:9.5px;color:var(--muted);line-height:1.45;border-top:2px solid var(--ink)}
+.terms div{flex:1}.terms b{color:var(--ink)}
+</style></head><body><div class="page"><div class="header"><div class="brand-row"><svg class="mark" viewBox="0 0 100 100" fill="#ffffff" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 L85,20 L92,50 L80,80 L55,92 L40,92 L48,70 L35,66 L12,72 L25,56 L5,48 L25,38 L18,26 L32,18 Z M38,34 A6,6 0 1,1 37.99,34 Z"/></svg><div><div class="brand-title">Falcon Web Suite</div><div class="brand-slogan">Simple to start. Built to grow.</div></div></div><div class="hero-line">Today: a website.<br>Tomorrow: a <span class="tm">business platform.</span></div><p class="hero-sub">Pick the package that fits where your business is now &mdash; upgrade to booking and online sales whenever you are ready. Same site, same login.</p></div><div class="strip">One setup fee &middot; <b>simple monthly price</b> &middot; no VAT</div><div class="tiers"><section class="tier"><div class="art"><svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+<circle cx="170" cy="28" r="22" fill="#bae6fd" opacity=".55"/><circle cx="26" cy="146" r="14" fill="#bae6fd" opacity=".6"/>
+<rect x="20" y="22" width="150" height="112" rx="9" fill="#fff" stroke="#0c2d48" stroke-width="2.5"/>
+<path d="M20 31a9 9 0 0 1 9-9h132a9 9 0 0 1 9 9v10H20z" fill="#0c2d48"/>
+<circle cx="32" cy="32" r="2.8" fill="#f87171"/><circle cx="42" cy="32" r="2.8" fill="#fbbf24"/><circle cx="52" cy="32" r="2.8" fill="#34d399"/>
+<rect x="30" y="50" width="130" height="34" rx="5" fill="#0284c7"/>
+<rect x="38" y="58" width="62" height="6" rx="3" fill="#fff"/><rect x="38" y="69" width="42" height="4" rx="2" fill="#bae6fd"/>
+<rect x="116" y="60" width="32" height="14" rx="7" fill="#fff"/>
+<rect x="30" y="92" width="38" height="32" rx="5" fill="#e0f2fe"/><rect x="74" y="92" width="38" height="32" rx="5" fill="#e0f2fe"/><rect x="118" y="92" width="42" height="32" rx="5" fill="#e0f2fe"/>
+<circle cx="49" cy="104" r="6" fill="#06b6d4"/><circle cx="93" cy="104" r="6" fill="#0284c7"/><circle cx="139" cy="104" r="6" fill="#06b6d4"/>
+<rect x="38" y="115" width="22" height="3" rx="1.5" fill="#0c2d48" opacity=".35"/><rect x="82" y="115" width="22" height="3" rx="1.5" fill="#0c2d48" opacity=".35"/>
+<g transform="translate(150 118)"><circle r="19" fill="#25d366" stroke="#fff" stroke-width="3"/><path d="M-7 -8c0 8 7 15 15 15l3-3-4-3-2 2c-3-1-6-4-7-7l2-2-3-4z" fill="#fff"/></g>
+</svg></div><div class="body"><div class="tier-name">Basic</div><div class="tier-blurb">A credible online presence &mdash; <mark>what you do, and how to reach you.</mark></div><ul><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>Home page</mark> with hero banner, stats, how-it-works &amp; map</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Products <em>or</em> Portfolio showcase with <mark>photo galleries</mark></span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Contact block + <mark>enquiry form</mark> straight to your inbox</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>WhatsApp button (number or group link) + social links</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Edit everything yourself &mdash; <mark>simple admin panel</mark> &amp; visit counter</span></li></ul></div><div class="price-col"><div class="price-label">Setup</div><div class="price"><sup>&pound;</sup>325</div><div class="mo"><b>&pound;15</b><span>/ month</span></div></div></section><section class="tier popular"><span class="pop-tag">Most popular</span><div class="art"><svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+<circle cx="172" cy="150" r="20" fill="#bae6fd" opacity=".6"/><circle cx="22" cy="24" r="14" fill="#bae6fd" opacity=".55"/>
+<rect x="18" y="26" width="104" height="112" rx="10" fill="#fff" stroke="#0c2d48" stroke-width="2.5"/>
+<path d="M18 38a10 10 0 0 1 10-10h84a10 10 0 0 1 10 10v14H18z" fill="#0284c7"/>
+<rect x="38" y="19" width="6" height="16" rx="3" fill="#0c2d48"/><rect x="96" y="19" width="6" height="16" rx="3" fill="#0c2d48"/>
+<text x="70" y="46" font-family="Manrope,sans-serif" font-weight="800" font-size="10" fill="#fff" text-anchor="middle">MARCH</text>
+<g fill="#e0f2fe"><rect x="28" y="62" width="14" height="14" rx="3"/><rect x="46" y="62" width="14" height="14" rx="3"/><rect x="64" y="62" width="14" height="14" rx="3"/><rect x="82" y="62" width="14" height="14" rx="3"/><rect x="100" y="62" width="14" height="14" rx="3"/>
+<rect x="28" y="80" width="14" height="14" rx="3"/><rect x="64" y="80" width="14" height="14" rx="3"/><rect x="82" y="80" width="14" height="14" rx="3"/><rect x="100" y="80" width="14" height="14" rx="3"/>
+<rect x="28" y="98" width="14" height="14" rx="3"/><rect x="46" y="98" width="14" height="14" rx="3"/><rect x="82" y="98" width="14" height="14" rx="3"/></g>
+<rect x="46" y="80" width="14" height="14" rx="3" fill="#0d9488"/><rect x="64" y="98" width="14" height="14" rx="3" fill="#0284c7"/>
+<path d="M50 87l3 3 5-6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="28" y="119" width="40" height="11" rx="5.5" fill="#0d9488"/><text x="48" y="127" font-family="IBM Plex Sans,sans-serif" font-weight="600" font-size="7" fill="#fff" text-anchor="middle">10:30 OK</text>
+<rect x="72" y="119" width="40" height="11" rx="5.5" fill="#fff" stroke="#0284c7" stroke-width="1.5"/>
+<g transform="translate(112 58)"><rect width="78" height="62" rx="8" fill="#fff" stroke="#0c2d48" stroke-width="2.5"/><rect x="6" y="6" width="66" height="24" rx="4" fill="#06b6d4"/><circle cx="20" cy="18" r="5" fill="#fff" opacity=".85"/><path d="M30 26l10-10 8 7 8-8 10 11z" fill="#fff" opacity=".8"/>
+<rect x="8" y="36" width="52" height="5" rx="2.5" fill="#0c2d48"/><rect x="8" y="45" width="62" height="3.5" rx="1.75" fill="#0c2d48" opacity=".3"/><rect x="8" y="52" width="40" height="3.5" rx="1.75" fill="#0c2d48" opacity=".3"/></g>
+<g fill="#fbbf24"><path id="s" transform="translate(120 132)" d="M8 0l2.4 5 5.4.7-4 3.8 1 5.4L8 12.2 3.2 14.9l1-5.4-4-3.8L5.6 5z"/><use href="#s" x="19"/><use href="#s" x="38"/><use href="#s" x="57"/></g>
+</svg></div><div class="body"><div class="tier-name">Plus</div><div class="tier-blurb"><mark>Get found. Get booked.</mark> For businesses actively marketing themselves.</div><div class="incl">Everything in Basic, plus:</div><ul><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>Online booking</mark> with real-time slots &amp; waitlist</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Blog with rich-text editor, News &amp; Events, Gallery</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Reviews, Partners, Team &amp; People, Certifications</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>8 colour themes</mark> + dark mode</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>&ldquo;Write with AI&rdquo; content assistant</span></li></ul></div><div class="price-col"><div class="price-label">Setup</div><div class="price"><sup>&pound;</sup>550</div><div class="mo"><b>&pound;30</b><span>/ month</span></div></div></section><section class="tier"><div class="art"><svg viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+<circle cx="172" cy="26" r="20" fill="#bae6fd" opacity=".6"/><circle cx="24" cy="148" r="15" fill="#bae6fd" opacity=".55"/>
+<rect x="14" y="20" width="132" height="104" rx="9" fill="#fff" stroke="#0c2d48" stroke-width="2.5"/>
+<path d="M14 29a9 9 0 0 1 9-9h114a9 9 0 0 1 9 9v10H14z" fill="#0c2d48"/>
+<circle cx="26" cy="29.5" r="2.8" fill="#f87171"/><circle cx="36" cy="29.5" r="2.8" fill="#fbbf24"/><circle cx="46" cy="29.5" r="2.8" fill="#34d399"/>
+<rect x="24" y="48" width="34" height="42" rx="5" fill="#e0f2fe"/><rect x="64" y="48" width="34" height="42" rx="5" fill="#e0f2fe"/><rect x="104" y="48" width="34" height="42" rx="5" fill="#e0f2fe"/>
+<rect x="30" y="54" width="22" height="18" rx="3" fill="#0284c7"/><rect x="70" y="54" width="22" height="18" rx="3" fill="#06b6d4"/><rect x="110" y="54" width="22" height="18" rx="3" fill="#0d9488"/>
+<rect x="30" y="77" width="18" height="3.5" rx="1.75" fill="#0c2d48"/><rect x="70" y="77" width="18" height="3.5" rx="1.75" fill="#0c2d48"/><rect x="110" y="77" width="18" height="3.5" rx="1.75" fill="#0c2d48"/>
+<rect x="30" y="83" width="12" height="3.5" rx="1.75" fill="#0284c7"/><rect x="70" y="83" width="12" height="3.5" rx="1.75" fill="#0284c7"/><rect x="110" y="83" width="12" height="3.5" rx="1.75" fill="#0284c7"/>
+<rect x="24" y="98" width="114" height="16" rx="8" fill="#0284c7"/><text x="81" y="109" font-family="IBM Plex Sans,sans-serif" font-weight="600" font-size="8" fill="#fff" text-anchor="middle">Checkout</text>
+<g transform="translate(146 108)"><circle r="27" fill="#0284c7" stroke="#fff" stroke-width="4"/><path d="M-12 -10h5l3 14h13l3-10h-17" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="-2" cy="11" r="2.4" fill="#fff"/><circle cx="10" cy="11" r="2.4" fill="#fff"/></g>
+<g transform="translate(166 78)"><circle r="9" fill="#0d9488" stroke="#fff" stroke-width="2.5"/><text y="3.5" font-family="Manrope,sans-serif" font-weight="800" font-size="10" fill="#fff" text-anchor="middle">3</text></g>
+<g transform="translate(38 142)"><rect x="-4" y="-14" width="86" height="28" rx="14" fill="#fff" stroke="#bae6fd" stroke-width="2"/><circle cx="12" cy="0" r="9" fill="#0c2d48"/><circle cx="12" cy="-2.5" r="3.2" fill="#fff"/><path d="M5.5 6a6.5 5 0 0 1 13 0z" fill="#fff"/><rect x="28" y="-5" width="38" height="4.5" rx="2.25" fill="#0c2d48"/><rect x="28" y="2.5" width="26" height="3.5" rx="1.75" fill="#0c2d48" opacity=".3"/></g>
+</svg></div><div class="body"><div class="tier-name">Premium</div><div class="tier-blurb"><mark>Sell online. Build repeat customers.</mark> Full commerce and accounts.</div><div class="incl">Everything in Plus, plus:</div><ul><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>Shopping cart</mark>, checkout &amp; order management</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>Discount / promo codes</mark> at checkout</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span><mark>Member login portal</mark> with order history</span></li><li><svg class="tick" viewBox="0 0 16 16"><circle cx="8" cy="8" r="8" fill="#0d9488"/><path d="M4.5 8.4l2.3 2.3 4.7-5" stroke="#fff" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Membership verification + GDPR account closure</span></li></ul></div><div class="price-col"><div class="price-label">Setup</div><div class="price"><sup>&pound;</sup>900</div><div class="mo"><b>&pound;50</b><span>/ month</span></div></div></section></div><div class="footer"><div><div class="cta-label">Ready to see it live?</div><div class="cta-sub">Book a walkthrough &mdash; click through the real product, not a slide deck. Full comparison overleaf &rarr;</div></div><div class="phone-block"><svg class="phone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11 21 3 13 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" fill="white"/></svg><div><div class="phone-label">Call or WhatsApp</div><div class="phone-number">07840 443408</div></div></div></div></div><div class="page"><div class="header slim"><div class="brand-row"><svg class="mark" viewBox="0 0 100 100" fill="#ffffff" fill-rule="evenodd" xmlns="http://www.w3.org/2000/svg"><path d="M50,10 L85,20 L92,50 L80,80 L55,92 L40,92 L48,70 L35,66 L12,72 L25,56 L5,48 L25,38 L18,26 L32,18 Z M38,34 A6,6 0 1,1 37.99,34 Z"/></svg><div><div class="brand-title">Falcon Web Suite</div><div class="brand-slogan">Simple to start. Built to grow.</div></div></div><div class="back-title"><div class="t">Compare the packages</div><div class="s">Every feature, side by side</div></div></div><div class="plans"><div class="blank">Feature</div><div class="ph"><div class="n">Basic</div><div class="p"><sup>&pound;</sup>325</div><div class="m">setup &middot; <b>&pound;15</b>/mo</div></div><div class="ph popular"><span class="pt">Most popular</span><div class="n" style="margin-top:6px">Plus</div><div class="p"><sup>&pound;</sup>550</div><div class="m">setup &middot; <b>&pound;30</b>/mo</div></div><div class="ph"><div class="n">Premium</div><div class="p"><sup>&pound;</sup>900</div><div class="m">setup &middot; <b>&pound;50</b>/mo</div></div></div><div class="matrix-wrap"><table class="matrix">
       <colgroup>
         <col class="feat-col">
         <col class="plan-col"><col class="plan-col"><col class="plan-col">
@@ -294,9 +117,12 @@
 
       <tr class="group-row"><td colspan="4">Core — included in every plan</td></tr>
       <tr class="feat-row"><td class="feat-label">Home page (hero, stats, how-it-works, about, map)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Hero banner &mdash; multi-slide carousel, image or video backgrounds, adjustable height &amp; focus</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">About, Vision &amp; Mission, History (dated text becomes a timeline automatically)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Home page layout editor &mdash; reorder sections, sidebar layout, on/off switches</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">Contact info block + enquiry form (&rarr; admin inbox)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
-      <tr class="feat-row"><td class="feat-label">WhatsApp CTA (floating + footer) + social links</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
-      <tr class="feat-row"><td class="feat-label">Products <em>or</em> Portfolio showcase (pick one at onboarding)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">WhatsApp CTA (floating + footer, number or group invite link) + social links</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Products <em>or</em> Portfolio showcase &mdash; multi-photo galleries with crop (pick one at onboarding)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">Both Products <em>and</em> Portfolio</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">Basic analytics (visit counter)</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
 
@@ -304,12 +130,12 @@
       <tr class="feat-row"><td class="feat-label">Colour theme</td><td class="feat-cell text-cell">1 fixed theme</td><td class="feat-cell text-cell">8 themes + dark mode</td><td class="feat-cell text-cell">8 themes + dark mode</td></tr>
 
       <tr class="group-row"><td colspan="4">Content &amp; Marketing</td></tr>
-      <tr class="feat-row"><td class="feat-label">Blog</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
-      <tr class="feat-row"><td class="feat-label">Gallery</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Blog with rich-text editor</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Gallery &mdash; masonry, search, tag &amp; date filters, zoom lightbox</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">News &amp; Events</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
-      <tr class="feat-row"><td class="feat-label">Reviews (third-party ratings) + Partners strip</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Reviews (third-party ratings) + Partners strip (clickable logos)</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">Customer-submitted reviews (public form &rarr; admin moderation)</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
-      <tr class="feat-row"><td class="feat-label">Team &amp; Team Members</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
+      <tr class="feat-row"><td class="feat-label">Team &amp; People directory (current / former teams)</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
       <tr class="feat-row"><td class="feat-label">Certifications</td><td class="feat-cell dash">&ndash;</td><td class="feat-cell check">&#10003;</td><td class="feat-cell check">&#10003;</td></tr>
 
       <tr class="group-row"><td colspan="4">Tools</td></tr>
@@ -328,24 +154,4 @@
 
       <tr class="group-row"><td colspan="4">Admin panel</td></tr>
       <tr class="feat-row"><td class="feat-label">Admin CRUD + detail views</td><td class="feat-cell text-cell">Included sections only</td><td class="feat-cell text-cell">Included sections only</td><td class="feat-cell text-cell">All sections</td></tr>
-    </table>
-  </div>
-
-  <!-- Footer / CTA -->
-  <div class="footer">
-    <div>
-      <div class="footer-cta-label">Ready to see it live?</div>
-      <div class="footer-cta-sub">Book a walkthrough — click through the real product, not a slide deck.</div>
-    </div>
-    <div class="phone-block">
-      <svg class="phone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11 21 3 13 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" fill="white"/>
-      </svg>
-      <div>
-        <div class="phone-label">Call or WhatsApp</div>
-        <div class="phone-number">07840 443408</div>
-      </div>
-    </div>
-  </div>
-
-</div>
+    </table></div><div class="terms"><div><b>Clear pricing.</b> One setup fee and one monthly fee, paid by Direct Debit. No VAT.</div><div><b>Simple terms.</b> 50% deposit on signing, 50% on go-live. 3-month minimum, then 30 days notice.</div><div><b>Upgrade any time.</b> Move from Basic to Plus to Premium later &mdash; no rebuild, same site, same login.</div></div><div class="footer"><div><div class="cta-label">Questions? Let us talk.</div><div class="cta-sub">Call or WhatsApp for a free walkthrough.</div></div><div class="phone-block"><svg class="phone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1C11 21 3 13 3 4c0-.6.4-1 1-1h3.2c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.4 0 .8-.2 1L6.6 10.8Z" fill="white"/></svg><div><div class="phone-label">Call or WhatsApp</div><div class="phone-number">07840 443408</div></div></div></div></div></body></html>
