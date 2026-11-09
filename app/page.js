@@ -50,6 +50,7 @@ import { getCertifications } from "@/lib/certifications";
 import { getModuleStates, isEnabled, isPublicPathEnabled } from "@/lib/plan";
 import { getHomeLayout } from "@/lib/homeLayout";
 import { TIERS } from "@/lib/planFeatures";
+import PlansPricing from "@/components/PlansPricing";
 import { buildPageMetadata } from "@/lib/seo";
 
 // ISR: cached for up to an hour, but /admin/products' Server Actions call revalidatePath("/")
@@ -593,71 +594,36 @@ export default async function Home({ searchParams }) {
           style={{ order: sectionOrder.plans }}
         >
           <div className={`mx-auto ${sectionMaxW} px-6`}>
-            <h2 className="text-center text-3xl font-bold">{plans.heading}</h2>
-            <p className="mt-2 text-center text-muted">{plans.subheading}</p>
-
-            <div className="mt-10 grid gap-6 lg:grid-cols-3">
-              {TIERS.map((tier) => (
-                <div
-                  key={tier.key}
-                  className={`relative rounded-2xl border p-8 ${
-                    tier.popular
-                      ? "border-primary shadow-lg"
-                      : "border-border shadow-sm"
-                  }`}
-                >
-                  {tier.popular && (
-                    <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                      Most popular
-                    </span>
-                  )}
-                  <h3 className="text-xl font-bold">{tier.label}</h3>
-                  <p className="mt-1 text-sm text-muted">{tier.blurb}</p>
-
-                  <div className="mt-5">
-                    <p className="text-3xl font-extrabold">
-                      {tier.setupPrice}
-                      <span className="text-sm font-normal text-muted"> setup</span>
-                    </p>
-                    <p className="text-sm text-muted">{tier.monthlyPrice} / month</p>
-                  </div>
-
-                  <ul className="mt-6 space-y-2 text-sm">
-                    {tier.highlights.map((item) =>
-                      item.endsWith(":") ? (
-                        <li key={item} className="pt-1 font-semibold text-foreground">
-                          {item}
-                        </li>
-                      ) : (
-                        <li key={item} className="flex items-start gap-2">
-                          <span className="mt-0.5 text-green-600 dark:text-green-400">
-                            &#10003;
-                          </span>
-                          <span className="text-foreground">{item}</span>
-                        </li>
-                      )
-                    )}
-                  </ul>
-
-                  <a
-                    href={
-                      isEnabled("enquiryForm", moduleStates)
-                        ? "#enquiry"
-                        : contactInfo.enabled
-                          ? "#contact-info"
-                          : "#plans"
-                    }
-                    className={`mt-8 block rounded-full py-3 text-center text-sm font-semibold ${
-                      tier.popular
-                        ? "bg-primary text-primary-foreground hover:bg-primary-hover"
-                        : "border border-border text-foreground hover:bg-surface-alt"
-                    }`}
-                  >
-                    Get my free quote
-                  </a>
-                </div>
+            <span className="block text-center text-xs font-bold uppercase tracking-[0.12em] text-primary">
+              {plans.eyebrow}
+            </span>
+            <h2 className="mx-auto mt-2 max-w-3xl text-balance text-center text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl">
+              {plans.heading} <span className="text-primary">{plans.headingAccent}</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-balance text-center text-lg text-muted">
+              {plans.subheading}
+            </p>
+            <ul className="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 text-sm font-medium">
+              {plans.trust.map((item) => (
+                <li key={item} className="flex items-center gap-1.5">
+                  <span className="text-green-600 dark:text-green-400" aria-hidden="true">
+                    &#10003;
+                  </span>
+                  {item}
+                </li>
               ))}
-            </div>
+            </ul>
+
+            <PlansPricing
+              tiers={TIERS}
+              quoteHref={
+                isEnabled("enquiryForm", moduleStates)
+                  ? "#enquiry"
+                  : contactInfo.enabled
+                    ? "#contact-info"
+                    : "#plans"
+              }
+            />
 
             <p className="mt-8 text-center">
               <a

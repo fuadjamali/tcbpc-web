@@ -37,9 +37,17 @@ const siteConfig = {
   // reason to show its own Basic/Plus/Premium tiers to its visitors, so leave this `null` for
   // every client deployment.
   plans: {
-    heading: "Plans that grow with you",
+    eyebrow: "Plans & pricing",
+    heading: "Start with the website you need today.",
+    headingAccent: "Grow into the one you'll need tomorrow.",
     subheading:
-      "Founding client pricing for our first clients — locked in for as long as you stay with us. Start on Basic, upgrade to Plus or Premium whenever you're ready — no rebuild.",
+      "One setup fee. One simple monthly price. Upgrade whenever you're ready — same site, same login, nothing rebuilt.",
+    trust: [
+      "No VAT to add",
+      "Just 3 months minimum, then 30 days' notice",
+      "Edit it yourself — no developer needed",
+      "Pay monthly by Direct Debit",
+    ],
   },
 
   // Footer heading/subheading is admin-editable at /admin/section-text (lib/sectionHeadings.js).
