@@ -1,5 +1,6 @@
 import ImageFileInput from "@/components/ImageFileInput";
 import AIAssistantButton from "@/components/AIAssistantButton";
+import PortfolioDisplayFields from "@/components/PortfolioDisplayFields";
 
 const fieldClass =
   "mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none";
@@ -40,6 +41,8 @@ export default function PortfolioItemForm({ action, item, submitLabel, aiEnabled
           <AIAssistantButton targetId="portfolio-description" fieldLabel="portfolio project description" />
         )}
       </div>
+
+      <PortfolioDisplayFields item={item} />
 
       <div>
         <label className="block text-sm font-medium text-foreground">Display order</label>

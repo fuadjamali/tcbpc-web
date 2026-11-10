@@ -51,6 +51,7 @@ import { getModuleStates, isEnabled, isPublicPathEnabled } from "@/lib/plan";
 import { getHomeLayout } from "@/lib/homeLayout";
 import { TIERS } from "@/lib/planFeatures";
 import PlansPricing from "@/components/PlansPricing";
+import PortfolioCard from "@/components/PortfolioCard";
 import PlansFaq from "@/components/PlansFaq";
 import PlansCta from "@/components/PlansCta";
 import { buildPageMetadata } from "@/lib/seo";
@@ -681,28 +682,11 @@ export default async function Home({ searchParams }) {
             <h2 className="text-3xl font-bold">{portfolio.heading}</h2>
             <p className="mt-2 text-muted">{portfolio.subheading}</p>
 
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {/* 6-col grid (12 on large screens): each card spans by its own size (Small / Medium /
+                Large) — see lib/portfolioDisplay.js. Large reproduces the original 3-across look. */}
+            <div className="mt-10 grid grid-cols-6 items-start gap-6 lg:grid-cols-12">
               {portfolioItems.map((item) => (
-                <figure
-                  key={item.id}
-                  className="overflow-hidden rounded-xl border border-border shadow-sm"
-                >
-                  <div className="relative aspect-square overflow-hidden bg-gray-200 dark:bg-gray-800">
-                    {/* Admin-editable image source (Blob URL or local path) — plain <img>
-                        avoids next/image's hostname allowlist. */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={item.image}
-                      alt={item.name || ""}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  {item.name && (
-                    <figcaption className="p-3 text-sm font-medium text-foreground">
-                      {item.name}
-                    </figcaption>
-                  )}
-                </figure>
+                <PortfolioCard key={item.id} item={item} />
               ))}
             </div>
           </div>

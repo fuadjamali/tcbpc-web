@@ -1,6 +1,7 @@
 import { getPortfolioItems } from "@/lib/portfolio";
 import { deletePortfolioItemAction } from "./actions";
 import DeleteButton from "@/components/DeleteButton";
+import { PORTFOLIO_SIZES, normalizePortfolioSize } from "@/lib/portfolioDisplay";
 
 export const dynamic = "force-dynamic";
 
@@ -47,6 +48,37 @@ export default async function AdminPortfolioPage() {
                       {item.name || "(no name)"}
                     </p>
                     <p className="text-sm text-muted">order {item.display_order}</p>
+                    <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs">
+                      <span className="rounded-full bg-surface-alt px-2 py-0.5 font-semibold text-foreground">
+                        {PORTFOLIO_SIZES[normalizePortfolioSize(item.image_size)].label}
+                      </span>
+                      {item.website_url ? (
+                        <a
+                          href={item.website_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="font-medium text-accent hover:underline"
+                        >
+                          {new URL(item.website_url).host.replace(/^www\./, "")} ↗
+                        </a>
+                      ) : (
+                        <span className="text-muted">not linked</span>
+                      )}
+                      {item.live_preview &&
+                        (item.preview_embeddable === true &&
+                        item.image_size !== "small" ? (
+                          <span className="text-green-700 dark:text-green-400">Live preview on</span>
+                        ) : (
+                          <span className="text-amber-700 dark:text-amber-400">
+                            Live preview on — showing image
+                            {item.image_size === "small"
+                              ? " (Small is too tiny)"
+                              : item.preview_embeddable === false
+                                ? " (site blocks embedding)"
+                                : " (couldn't confirm the site allows it)"}
+                          </span>
+                        ))}
+                    </div>
                   </div>
                 </div>
                 <div className="flex gap-2">

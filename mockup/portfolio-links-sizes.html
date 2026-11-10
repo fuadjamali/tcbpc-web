@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio links and sizes – mockup</title>
+<style>
+:root{--background:#f0f9ff;--foreground:#0c2d48;--primary:#0284c7;--primary-hover:#0369a1;--primary-foreground:#fff;--accent:#06b6d4;--surface:#fff;--surface-alt:#e0f2fe;--border:#bae6fd;--muted:#475569;--danger:#dc2626}
+*{box-sizing:border-box}
+body{margin:0;background:var(--background);color:var(--foreground);font:15px/1.5 system-ui,Segoe UI,Arial,sans-serif}
+.note{background:var(--foreground);color:#fff;padding:8px 20px;font-size:13px;text-align:center}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 60px}
+h1.page{font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);margin:0 0 4px}
+.cols{display:grid;grid-template-columns:420px 1fr;gap:28px;align-items:start}
+@media(max-width:960px){.cols{grid-template-columns:1fr}}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);margin-bottom:10px}
+/* admin card */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px;box-shadow:0 10px 30px -20px rgba(12,45,72,.4)}
+.card h2{margin:0 0 18px;font-size:20px}
+label.f{display:block;font-size:14px;margin:16px 0 6px}
+.in,.ta{width:100%;border:1px solid var(--border);border-radius:10px;padding:10px 12px;font:inherit;color:inherit;background:var(--surface)}
+.ta{min-height:76px;resize:vertical}
+.in:focus,.ta:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.help{font-size:12px;color:var(--muted);margin:6px 0 0}
+.thumb{width:84px;height:84px;border-radius:10px;border:1px solid var(--border);background:#f7f1ec;display:grid;place-items:center;overflow:hidden}
+.file{margin-top:8px;border:1px solid var(--border);border-radius:10px;padding:8px 10px;display:flex;gap:10px;align-items:center;font-size:14px}
+.btn{border:0;border-radius:8px;background:var(--primary);color:#fff;font:600 14px system-ui;padding:9px 16px;cursor:pointer}
+.btn.ghost{background:var(--surface);color:var(--foreground);border:1px solid var(--border)}
+.ai{margin-top:10px;border:1px solid var(--border);background:var(--surface);color:var(--accent);border-radius:8px;font:600 13px system-ui;padding:7px 12px}
+/* link field */
+.linkrow{position:relative}
+.linkrow svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);width:16px;height:16px;color:var(--muted)}
+.linkrow .in{padding-left:36px}
+.status{font-size:12px;margin-top:6px;display:flex;align-items:center;gap:6px}
+.status.ok{color:#0d9488}.status.bad{color:var(--danger)}
+/* size picker */
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sizes input{position:absolute;opacity:0;pointer-events:none}
+.size{display:block;border:1.5px solid var(--border);border-radius:12px;padding:12px 8px 10px;text-align:center;cursor:pointer;background:var(--surface);transition:border-color .15s,background .15s}
+.size .sw{margin:0 auto 8px;background:var(--surface-alt);border:1px solid var(--border);border-radius:6px}
+.size b{display:block;font-size:14px}
+.size span.s{display:block;font-size:11.5px;color:var(--muted)}
+.sizes input:checked+.size{border-color:var(--primary);background:var(--surface-alt);box-shadow:0 0 0 2px rgba(2,132,199,.18)}
+.sizes input:focus-visible+.size{outline:2px solid var(--accent);outline-offset:2px}
+.actions{display:flex;gap:10px;margin-top:22px}
+.del{margin-top:18px;padding-top:16px;border-top:1px solid var(--border);color:var(--danger);font-size:14px}
+/* home preview */
+.home{background:var(--surface-alt);border-radius:16px;padding:32px 28px;border:1px solid var(--border)}
+.home h3{margin:0;font-size:28px}
+.home p.sub{margin:4px 0 0;color:var(--muted)}
+.pgrid{margin-top:26px;display:grid;grid-template-columns:repeat(12,1fr);gap:20px;align-items:start}
+.pc{grid-column:span 4;display:block;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 2px 6px rgba(12,45,72,.06);position:relative;transition:transform .2s,box-shadow .2s}
+.pc.medium{grid-column:span 3}.pc.small{grid-column:span 2}
+a.pc:hover{transform:translateY(-3px);box-shadow:0 14px 28px -16px rgba(2,132,199,.6)}
+.pc .img{aspect-ratio:1/1;display:grid;place-items:center;background:var(--surface-alt);overflow:hidden}
+.pc.contain .img{background:#fff;padding:12%}
+.pc .cap{padding:10px 12px;font-size:14px;font-weight:600;border-top:1px solid var(--border);background:var(--surface-alt)}
+.pc.small .cap{font-size:12.5px;padding:8px 10px}
+.visit{position:absolute;right:10px;top:10px;background:rgba(12,45,72,.85);color:#fff;border-radius:99px;font-size:11.5px;font-weight:600;padding:4px 10px 4px 9px;display:flex;gap:5px;align-items:center;opacity:0;transform:translateY(-4px);transition:.2s}
+a.pc:hover .visit,a.pc:focus-visible .visit{opacity:1;transform:none}
+a.pc:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+@media(hover:none){.visit{opacity:1;transform:none}}
+.badge-edit{position:absolute;left:10px;top:10px;background:var(--primary);color:#fff;font-size:10.5px;font-weight:700;border-radius:99px;padding:2px 9px;z-index:1}
+@media(max-width:700px){.pgrid{grid-template-columns:repeat(6,1fr)}.pc{grid-column:span 6}.pc.medium{grid-column:span 3}.pc.small{grid-column:span 2}}
+.legend{margin-top:14px;font-size:12.5px;color:var(--muted)}
+.fitrow{display:flex;gap:8px;align-items:center;margin-top:12px;font-size:13px}
+.seg{display:inline-flex;border:1px solid var(--border);border-radius:99px;padding:3px;background:var(--surface)}
+.seg button{border:0;background:transparent;font:600 12.5px system-ui;color:var(--muted);padding:5px 12px;border-radius:99px;cursor:pointer}
+.seg button.on{background:var(--primary);color:#fff}
+.switch{display:flex;align-items:center;gap:12px;cursor:pointer;font-size:14px}
+.switch input{position:absolute;opacity:0;pointer-events:none}
+.track{width:44px;height:26px;border-radius:99px;background:#b6c9d8;position:relative;transition:background .2s;flex:none}
+.knob{position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.switch input:checked+.track{background:var(--primary)}
+.switch input:checked+.track .knob{transform:translateX(18px)}
+.switch input:focus-visible+.track{outline:2px solid var(--accent);outline-offset:2px}
+/* live preview card */
+.pc.live .frame{background:var(--surface);border-bottom:1px solid var(--border)}
+.bar{display:flex;align-items:center;gap:6px;padding:7px 10px;background:#e8eef3;border-bottom:1px solid var(--border)}
+.bar i{width:8px;height:8px;border-radius:50%;background:#f87171;display:block}.bar i:nth-child(2){background:#fbbf24}.bar i:nth-child(3){background:#34d399}
+.bar span{flex:1;margin-left:6px;background:#fff;border-radius:99px;font-size:10.5px;color:var(--muted);padding:2px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.shot{position:relative;aspect-ratio:4/3;overflow:hidden;background:#fff}
+.shot .fakepage{position:absolute;left:0;top:0;width:1280px;height:960px;transform-origin:0 0;font-family:Georgia,serif;background:#faf6f1;color:#3b1420;overflow:hidden}
+.shot iframe{position:absolute;left:0;top:0;width:1280px;height:960px;border:0;transform-origin:0 0;pointer-events:none}
+.shot .click{position:absolute;inset:0;z-index:2}
+.warn{position:absolute;left:8px;right:8px;bottom:8px;z-index:3;background:rgba(220,38,38,.92);color:#fff;font-size:11.5px;border-radius:8px;padding:6px 10px}
+.pc.live{grid-column:span 6}
+.modeh{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chk{font-size:12.5px;color:var(--muted);display:flex;gap:6px;align-items:center;margin-top:8px}
+.status.warn2{color:#b45309}
+/* admin list */
+.list{margin-top:28px}
+.list table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;font-size:14px}
+.list th{background:var(--surface-alt);text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding:9px 12px}
+.list td{padding:10px 12px;border-top:1px solid var(--border);vertical-align:middle}
+.pill{font-size:11.5px;font-weight:700;border-radius:99px;padding:2px 10px;background:var(--surface-alt)}
+.lnk{color:var(--primary);font-weight:600;display:inline-flex;gap:5px;align-items:center}
+.mut{color:var(--muted)}
+.sm-thumb{width:38px;height:38px;border-radius:8px;border:1px solid var(--border);background:#fff;display:grid;place-items:center}
+</style>
+</head>
+<body>
+<div class="note">Mockup only — not wired to the app. Try the size picker, and type a link in the form; the home preview on the right updates live.</div>
+<div class="wrap">
+  <h1 class="page">Portfolio — website link + image size</h1>
+
+  <div class="cols">
+    <!-- ADMIN FORM -->
+    <div>
+      <span class="tag">Admin · /admin/portfolio/1/edit</span>
+      <form class="card" onsubmit="return false">
+        <h2>Edit portfolio project</h2>
+
+        <label class="f" style="margin-top:0">Image</label>
+        <div class="thumb"><svg viewBox="0 0 60 60" width="64" height="64"><text x="30" y="36" font-family="Georgia,serif" font-size="15" fill="#6b1f2e" text-anchor="middle">Jamali</text></svg></div>
+        <div class="file"><button type="button" class="btn">Choose File</button><span>No file chosen</span></div>
+        <p class="help">Choose a file to replace it, or leave blank to keep it. Any image format (JPG, PNG, WebP, GIF, SVG).</p>
+
+        <label class="f" for="name">Project name</label>
+        <input class="in" id="name" value="Jamali Fragrance">
+
+        <label class="f" for="desc">Description</label>
+        <textarea class="ta" id="desc">A worldwide oud and fragrance brand — full product catalog, wholesale enquiries, and international shipping.</textarea>
+        <button type="button" class="ai">✨ Write with AI</button>
+
+        <label class="f" for="url">Website link <span class="mut">(optional)</span></label>
+        <div class="linkrow">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8.5 11.5a3.5 3.5 0 005 0l2.5-2.5a3.5 3.5 0 00-5-5L9.8 5.2"/><path d="M11.5 8.5a3.5 3.5 0 00-5 0L4 11a3.5 3.5 0 005 5l1.2-1.2"/></svg>
+          <input class="in" id="url" inputmode="url" autocomplete="off" placeholder="https://www.example.com" value="https://www.jamalifragrance.com">
+        </div>
+        <div class="status ok" id="urlstatus">✓ Opens in a new tab when a visitor clicks the image</div>
+        <p class="help">Leave empty and the image isn't clickable. We add https:// for you if you forget it.</p>
+
+        <label class="f">Image size on the home page</label>
+        <div class="sizes" role="radiogroup" aria-label="Image size">
+          <label><input type="radio" name="size" value="small"><span class="size"><div class="sw" style="width:26px;height:26px"></div><b>Small</b><span class="s">6 across — logos</span></span></label>
+          <label><input type="radio" name="size" value="medium" checked><span class="size"><div class="sw" style="width:38px;height:38px"></div><b>Medium</b><span class="s">4 across</span></span></label>
+          <label><input type="radio" name="size" value="large"><span class="size"><div class="sw" style="width:52px;height:52px"></div><b>Large</b><span class="s">3 across — photos</span></span></label>
+        </div>
+        <p class="help">Large is what every project uses today. Use Small or Medium for logos.</p>
+
+        <label class="f">Live website preview</label>
+        <label class="switch"><input type="checkbox" id="live" role="switch"><span class="track"><span class="knob"></span></span><span id="livelabel"><b>Off</b> — visitors see your image</span></label>
+        <div class="status" id="embedstatus"></div>
+        <label class="chk"><input type="checkbox" id="block"> Mockup only: pretend this site blocks embedding (like google.com)</label>
+        <p class="help">Turn on to show the real site (a stand-in page here — the real build uses an embedded frame) inside a small browser window. Clicking it still opens the site in a new tab. Needs a website link; Medium and Large only. If the site can’t be embedded, your image is shown instead.</p>
+
+        <div class="actions"><button class="btn" type="button">Save changes</button><button class="btn ghost" type="button">Cancel</button></div>
+        <div class="del">Delete this project</div>
+      </form>
+    </div>
+
+    <!-- HOME PREVIEW -->
+    <div>
+      <span class="tag">Home page · "Our Work" section (live preview)</span>
+      <div class="home">
+        <h3>Our Work</h3>
+        <p class="sub">A selection of past projects.</p>
+        <div class="pgrid" id="pgrid"></div>
+        <div class="fitrow">
+          <span class="mut">Logo-friendly display:</span>
+          <div class="seg" id="fit"><button type="button" class="on" data-f="auto">Auto (recommended)</button><button type="button" data-f="fill">Always crop to fill</button></div>
+        </div>
+        <p class="legend">The highlighted card is the project being edited. Hover a linked card to see the "Visit site" cue. Items without a link aren't clickable (the photo card below).</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADMIN LIST -->
+  <div class="list">
+    <span class="tag">Admin · /admin/portfolio (list page)</span>
+    <table>
+      <thead><tr><th>Image</th><th>Project</th><th>Size</th><th>Link</th><th>Order</th></tr></thead>
+      <tbody>
+        <tr><td><div class="sm-thumb"><svg width="30" height="30" viewBox="0 0 60 60"><text x="30" y="36" font-family="Georgia,serif" font-size="14" fill="#6b1f2e" text-anchor="middle">Jamali</text></svg></div></td><td>Jamali Fragrance</td><td><span class="pill" id="listsize">Medium</span></td><td><a class="lnk" href="#" onclick="return false">jamalifragrance.com ↗</a></td><td>1</td></tr>
+        <tr><td><div class="sm-thumb"><svg width="30" height="30" viewBox="0 0 60 60"><rect x="12" y="14" width="36" height="22" rx="4" fill="#0b5cd1"/></svg></div></td><td>Manchester Projector Services</td><td><span class="pill">Medium</span></td><td><a class="lnk" href="#" onclick="return false">mcrprojectors.co.uk ↗</a></td><td>2</td></tr>
+        <tr><td><div class="sm-thumb"><svg width="30" height="30" viewBox="0 0 60 60"><circle cx="30" cy="30" r="20" fill="#0072bc"/></svg></div></td><td>SWAP</td><td><span class="pill">Medium</span></td><td><a class="lnk" href="#" onclick="return false">swapuk.org ↗</a></td><td>3</td></tr>
+        <tr><td><div class="sm-thumb" style="background:linear-gradient(135deg,#7dd3fc,#0284c7)"></div></td><td>Kitchen refit, Salford</td><td><span class="pill">Large</span></td><td class="mut">— not linked</td><td>4</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+var logos={
+ jamali:'<svg viewBox="0 0 100 100" width="100%" height="100%"><text x="50" y="40" font-family="Georgia,serif" font-size="34" fill="#6b1f2e" text-anchor="middle">جمالي</text><text x="50" y="66" font-family="Georgia,serif" font-size="20" fill="#6b1f2e" text-anchor="middle">Jamali</text><text x="50" y="80" font-family="Arial" font-size="7" letter-spacing="2" fill="#6b1f2e" text-anchor="middle">FRAGRANCE</text></svg>',
+ mps:'<svg viewBox="0 0 100 100" width="100%" height="100%"><rect x="14" y="28" width="72" height="30" rx="8" fill="#0b5cd1"/><circle cx="58" cy="43" r="9" fill="#fff"/><circle cx="58" cy="43" r="5" fill="#0ea5e9"/><text x="50" y="78" font-family="Arial" font-weight="800" font-size="11" fill="#0c2d48" text-anchor="middle">MANCHESTER</text><text x="50" y="90" font-family="Arial" font-size="7" fill="#0b5cd1" text-anchor="middle">PROJECTOR SERVICES</text></svg>',
+ swap:'<svg viewBox="0 0 100 100" width="100%" height="100%"><circle cx="50" cy="50" r="42" fill="#0072bc"/><circle cx="50" cy="50" r="28" fill="#fff"/><path d="M38 50a12 12 0 0124 0" stroke="#ef4444" stroke-width="8" fill="none"/><text x="50" y="22" font-family="Arial" font-weight="800" font-size="11" fill="#fff" text-anchor="middle">SWAP</text></svg>',
+ photo:'<div style="width:100%;height:100%;background:linear-gradient(135deg,#7dd3fc,#0284c7 60%,#0c2d48)"></div>'
+};
+var items=[
+ {name:'Jamali Fragrance',logo:'jamali',size:'medium',url:'https://www.jamalifragrance.com',edit:true,kind:'logo',mode:'image'},
+ {name:'Manchester Projector Services',logo:'mps',size:'medium',url:'https://mcrprojectors.co.uk',kind:'logo'},
+ {name:'SWAP',logo:'swap',size:'medium',url:'https://swapuk.org',kind:'logo'},
+ {name:'Kitchen refit, Salford',logo:'photo',size:'large',url:'',kind:'photo'}
+];
+var fit='auto';
+var ext='<svg width="11" height="11" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M8 4H4v12h12v-4M11 3h6v6M17 3l-8 8"/></svg>';
+function normUrl(v){v=v.trim();if(!v)return {state:'empty'};if(!/^https?:\/\//i.test(v)&&!/^[a-z][a-z0-9+.-]*:/i.test(v))v='https://'+v;
+ try{var u=new URL(v);if(u.protocol!=='http:'&&u.protocol!=='https:')return {state:'bad'};if(!u.hostname.includes('.'))return {state:'bad'};return {state:'ok',url:v}}catch(e){return {state:'bad'}}}
+var fake='<!doctype html><html><body style="margin:0;font-family:Georgia,serif;background:#faf6f1;color:#3b1420"><div style="display:flex;justify-content:space-between;align-items:center;padding:30px 70px;font-size:26px"><b>Jamali</b><span style="font-size:20px;font-family:Arial">Shop &nbsp; Wholesale &nbsp; About &nbsp; Contact</span></div><div style="padding:70px;background:linear-gradient(120deg,#6b1f2e,#b45a3c);color:#fff;height:360px"><div style="font-size:64px;line-height:1.1;max-width:760px">Oud &amp; fragrance, shipped worldwide</div><div style="margin-top:30px;display:inline-block;background:#fff;color:#6b1f2e;padding:16px 34px;font-family:Arial;font-size:22px;border-radius:40px">Shop the collection</div></div><div style="display:flex;gap:30px;padding:50px 70px"><div style="flex:1;height:220px;background:#eadfd3;border-radius:16px"></div><div style="flex:1;height:220px;background:#eadfd3;border-radius:16px"></div><div style="flex:1;height:220px;background:#eadfd3;border-radius:16px"></div></div></body></html>';
+function scaleShots(){document.querySelectorAll('.shot').forEach(function(sh){var f=sh.querySelector('.fakepage');if(f)f.style.transform='scale('+(sh.clientWidth/1280)+')'})}
+window.addEventListener('resize',scaleShots);
+function render(){
+ var g=document.getElementById('pgrid');g.innerHTML='';
+ items.forEach(function(it){
+  if(it.mode==='live'&&it.size!=='small'&&it.url){
+   var blocked=document.getElementById('block').checked;
+   var c=document.createElement('a');c.className='pc live '+(it.size==='large'?'':'medium');c.style.gridColumn=it.size==='large'?'span 6':'span 4';
+   c.href=it.url;c.target='_blank';c.rel='noopener noreferrer';c.setAttribute('aria-label',it.name+' (opens in a new tab)');c.onclick=function(e){e.preventDefault();alert('Mockup: opens '+it.url+' in a new tab.')};
+   c.innerHTML='<div class="frame"><div class="bar"><i></i><i></i><i></i><span>'+it.url.replace(/^https?:\/\//,'')+'</span></div><div class="shot"><div class="click"></div></div></div><div class="cap">'+it.name+'</div><span class="visit">Visit site '+ext+'</span><span class="badge-edit">Editing</span>';
+   var shot=c.querySelector('.shot');
+   if(blocked){shot.innerHTML='<div class="img" style="position:absolute;inset:0;aspect-ratio:auto;background:#fff;padding:10%">'+logos[it.logo]+'</div><div class="click"></div><div class="warn">Site blocks embedding — showing the image instead</div>'}
+   else{var f=document.createElement('div');f.className='fakepage';f.innerHTML=fake.replace(/^.*<body[^>]*>/,'').replace('</body></html>','');f.setAttribute('aria-hidden','true');shot.insertBefore(f,shot.firstChild)}
+   g.appendChild(c);return;
+  }
+  var contain=it.kind==='logo'&&(fit==='auto'&&it.size!=='large'||false);
+  var inner='<div class="img">'+logos[it.logo]+'</div><div class="cap">'+it.name+'</div>'+(it.url?'<span class="visit">Visit site '+ext+'</span>':'')+(it.edit?'<span class="badge-edit">Editing</span>':'');
+  var el=document.createElement(it.url?'a':'div');
+  el.className='pc '+it.size+(contain?' contain':'');
+  if(it.url){el.href=it.url;el.target='_blank';el.rel='noopener noreferrer';el.setAttribute('aria-label',it.name+' (opens in a new tab)');el.onclick=function(e){e.preventDefault();alert('Mockup: this would open '+it.url+' in a new tab.')}}
+  el.innerHTML=inner;g.appendChild(el);
+ });
+}
+document.querySelectorAll('input[name=size]').forEach(function(r){r.addEventListener('change',function(){items[0].size=r.value;document.getElementById('listsize').textContent=r.value[0].toUpperCase()+r.value.slice(1);render()})});
+var urlIn=document.getElementById('url'),st=document.getElementById('urlstatus');
+urlIn.addEventListener('input',function(){var r=normUrl(urlIn.value);
+ if(r.state==='ok'){st.className='status ok';st.textContent='✓ Opens in a new tab when a visitor clicks the image';items[0].url=r.url}
+ else if(r.state==='empty'){st.className='status';st.textContent='No link — the image won’t be clickable';items[0].url=''}
+ else{st.className='status bad';st.textContent='That doesn’t look like a website address (try https://www.example.com)';items[0].url=''}
+ render()});
+document.getElementById('fit').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;fit=b.dataset.f;this.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x===b)});render()});
+render();scaleShots();
+function embedStatus(){var st=document.getElementById('embedstatus'),live=items[0].mode==='live',blocked=document.getElementById('block').checked;
+ if(!live){st.className='status';st.textContent='';return}
+ if(!items[0].url){st.className='status bad';st.textContent='Add a website link first — the preview needs one';return}
+ if(items[0].size==='small'){st.className='status warn2';st.textContent='Small is too tiny for a live preview — the image will be shown. Pick Medium or Large.';return}
+ if(blocked){st.className='status warn2';st.textContent='⚠ This site tells browsers not to embed it, so visitors will see the image instead. You can still save.'}
+ else{st.className='status ok';st.textContent='✓ Checked just now — this site allows embedding'}}
+document.getElementById('live').addEventListener('change',function(){items[0].mode=this.checked?'live':'image';document.getElementById('livelabel').innerHTML=this.checked?'<b>On</b> — visitors see the live site':'<b>Off</b> — visitors see your image';embedStatus();render();scaleShots()});
+document.getElementById('block').addEventListener('change',function(){embedStatus();render();scaleShots()});
+['input','change'].forEach(function(ev){document.addEventListener(ev,function(e){if(e.target.name==='size'||e.target.id==='url'){embedStatus();setTimeout(scaleShots,0)}})});
+</script>
+</body>
+</html>

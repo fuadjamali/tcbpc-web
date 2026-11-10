@@ -184,6 +184,75 @@ async function checkProductCoverSurvivesBasicInfoSave() {
   }
 }
 
+// Portfolio website link + size + live preview: pure rules first (link cleaning, when a preview is
+// allowed to render), then a real create/read/update round trip through lib/portfolio.js so the
+// new columns and their defaults are exercised against the actual schema. Cleans up after itself.
+async function checkPortfolioLinkSizePreview() {
+  const { normalizeWebsiteUrl } = await import("../lib/websiteUrl.js");
+  const { shouldShowLivePreview, normalizePortfolioSize } = await import("../lib/portfolioDisplay.js");
+
+  const links = [
+    ["example.com", "https://example.com/"],
+    ["  www.example.co.uk/path  ", "https://www.example.co.uk/path"],
+    ["", ""],
+  ];
+  for (const [input, want] of links) {
+    const got = normalizeWebsiteUrl(input);
+    if (got.error || got.url !== want) throw new Error(`"${input}" -> ${JSON.stringify(got)}, wanted "${want}"`);
+  }
+  for (const bad of ["javascript:alert(1)", "data:text/html,x", "ftp://a.com", "http://u:p@a.com", "a b.com", "localhost"]) {
+    if (!normalizeWebsiteUrl(bad).error) throw new Error(`"${bad}" should have been rejected`);
+  }
+  if (normalizePortfolioSize("huge") !== "large") throw new Error("unknown size should fall back to large");
+
+  const ok = { live_preview: true, website_url: "https://a.com/", image_size: "medium", preview_embeddable: true };
+  if (!shouldShowLivePreview(ok)) throw new Error("embeddable medium preview should show");
+  for (const [why, patch] of [
+    ["switch off", { live_preview: false }],
+    ["no link", { website_url: null }],
+    ["small size", { image_size: "small" }],
+    ["site blocks embedding", { preview_embeddable: false }],
+    ["embedding unknown", { preview_embeddable: null }],
+  ]) {
+    if (shouldShowLivePreview({ ...ok, ...patch })) throw new Error(`preview should NOT show when: ${why}`);
+  }
+
+  const { createPortfolioItem, updatePortfolioItem, getPortfolioItems, deletePortfolioItem } = await import(
+    "../lib/portfolio.js"
+  );
+  const name = "__smoke_test_portfolio__";
+  await createPortfolioItem({ name, image: "/images/portfolio-1.jpg" });
+  let row;
+  try {
+    row = (await getPortfolioItems()).find((r) => r.name === name);
+    if (!row) throw new Error("created item not found");
+    if (row.website_url !== null || row.image_size !== "large" || row.live_preview !== false) {
+      throw new Error(`defaults wrong: ${JSON.stringify({ u: row.website_url, s: row.image_size, l: row.live_preview })}`);
+    }
+
+    await updatePortfolioItem(row.id, {
+      name, image: row.image, displayOrder: 0,
+      websiteUrl: "https://example.com/", imageSize: "small", livePreview: true, previewEmbeddable: true,
+    });
+    row = (await getPortfolioItems()).find((r) => r.id === row.id);
+    if (row.website_url !== "https://example.com/" || row.image_size !== "small" || !row.live_preview || row.preview_embeddable !== true) {
+      throw new Error("link/size/preview did not round-trip");
+    }
+
+    // Preview can't be on without a link, and a bogus size falls back to large.
+    await updatePortfolioItem(row.id, {
+      name, image: row.image, displayOrder: 0,
+      websiteUrl: "", imageSize: "bogus", livePreview: true, previewEmbeddable: true,
+    });
+    row = (await getPortfolioItems()).find((r) => r.id === row.id);
+    if (row.live_preview || row.website_url !== null || row.image_size !== "large" || row.preview_embeddable !== null) {
+      throw new Error("preview must be off with no link and bogus size must become large");
+    }
+  } finally {
+    if (row) await deletePortfolioItem(row.id);
+  }
+}
+
 async function main() {
   console.log(`Smoke testing ${BASE_URL} (expecting plan: ${TEST_PLAN})\n`);
 
@@ -234,6 +303,7 @@ async function main() {
   if (process.env.DATABASE_URL) {
     console.log("\nData integrity (direct DB, requires DATABASE_URL):");
     await check("product cover photo survives a basic-info save", checkProductCoverSurvivesBasicInfoSave);
+    await check("portfolio link, size and live preview rules + DB round trip", checkPortfolioLinkSizePreview);
   } else {
     console.log("\nData integrity checks skipped (no DATABASE_URL — remote BASE_URL run?)");
   }
