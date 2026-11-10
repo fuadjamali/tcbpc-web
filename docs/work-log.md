@@ -1,6 +1,6 @@
 # Work Log
 
-Reconstructed from the full commit history (`git log`, 88 commits, 2026-08-11 to present) —
+Reconstructed from the full commit history (`git log`, 102 commits, 2026-08-11 to present) —
 **not a real timer**. Methodology: commits on the same date within 60 minutes of each other are
 grouped into one working session; each session gets a 20-minute buffer before its first commit
 and 10 minutes after its last (time spent before the first save and wrapping up after the last);
@@ -12,6 +12,39 @@ no timestamp trail for the clustering to see. Days flagged ⚠️ below contain 
 that almost certainly represents more real work than its cluster's estimate shows. Treat every
 number here as a floor, not a precise record — useful for a rough sense of where the time went,
 not for billing to the hour.
+
+## 2026-11-09 (~54m) ⚠️
+
+- **23:28 – 23:52** (~24m of commits) — **Reworked the sales material end to end.** Rebuilt the
+  printed flyer as a two-page A4 front/back piece (large three-package front with illustrations
+  and highlighted copy, full comparison matrix on the back), regenerated the 2-page PDF and
+  separate front/back PNGs, and served the PDF from `/downloads` with links from the home Plans
+  section and the Compare page (adding `pdf` to `proxy.js`'s static-asset matcher so it doesn't
+  401). Raised setup prices to £325 / £550 / £900 (monthly unchanged at £15 / £30 / £50) across
+  the flyer, `lib/planFeatures.js` and `docs/package-plans.md`, and synced the feature list with
+  everything built since the last flyer. Mocked up (`mockup/plans-marketing.html`, approved
+  before building) and shipped a marketing rewrite: benefit-led taglines and "best for" lines, a
+  Monthly/Yearly billing toggle (yearly derived from monthly, 3 months free) on both the home
+  Plans section and the Compare page, Compare grouped into four expandable topics, and a shared
+  FAQ + closing call-to-action band on both pages (replacing a stale "founding pricing"
+  subheading). Changed the contact number to 07840 443408 in code defaults, the local database
+  and — with explicit go-ahead — the live database; found `/compare-plans` was frozen at build
+  time while reading contact details from the DB, so added hourly ISR plus revalidation from the
+  admin Social/Contact saves. Verified each step in a real browser locally and against production
+  HTML after deploy. **Eight commits in 24 minutes badly understate this** — design, copy, a
+  price decision and a live-data change all happened between and before those commits.
+
+## 2026-09-22 (~1h 13m) ⚠️
+
+- **21:28 – 22:11** (~43m of commits) — Matched the admin product photo manager to the reference
+  site's UI, fixed the Order input overflowing its image placeholder, and added a 5:4 landscape
+  crop option; added scripts to start the DB container and dev server together; ported the
+  rich-text blog editor (with sanitising and format helpers); fixed hero text legibility with a
+  scrim and added admin-configurable hero height (px, with a graphical preview) and a draggable
+  focal position; rebuilt the gallery page's filtering to the reference layout (search, Year →
+  Month dropdowns with per-month counts, tag pills, photo counter). Written up the multilingual
+  (EN/BN) plan as a discussion doc rather than building it. Several of these landed as large
+  single commits, so the clustering undercounts.
 
 ## 2026-09-17 (~38m) ⚠️
 
@@ -208,8 +241,10 @@ not for billing to the hour.
 | 2026-09-08 | 0h 30m | 22h 11m |
 | 2026-09-11 | 0h 30m | 22h 41m |
 | 2026-09-15 | 0h 30m | 23h 11m |
-| 2026-09-17 | 0h 38m | **23h 49m** |
+| 2026-09-17 | 0h 38m | 23h 49m |
+| 2026-09-22 | 1h 13m | 25h 02m |
+| 2026-11-09 | 0h 54m | **25h 56m** |
 
-**Running total: ~23h 49m** across 15 working days (2026-08-11 → 2026-09-17) — a floor, not a
+**Running total: ~25h 56m** across 17 working days (2026-08-11 → 2026-11-09) — a floor, not a
 ceiling, per the caveats above. Add a new dated entry per work session going forward; keep the
 newest at the top.
