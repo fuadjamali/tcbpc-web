@@ -1,6 +1,6 @@
 # Work Log
 
-Reconstructed from the full commit history (`git log`, 102 commits, 2026-08-11 to present) —
+Reconstructed from the full commit history (`git log`, 105 commits, 2026-08-11 to present) —
 **not a real timer**. Methodology: commits on the same date within 60 minutes of each other are
 grouped into one working session; each session gets a 20-minute buffer before its first commit
 and 10 minutes after its last (time spent before the first save and wrapping up after the last);
@@ -12,6 +12,48 @@ no timestamp trail for the clustering to see. Days flagged ⚠️ below contain 
 that almost certainly represents more real work than its cluster's estimate shows. Treat every
 number here as a floor, not a precise record — useful for a rough sense of where the time went,
 not for billing to the hour.
+
+## 2026-11-11 (~30m) ⚠️
+
+- **~00:15** — **Polished the site's placeholder images.** Reviewed every image on production,
+  then redesigned 16 of them in the on-brand blue style of the new add-on images and showed a
+  contact sheet before touching live data: 3 blog and 2 news covers (16:9, readable headlines,
+  consistent illustrations), 3 gallery images (16:9, including one using the real eight theme
+  colours), 3 matching round certification badges sharp at their 64px display size, and 5
+  consistent team avatars for the same demo people. Applied them to production in a single
+  verified transaction (each row's name checked first, new files confirmed to be in the same Blob
+  store, gallery rows set to 16:9, old files left in storage for rollback). The home page showed
+  all 16 immediately; the Blog, News & Events, Team and Gallery pages are hourly-cached and
+  refresh on the next deploy or within the hour. The image work itself has no commit — this log
+  commit is the only one that day — so the 30-minute floor **badly understates** it: it spanned
+  inventorying the live site, designing and iterating 16 images, and a careful production
+  data change.
+
+## 2026-11-10 (~1h 09m) ⚠️
+
+- **22:55 – 23:34** (~39m of commits) — **Portfolio: website link, card size and optional live
+  site preview.** Mocked up the admin create/edit form and the home "Our Work" section first
+  (including researching whether embedding a third-party site in an iframe is realistic — real
+  sites differ: falconwebsuite.com allows it, Google and the BBC send `X-Frame-Options` and
+  refuse), then built it: an optional per-project website link (cleaned and validated in both the
+  browser and the save action, rejecting `javascript:`/`data:`/credentials, opening in a new tab
+  with a "Visit site" cue); per-project Small / Medium / Large card sizes on a 12-column grid with
+  Small/Medium showing logos whole instead of cropped (Large unchanged, so nothing moves until a
+  project is edited); and a default-off Live preview switch that renders the linked site in a
+  scaled, sandboxed, lazy-loaded browser-window frame. The site's embeddability is checked once at
+  save time from its headers (with private/loopback hosts refused) and stored, so the public page
+  never makes the request and silently falls back to the image when a site blocks embedding,
+  can't be confirmed, or the card is Small. Admin list now shows each project's size, link and
+  preview status. Added a smoke-test check (pure rules + a real DB round trip, 57 passing) and
+  `docs/portfolio-links-sizes-previews.md`; verified in a real browser against local data
+  (invalid link rejected, live frame rendered, blocked-site fallback, Small linked card), then
+  confirmed on production that the columns migrated with safe defaults and every existing
+  project is unchanged. **After the last commit:** designed three matching 16:9 product images
+  (Logo Design, Copywriting Package, Priority Setup — logo concepts, page copy and a 48-hour
+  build-to-live sequence) and applied them to the live products — uploaded to the production
+  Blob store, added/updated the cover photo rows, old files left in place — checked on the live
+  home and product pages. That production-data work has no commit, so the clustering can't see
+  it. **One large feature commit plus uncommitted production work understates this session.**
 
 ## 2026-11-09 (~54m) ⚠️
 
@@ -243,8 +285,10 @@ not for billing to the hour.
 | 2026-09-15 | 0h 30m | 23h 11m |
 | 2026-09-17 | 0h 38m | 23h 49m |
 | 2026-09-22 | 1h 13m | 25h 02m |
-| 2026-11-09 | 0h 54m | **25h 56m** |
+| 2026-11-09 | 0h 54m | 25h 56m |
+| 2026-11-10 | 1h 09m | 27h 05m |
+| 2026-11-11 | 0h 30m | **27h 35m** |
 
-**Running total: ~25h 56m** across 17 working days (2026-08-11 → 2026-11-09) — a floor, not a
+**Running total: ~27h 35m** across 19 working days (2026-08-11 → 2026-11-11) — a floor, not a
 ceiling, per the caveats above. Add a new dated entry per work session going forward; keep the
 newest at the top.
