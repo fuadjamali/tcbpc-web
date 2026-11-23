@@ -201,16 +201,20 @@ async function seed(client) {
   await q(`SELECT setval(pg_get_serial_sequence('products','id'), (SELECT MAX(id) FROM products))`);
 
   await q(`DELETE FROM portfolio_items`);
+  // Merchant showcase: one image per business (public/images/tcbpc/portfolio/) — partner posters
+  // and activation announcements. Image cards (no case-study fields), shown at their natural shape.
   const portfolio = [
-    ["My Mobile Tech", "Live Activation", "Tech & Mobile Retail", "Multi-terminal Dojo Go", "Added a second terminal for growing footfall.", "Accepting payments", null],
-    ["Independent Retail Boutique", "Deal Signed", "Fashion Retail", "Dojo Go Max", "Faster weekend checkouts, under 2 seconds.", "Faster queues", null],
-    ["AN Car Sales Ltd", "Add-On Secured", "Car Dealership", "Dojo Go Max add-on", "Showroom payments and instant deposits.", "Reliable deposits", null],
+    ["Elmer Cafe & Tapas Bar", "elmer-cafe-tapas-bar"],
+    ["HAVN — Breakfast, Brunch, Coffee & Cocktails", "havn"],
+    ["Salt N Pepper Restaurant", "salt-n-pepper"],
+    ["My Mobile Tech", "my-mobile-tech"],
+    ["AN Car Sales Ltd", "an-car-sales"],
+    ["SP Collections", "sp-collections"],
   ];
-  for (const [i, [n, badge, sector, solution, d, status, benefit]] of portfolio.entries()) {
+  for (const [i, [name, file]] of portfolio.entries()) {
     await q(
-      `INSERT INTO portfolio_items(name,description,image,display_order,badge,sector,solution,status_text,benefit)
-       VALUES ($1,$2,NULL,$3,$4,$5,$6,$7,$8)`,
-      [n, d, i + 1, badge, sector, solution, status, benefit]
+      `INSERT INTO portfolio_items(name,description,image,display_order,image_size) VALUES ($1,NULL,$2,$3,'large')`,
+      [name, `${IMG}/portfolio/${file}.webp`, i + 1]
     );
   }
 

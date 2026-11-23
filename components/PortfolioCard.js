@@ -21,8 +21,8 @@ export default function PortfolioCard({ item }) {
     <PortfolioLiveFrame url={item.website_url} title={label} />
   ) : (
     <div
-      className={`relative aspect-square overflow-hidden ${
-        showWhole ? "bg-white p-[12%]" : "bg-gray-200 dark:bg-gray-800"
+      className={`relative overflow-hidden ${
+        showWhole ? "aspect-square bg-white p-[12%]" : "bg-gray-200 dark:bg-gray-800"
       }`}
     >
       {/* Admin-editable image source (Blob URL or local path) — plain <img> avoids next/image's
@@ -31,7 +31,7 @@ export default function PortfolioCard({ item }) {
       <img
         src={item.image}
         alt={item.name || ""}
-        className={`h-full w-full ${showWhole ? "object-contain" : "object-cover"}`}
+        className={showWhole ? "h-full w-full object-contain" : "block h-auto w-full"}
       />
     </div>
   );
