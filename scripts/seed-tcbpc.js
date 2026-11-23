@@ -2,7 +2,7 @@
 // points at: business info, root alert, nav, the split hero, stats, partners, how-it-works,
 // products (Dojo Go Max flagship) + photos, portfolio case studies, about card, contact, WhatsApp,
 // referral banner, section headings, footer/regulatory text, switched-off modules, and
-// unpublished privacy/terms drafts.
+// a published privacy policy and an unpublished terms draft.
 //
 // Run: npm run seed:tcbpc
 //
@@ -308,11 +308,27 @@ To refer a business, use the Get a Quote form on this site or call or WhatsApp 0
   }
 
   const legal = {
-    "privacy-policy": ["Privacy Policy", `DRAFT — review before publishing. TC Business Payments Consultant (Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo) collects the name, phone, email, business name and message you submit through the enquiry form solely to respond to your enquiry. Anonymous visit analytics are collected only if you accept cookies. To ask about your data, email tausif.chowdhury@dojo.tech.`],
-    "terms-of-service": ["Terms of Service", `DRAFT — review before publishing. This website is operated by Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo. Information here is general and not a binding offer; rates and hardware are confirmed in your written Dojo proposal. Dojo is a trading name of Paymentsense Limited, authorised and regulated by the FCA (FRN 738728 and FRN 900925).`],
+    "privacy-policy": ["Privacy Policy", `Who we are
+TC Business Payments Consultant is the website of Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo. Tausif is responsible for the personal data collected through this site.
+
+What we collect
+When you send an enquiry we collect the name, phone number, email address, business name and message you enter. If you accept cookies we also collect anonymous visit statistics (pages viewed and general location). We do not collect payment card details on this site.
+
+Why we use it
+We use your enquiry details only to reply to you and to prepare the rates and hardware options you asked about. We use the visit statistics to understand how the site is used. We do not sell your data.
+
+Who sees it
+Your enquiry is seen by Tausif. Where you go on to apply for a Dojo service, your details are handled under Dojo's own terms and privacy notice (Dojo is a trading name of Paymentsense Limited).
+
+Your rights
+Under UK data protection law you can ask to see, correct or delete the personal data we hold about you, or object to how we use it. You can also complain to the Information Commissioner's Office (ico.org.uk).
+
+Contact
+To ask about your data, email tausif.chowdhury@dojo.tech or call 07394 995 810.`],    "terms-of-service": ["Terms of Service", `DRAFT — review before publishing. This website is operated by Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo. Information here is general and not a binding offer; rates and hardware are confirmed in your written Dojo proposal. Dojo is a trading name of Paymentsense Limited, authorised and regulated by the FCA (FRN 738728 and FRN 900925).`],
   };
   for (const [slug, [title, body]] of Object.entries(legal)) {
-    await q(`UPDATE legal_pages SET title=$2, body=$3, enabled=false, updated_at=now() WHERE slug=$1`, [slug, title, body]);
+    // The privacy policy is published; the terms stay an unpublished draft until reviewed.
+    await q(`UPDATE legal_pages SET title=$2, body=$3, enabled=$4, updated_at=now() WHERE slug=$1`, [slug, title, body, slug === "privacy-policy"]);
   }
 }
 
