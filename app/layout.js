@@ -1,4 +1,4 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import SessionProviderWrapper from "@/components/SessionProviderWrapper";
 import ThemeScript from "@/components/ThemeScript";
 import { CartProvider } from "@/components/CartContext";
@@ -9,8 +9,8 @@ import { getBranding } from "@/lib/branding";
 import { getRootAlert } from "@/lib/rootAlert";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -51,7 +51,7 @@ export default async function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
       suppressHydrationWarning
     >
       <head>
