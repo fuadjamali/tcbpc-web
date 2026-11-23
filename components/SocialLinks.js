@@ -36,7 +36,7 @@ export default async function SocialLinks() {
             aria-label={item.label}
             className="hover:text-white"
           >
-            <Icon size={20} stroke={1.75} />
+            <Icon size={60} stroke={1.5} />
           </a>
         );
       })}

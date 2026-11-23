@@ -79,21 +79,21 @@ export default function AboutProcess({
                 {contact.phone && (
                   <a
                     href={`tel:${contact.phone.replace(/\s+/g, "")}`}
-                    className="flex items-center gap-2 font-bold text-primary hover:underline"
+                    className="flex flex-wrap items-center gap-x-2 gap-y-0.5 font-bold text-primary hover:underline"
                   >
                     <IconPhone size={16} />
                     <span>Direct Mobile / WhatsApp:</span>
-                    <span>{contact.phone}</span>
+                    <span className="whitespace-nowrap">{contact.phone}</span>
                   </a>
                 )}
                 {contact.email && (
                   <a
                     href={`mailto:${contact.email}`}
-                    className="flex items-center gap-2 font-bold text-primary hover:underline"
+                    className="flex flex-wrap items-center gap-x-2 gap-y-0.5 font-bold text-primary hover:underline"
                   >
                     <IconMail size={16} />
                     <span>Direct Email:</span>
-                    <span>{contact.email}</span>
+                    <span className="whitespace-nowrap">{contact.email}</span>
                   </a>
                 )}
               </div>
