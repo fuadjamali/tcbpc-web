@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hero product card — style comparison</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { background:#003F33; font-family: Inter, system-ui, sans-serif; color:#fff; }
+  .note { background:#fef9c3; color:#713f12; padding:10px 16px; font:14px system-ui }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 16px 60px; }
+  .grid3 { display:grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+  @media (max-width: 900px) { .grid3 { grid-template-columns: 1fr; } }
+  .label { font-weight:800; font-size:15px; margin-bottom:4px } .sub { font-size:12.5px; color:#c9d8d3; margin-bottom:14px; min-height:34px }
+  .stagebox { position:relative; padding: 20px 18px 18px; }
+  .pair { display:flex; justify-content:center; align-items:flex-end; gap:6px; position:relative; z-index:3; margin-top:0; height:330px; }
+  .pair img { height:100%; width:auto; filter: drop-shadow(0 0 1px rgba(60,234,199,.5)) drop-shadow(0 2px 2px rgba(0,0,0,.35)) drop-shadow(0 26px 22px rgba(0,0,0,.45)); }
+  .pair img + img { height:92%; }
+  .cap { text-align:center; font-size:12px; color:#e6efec; margin-top:12px; position:relative; z-index:3 }
+
+  /* A — teal gloss */
+  .A { border-radius: 32px; position:relative; overflow:visible;
+    background: linear-gradient(160deg, #1fbfa3 0%, #0b7a68 38%, #05493d 100%);
+    border:1px solid rgba(255,255,255,.35); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.55); }
+  .A::before { content:""; position:absolute; inset:0; border-radius:32px; pointer-events:none;
+    background: linear-gradient(180deg, rgba(255,255,255,.34) 0%, rgba(255,255,255,.08) 34%, rgba(255,255,255,0) 35%); }
+  .A::after { content:""; position:absolute; left:-10%; top:-30%; width:60%; height:160%; transform:rotate(18deg); pointer-events:none; border-radius:32px;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.14), rgba(255,255,255,0)); }
+
+  /* B — dark gloss */
+  .B { border-radius: 32px; position:relative; overflow:visible;
+    background: radial-gradient(120% 90% at 30% 0%, #0f3b33 0%, #07201b 55%, #040f0c 100%);
+    border:1px solid rgba(60,234,199,.35); box-shadow: 0 30px 60px -20px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.25); }
+  .B::before { content:""; position:absolute; inset:0; border-radius:32px; pointer-events:none;
+    background: linear-gradient(125deg, rgba(255,255,255,.22) 0%, rgba(255,255,255,.06) 28%, rgba(255,255,255,0) 29%); }
+  .B::after { content:""; position:absolute; left:50%; bottom:6%; width:70%; height:46%; transform:translateX(-50%); pointer-events:none;
+    background: radial-gradient(closest-side, rgba(60,234,199,.28), rgba(60,234,199,0)); }
+
+  /* C — spotlight, no card */
+  .C { position:relative; }
+  .C::before { content:""; position:absolute; left:50%; top:30%; width:92%; aspect-ratio:1; transform:translateX(-50%); pointer-events:none; border-radius:9999px;
+    background: radial-gradient(closest-side, rgba(241,241,236,.30), rgba(60,234,199,.16) 45%, rgba(60,234,199,0) 72%); }
+  .C .pair { margin-top:0 }
+  .floor { height:12px; width:55%; margin:-4px auto 0; border-radius:9999px; background:rgba(0,0,0,.5); filter:blur(8px); position:relative; z-index:2 }
+</style>
+</head>
+<body>
+<div class="note"><b>MOCKUP — nothing changed in the site.</b> Same product photos, three background treatments, shown on the real hero green. Each stage shows the white and the black Go Max.</div>
+<div class="wrap">
+  <h1 class="text-2xl font-extrabold">Hero product card — which background?</h1>
+  <p class="mt-1 text-sm text-white/70 mb-8">The device pops out over the top of the card in A and B; in C there is no card, just light behind it.</p>
+
+  <div class="grid3">
+    <div>
+      <div class="label">A · Teal gloss</div>
+      <div class="sub">Brand teal gradient, white highlight along the top edge, bright rim. White and black devices both stand out.</div>
+      <div class="stagebox"><div class="A" style="position:absolute;inset:90px 18px 0 18px"></div>
+        <div class="pair"><img src="../../../public/images/tcbpc/cutout/dojo-go-max-white-front.webp" alt=""><img src="../../../public/images/tcbpc/cutout/dojo-go-max-black-front.webp" alt=""></div>
+        <div class="cap">White + Black front</div></div>
+    </div>
+
+    <div>
+      <div class="label">B · Dark gloss</div>
+      <div class="sub">Near-black green with a glassy reflection and a teal glow underneath. Strongest contrast for the white device.</div>
+      <div class="stagebox"><div class="B" style="position:absolute;inset:90px 18px 0 18px"></div>
+        <div class="pair"><img src="../../../public/images/tcbpc/cutout/dojo-go-max-white-front.webp" alt=""><img src="../../../public/images/tcbpc/cutout/dojo-go-max-black-front.webp" alt=""></div>
+        <div class="cap">White + Black front</div></div>
+    </div>
+
+    <div>
+      <div class="label">C · Spotlight (no card)</div>
+      <div class="sub">No box — a soft light pool and floor shadow on the hero itself. Lightest look, saves space on phones.</div>
+      <div class="stagebox C" style="padding-top:20px">
+        <div class="pair"><img src="../../../public/images/tcbpc/cutout/dojo-go-max-white-front.webp" alt=""><img src="../../../public/images/tcbpc/cutout/dojo-go-max-black-front.webp" alt=""></div>
+        <div class="floor"></div>
+        <div class="cap" style="margin-top:22px">White + Black front</div></div>
+    </div>
+  </div>
+
+  <h2 class="mt-12 text-lg font-extrabold">For comparison — white gloss</h2>
+  <p class="text-sm text-white/70 mb-4">Why I wouldn't use it: the white device blends into the card.</p>
+  <div style="max-width:380px">
+    <div class="stagebox"><div style="position:absolute;inset:90px 18px 0 18px;border-radius:32px;background:linear-gradient(180deg,#ffffff,#e9eeec);box-shadow:inset 0 1px 0 #fff,0 30px 60px -20px rgba(0,0,0,.6)"></div>
+      <div class="pair"><img src="../../../public/images/tcbpc/cutout/dojo-go-max-white-front.webp" alt=""><img src="../../../public/images/tcbpc/cutout/dojo-go-max-black-front.webp" alt=""></div></div>
+  </div>
+</div>
+</body>
+</html>

@@ -23,7 +23,28 @@ export default function HeroSplit({ slide, photos, stageName, sectionMaxW, heigh
         <div className="grid grid-cols-1 items-center gap-6 sm:gap-12 lg:grid-cols-12">
           {photos.length > 0 && (
             <div className="pt-12 sm:pt-16 lg:col-span-5 lg:pt-10">
-              <div className="relative rounded-[2rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/5 px-5 pb-4 pt-2 shadow-2xl backdrop-blur-sm sm:px-8 sm:pb-6">
+              {/* Teal gloss card: brand-teal gradient, a white highlight along the top edge and a bright
+                  rim, so both the white and the black device stand out. */}
+              <div
+                className="relative rounded-[2rem] border border-white/35 px-5 pb-4 pt-2 shadow-[0_30px_60px_-20px_rgba(0,0,0,0.6),inset_0_1px_0_rgba(255,255,255,0.55)] sm:px-8 sm:pb-6"
+                style={{ backgroundImage: "linear-gradient(160deg, #1fbfa3 0%, #0b7a68 38%, #05493d 100%)" }}
+              >
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 rounded-[2rem]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(255,255,255,0.34) 0%, rgba(255,255,255,0.08) 34%, rgba(255,255,255,0) 35%)",
+                  }}
+                />
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-[10%] -top-[30%] h-[160%] w-[60%] rotate-[18deg]"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.14), rgba(255,255,255,0))",
+                  }}
+                />
                 {/* the stage starts above the card so cut-out photos break out over its top edge */}
                 <div className="-mt-14 sm:-mt-24">
                   <ProductStage photos={photos} size={420}>
