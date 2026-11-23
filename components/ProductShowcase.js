@@ -82,9 +82,12 @@ export default function ProductShowcase({
                   </div>
                 )}
 
-                <h3 className="text-2xl font-extrabold text-foreground sm:text-3xl">{flagship.name}</h3>
+                <p className="text-sm font-bold uppercase tracking-wider text-primary">{flagship.name}</p>
+                <h3 className="mt-1 text-4xl font-extrabold leading-tight tracking-tight text-foreground sm:text-5xl">
+                  {flagship.category || flagship.name}
+                </h3>
                 {flagship.description && (
-                  <p className="mt-3 text-base leading-relaxed text-muted">{flagship.description}</p>
+                  <p className="mt-4 text-lg leading-relaxed text-muted">{flagship.description}</p>
                 )}
 
                 {features.length > 0 && (

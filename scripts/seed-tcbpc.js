@@ -131,9 +131,9 @@ async function seed(client) {
   await q(`DELETE FROM products`);
   const products = [
     {
-      id: 2, order: 1, category: "Flagship", price: "Flagship · Free statement audit", flagship: true,
+      id: 2, order: 1, category: "High pace, face-to-face", price: "Flagship · Free statement audit", flagship: true,
       name: "Dojo Go Max",
-      desc: "Built for busy counters — fast checkouts, extra terminals as you grow, and multi-device deals.",
+      desc: "Serve more customers, faster. Take payments in seconds with our fast, versatile card machine.",
       badges: "Flagship Solution\nMulti-device deals",
       features: "High volume | Built for busy counters.\nMulti-terminal | Add terminals as you grow.\nDevice deals | One quote for every till.\nNext-day payouts | 7 days a week, <2s payments.",
       serviceLabel: "Included",
