@@ -170,7 +170,7 @@ async function seed(client) {
       name: "EPOS integration",
       desc: "Totals go straight from your till — no manual keying.",
       ctaLabel: "Check EPOS compatibility", ctaTopic: "EPOS integrated setup", icon: "plug",
-      photos: [["dojo-countertop-epos", "1:1", null, null]],
+      photos: [["epos-integration", "1:1", null, null]],
     },
     {
       id: 5, order: 6, category: "Remote payments", price: "Get a quote",
