@@ -456,3 +456,13 @@ every block is editable in the admin panel:
 
 Constant brand colours live in `app/globals.css` (`--brand-*`, used as `bg-brand-deep`, `text-brand-teal`
 etc.) so these bands look the same in light/dark mode. `npm run seed:tcbpc` loads the TC content.
+
+### Product stage (hero + flagship preview)
+
+`components/ProductStage.js` cycles a product's photos every 3 seconds with a 3D swing, float,
+scroll/mouse tilt, rim light, gloss sweep and reflection; hover pauses it and reduced-motion
+visitors get a still image. A photo is treated as a background-removed cut-out (floats out over
+the card) when its file is under a `/cutout/` path — e.g. `public/images/tcbpc/cutout/`; any other
+photo is shown in a rounded white frame. The Dojo Go Max cut-outs are built from Dojo's official
+high-resolution images, kept in `docs/refdocs/Dojo Go max/official/` (confirm usage rights with
+Dojo's brand guidelines).

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TC — 3D product stage mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = { theme: { extend: { fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }, colors: {
+    deep: '#003F33', ink: '#180F06', teal: '#3CEAC7', tealh: '#2cd4b2', cream: '#F1F1EC' } } } }
+</script>
+<style>
+  body { background: #F1F1EC; font-family: Inter, system-ui, sans-serif; }
+  /* image pops out of the card: bigger than the card, overflowing its top edge */
+  .pop { position: relative; height: 470px; margin-top: -110px; }
+  .shot { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center; pointer-events: none;
+          opacity: 0; transform: rotateY(-70deg) translateZ(-120px) scale(.82); transform-origin: 50% 60%;
+          transition: opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1); }
+  .shot.on { opacity: 1; transform: rotateY(0) translateZ(0) scale(1); }
+  .shot.out { opacity: 0; transform: rotateY(70deg) translateZ(-120px) scale(.82); }
+  .shot .wrap { position: relative; height: 100%; display: flex; align-items: flex-end; justify-content: center; }
+  .shot img { max-height: 100%; max-width: 118%; width: auto;
+    /* thin teal rim light + soft studio shadow */
+    filter: drop-shadow(0 0 1px rgba(60,234,199,.55)) drop-shadow(0 2px 2px rgba(0,0,0,.35)) drop-shadow(0 34px 30px rgba(0,0,0,.5));
+    -webkit-box-reflect: below 2px linear-gradient(transparent 78%, rgba(255,255,255,.14)); }
+  /* glossy light sweep, clipped to the product's own silhouette via CSS mask */
+  .sheen { position: absolute; pointer-events: none; mix-blend-mode: screen;
+    background: linear-gradient(105deg, transparent 35%, rgba(255,255,255,.55) 48%, rgba(255,255,255,.1) 55%, transparent 65%);
+    background-size: 260% 100%; background-repeat: no-repeat;
+    -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    animation: sweep 3s ease-in-out infinite; }
+  @keyframes sweep { 0% { background-position: 130% 0 } 55%,100% { background-position: -40% 0 } }
+  .spot { position:absolute; left:50%; bottom:40px; width:360px; height:360px; transform:translateX(-50%);
+    background: radial-gradient(circle, rgba(241,241,236,.22) 0%, rgba(60,234,199,.10) 35%, transparent 68%); pointer-events:none; }
+  @keyframes floaty { 0%,100% { transform: translateY(0) } 50% { transform: translateY(-12px) } }
+  .floaty { animation: floaty 4.5s ease-in-out infinite; }
+  @keyframes fill { from { width: 0 } to { width: 100% } }
+  .bar.run > i { animation: fill 3s linear forwards; }
+  @media (prefers-reduced-motion: reduce) { .floaty, .sheen { animation: none } .shot { transition: opacity .3s } }
+  .note { background:#fef9c3; color:#713f12; font:14px system-ui; padding:10px 16px; border-bottom:1px solid #fde047 }
+  #spec { background:#fff; padding:40px 24px; font:14px/1.55 system-ui; color:#180F06 } #spec .w { max-width: 980px; margin: auto }
+  #spec h2 { font-size:22px; font-weight:800; margin:0 0 8px } #spec li { margin:5px 0 }
+</style>
+</head>
+<body>
+
+<div class="note"><b>MOCKUP — nothing changed in the app yet.</b> Product images are now background-removed cut-outs that pop out over the card, float, tilt in 3D with scroll/mouse, and auto-advance every 3 seconds (hover pauses). <b>v2:</b> AI cut-outs, sharper upscale, rim light, reflection and a gloss sweep.</div>
+
+<!-- HERO (dark brand band) -->
+<section class="relative overflow-hidden bg-deep text-white">
+  <div class="pointer-events-none absolute -right-24 -top-24 h-96 w-96 rounded-full bg-teal/15 blur-3xl"></div>
+  <div class="relative mx-auto max-w-7xl px-4 pb-16 pt-32 sm:px-6 lg:px-8 lg:pt-28">
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12">
+      <div class="space-y-6 lg:col-span-6">
+        <div class="inline-flex rounded-full border border-teal/30 bg-white/10 px-3.5 py-1.5 text-sm font-semibold text-teal">Listen First, Recommend Second</div>
+        <h1 class="text-4xl font-extrabold leading-[1.12] tracking-tight sm:text-5xl">Upgrade the way your UK business takes <span class="text-teal">card payments.</span></h1>
+        <p class="max-w-xl text-lg leading-relaxed text-cream/90">Hi, I’m Tausif Chowdhury — a self-employed Payments Consultant working on behalf of Dojo. I review your current setup, cut unnecessary fees, and get your Dojo machine live — with our flagship Dojo Go Max for busy counters.</p>
+        <div class="flex flex-wrap gap-4 pt-2">
+          <a class="rounded-2xl bg-teal px-7 py-4 font-bold text-ink shadow-xl shadow-teal/20">Get a Free Rate Review &amp; Quote →</a>
+          <a class="rounded-2xl border border-white/20 bg-white/10 px-6 py-4 font-semibold">07394 995 810</a>
+        </div>
+      </div>
+
+      <!-- 3D STAGE -->
+      <div class="lg:col-span-6" style="perspective:1500px">
+        <div id="stage" class="relative rounded-[2rem] border border-white/15 bg-gradient-to-b from-white/12 to-white/5 px-6 pb-6 pt-4 shadow-2xl backdrop-blur-sm sm:px-10" style="transform-style:preserve-3d">
+          <div id="glow" class="pointer-events-none absolute left-1/2 top-1/3 h-72 w-72 -translate-x-1/2 rounded-full bg-teal/25 blur-3xl"></div>
+
+          <div class="pop" style="transform-style:preserve-3d">
+            <div class="spot"></div>
+            <div id="device" class="absolute inset-0" style="transform-style:preserve-3d">
+              <div class="floaty absolute inset-0" style="transform-style:preserve-3d">
+                <div id="shots" class="absolute inset-0" style="transform-style:preserve-3d"></div>
+              </div>
+            </div>
+            <div class="absolute left-0 top-32 z-20 hidden items-center gap-1.5 rounded-full border border-teal/40 bg-ink/85 px-3 py-1.5 text-[11px] font-bold shadow-lg sm:flex" style="transform:translateZ(60px)"><span class="h-2 w-2 animate-ping rounded-full bg-teal"></span>&lt;2 sec Approval</div>
+            <div class="absolute bottom-10 right-0 z-20 hidden rounded-full border border-teal/40 bg-deep/95 px-3 py-1.5 text-[11px] font-bold text-teal shadow-lg sm:flex" style="transform:translateZ(50px)">Next-day payouts</div>
+          </div>
+          <div id="floor" class="mx-auto -mt-2 h-4 w-52 rounded-full bg-black/60 blur-md"></div>
+
+          <div class="mt-5 flex flex-wrap items-center justify-between gap-2" style="transform:">
+            <span class="rounded-full bg-ink/40 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal">Flagship: Dojo Go Max</span>
+            <div id="chips" class="inline-flex rounded-full border border-white/10 bg-ink/50 p-1"></div>
+          </div>
+
+
+          <p id="cap" class="mt-4 text-center text-xs font-medium text-cream/85"></p>
+          <div id="bars" class="mx-auto mt-3 flex w-48 gap-1.5"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAGSHIP CARD PREVIEW PANEL (same component, light card + green panel) -->
+<section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="overflow-hidden rounded-3xl border border-black/10 bg-white shadow-xl">
+    <div class="grid grid-cols-1 lg:grid-cols-12">
+      <div class="p-6 sm:p-10 lg:col-span-7">
+        <span class="rounded-full bg-deep px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal">Flagship Solution</span>
+        <h3 class="mt-4 text-3xl font-extrabold">Dojo Go Max — Flagship High-Volume Card Machine</h3>
+        <p class="mt-3 text-muted text-neutral-600">My flagship setup for busy counters — checkout capacity to keep queues short, extra terminals as you grow, multi-device deals available.</p>
+        <p class="mt-6 text-sm text-neutral-500">(feature cards, service line and button unchanged — see the main design)</p>
+      </div>
+      <div class="relative bg-deep p-6 pb-8 text-white sm:p-10 lg:col-span-5" style="perspective:1400px">
+        <span class="text-xs font-bold uppercase tracking-wider text-teal">Interactive Preview</span>
+        <div id="tabs2" class="mt-3 flex flex-wrap gap-2"></div>
+        <div class="pointer-events-none absolute left-1/2 top-1/2 h-60 w-60 -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal/20 blur-3xl"></div>
+        <div class="pop2 relative mt-2" style="height:380px;margin-top:-30px"><div id="shots2" class="floaty absolute inset-0"></div></div>
+        <p id="cap2" class="text-center text-xs text-white/80"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="mx-auto max-w-7xl px-4 pb-6 sm:px-6 lg:px-8">
+  <h2 class="mb-4 text-xl font-extrabold">Image quality: before → after</h2>
+  <div class="grid gap-6 md:grid-cols-2">
+    <figure class="rounded-3xl bg-deep p-6 text-center text-white"><img src="cutouts/dojo-go-white-keypad.png" class="mx-auto max-h-72" alt=""><figcaption class="mt-3 text-xs text-white/70">Before — simple threshold cut-out: jagged white shadow blob, soft edges</figcaption></figure>
+    <figure class="rounded-3xl bg-deep p-6 text-center text-white"><img src="cutouts-v5/dojo-go-max-black-keypad.webp" class="mx-auto max-h-72" style="filter:drop-shadow(0 0 1px rgba(60,234,199,.55)) drop-shadow(0 26px 24px rgba(0,0,0,.5))" alt=""><figcaption class="mt-3 text-xs text-white/70">After — built from Dojo&apos;s official high-resolution Go Max image, rim light + studio shadow</figcaption></figure>
+  </div>
+</section>
+
+<section id="spec"><div class="w">
+  <h2>What changes in the app if you approve</h2>
+  <ul class="list-disc pl-5">
+    <li><b>Cut-out photos (v3):</b> AI background removal (rembg) on all four Dojo Go photos — including the white finishes — then 3× Lanczos upscale, white-halo removal, sharpening and a little contrast/colour. Saved as transparent WebP (~40–75 KB each) — added under <code>public/images/tcbpc/</code> and used as the product photos, so the hero stage, flagship preview and product page all use them. Product cards on white look the same as before.</li>
+    <li><b>Bigger, pops out of the card:</b> device ~470px tall, overflowing the top of the stage card instead of sitting inside a white box.</li>
+    <li><b>3D + lively:</b> idle float, mouse/scroll tilt with a moving shadow and glow, and a 3D swing transition between photos.</li>
+    <li><b>Premium finish:</b> thin teal rim light, layered studio shadow, a soft spotlight behind the device, a faint floor reflection, and a glossy light sweep that runs across the device itself (clipped to its silhouette) in time with the 3-second change.</li>
+    <li><b>Auto-advance every 3 s</b> through the product's photos (the finish chips highlight and stay clickable, progress bars show timing). Pauses on hover and for visitors who prefer reduced motion. Images only — nothing else on the page moves.</li>
+    <li><b>Still admin-driven:</b> photos, labels and captions come from the product's photo manager; no new database fields. The cut-outs replace the photo files for those two products.</li>
+    <li><b>Limit to know:</b> the supplied photos are only 640px wide, so the device is upscaled — it looks good at this size but will soften if made much larger. Higher-resolution photos from Dojo would be sharper; swapping them later is just an upload.</li>
+  </ul>
+</div></section>
+
+<script>
+  const BASE = 'cutouts-v5/';
+  const photos = [
+    { src: BASE + 'dojo-go-max-white.webp',        label: 'White',       caption: 'Dojo Go Max — Calm White finish.' },
+    { src: BASE + 'dojo-go-max-black-keypad.webp', label: 'Black',       caption: 'Dojo Go Max — Confident Black finish, keypad view.' },
+    { src: BASE + 'dojo-go-max-black-front.webp',  label: 'Black front', caption: 'Front view — Confident Black.' },
+    { src: BASE + 'dojo-go-max-white-front.webp',  label: 'White front', caption: 'Front view — Calm White.' },
+  ];
+  const INTERVAL = 3000;
+  let idx = 0, timer = null, paused = false;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function build(shotsEl) {
+    photos.forEach((p, i) => {
+      const d = document.createElement('div'); d.className = 'shot' + (i === 0 ? ' on' : '');
+      d.innerHTML = '<div class="wrap"><img src="' + p.src + '" alt="' + p.caption + '"><i class="sheen"></i></div>';
+      shotsEl.appendChild(d);
+      const img = d.querySelector('img'), sh = d.querySelector('.sheen');
+      const fit = () => { sh.style.width = img.clientWidth + 'px'; sh.style.height = img.clientHeight + 'px';
+        sh.style.left = img.offsetLeft + 'px'; sh.style.top = img.offsetTop + 'px';
+        sh.style.webkitMaskImage = sh.style.maskImage = 'url(' + p.src + ')'; };
+      img.complete ? fit() : img.addEventListener('load', fit); addEventListener('resize', fit);
+    });
+  }
+  const shots = document.getElementById('shots'); build(shots);
+  const shots2 = document.getElementById('shots2'); build(shots2);
+  shots2.querySelectorAll('.shot').forEach(s => s.style.pointerEvents = 'none');
+
+  const chips = document.getElementById('chips'), tabs2 = document.getElementById('tabs2'), bars = document.getElementById('bars');
+  photos.forEach((p, i) => {
+    const b = document.createElement('button'); b.textContent = p.label; b.dataset.i = i;
+    b.className = 'rounded-full px-3 py-1 text-xs font-semibold transition'; b.onclick = () => { go(i); restart(); };
+    chips.appendChild(b);
+    const t = document.createElement('button'); t.textContent = p.label;
+    t.className = 'rounded-lg px-3 py-1.5 text-xs font-semibold transition'; t.onclick = () => { go(i); restart(); };
+    tabs2.appendChild(t);
+    const bar = document.createElement('span'); bar.className = 'bar h-1 flex-1 overflow-hidden rounded-full bg-white/25'; bar.innerHTML = '<i class="block h-full rounded-full bg-teal"></i>';
+    bars.appendChild(bar);
+  });
+
+  function paint() {
+    [...chips.children].forEach((b, i) => b.className = 'rounded-full px-3 py-1 text-xs font-semibold transition ' + (i === idx ? 'bg-teal text-ink' : 'text-white/80 hover:text-white'));
+    [...tabs2.children].forEach((b, i) => b.className = 'rounded-lg px-3 py-1.5 text-xs font-semibold transition ' + (i === idx ? 'bg-teal text-ink' : 'bg-white/10 text-white hover:bg-white/20'));
+    [...bars.children].forEach((b, i) => { b.classList.toggle('run', i === idx && !paused && !reduce); const f = b.firstChild; f.style.width = i < idx ? '100%' : (i === idx ? '' : '0'); });
+    document.getElementById('cap').textContent = photos[idx].caption;
+    document.getElementById('cap2').textContent = photos[idx].caption;
+  }
+  function go(n) {
+    const prev = idx; idx = (n + photos.length) % photos.length;
+    [shots, shots2].forEach(el => [...el.children].forEach((s, i) => {
+      s.classList.toggle('on', i === idx);
+      s.classList.toggle('out', i === prev && i !== idx);
+      if (i !== idx && i !== prev) s.classList.remove('out');
+    }));
+    // restart the CSS progress animation on the active bar
+    [...bars.children].forEach(b => { b.classList.remove('run'); void b.offsetWidth; });
+    paint();
+  }
+  function restart() { clearInterval(timer); if (!reduce && !paused) timer = setInterval(() => go(idx + 1), INTERVAL); }
+  const stage = document.getElementById('stage');
+  stage.addEventListener('mouseenter', () => { paused = true; clearInterval(timer); paint(); });
+  stage.addEventListener('mouseleave', () => { paused = false; restart(); go(idx); });
+  paint(); restart();
+
+  // 3D tilt: scroll position + mouse
+  const device = document.getElementById('device'), glow = document.getElementById('glow'), floor = document.getElementById('floor');
+  let mx = 0, my = 0;
+  function tilt() {
+    const r = stage.getBoundingClientRect(), h = innerHeight || 800;
+    const p = Math.max(-1, Math.min(1, (r.top + r.height / 2 - h / 2) / (h * .75)));
+    const ry = p * -14 + mx * 16, rx = p * 8 - my * 10;
+    device.style.transform = 'translate3d(0,' + (p * -14).toFixed(1) + 'px,40px) rotateY(' + ry.toFixed(2) + 'deg) rotateX(' + rx.toFixed(2) + 'deg)';
+    glow.style.transform = 'translate(calc(-50% + ' + (-ry * 2).toFixed(0) + 'px), 0)';
+    floor.style.transform = 'translateX(' + (-ry * 1.6).toFixed(1) + 'px) scale(' + (1 - Math.abs(p) * .12).toFixed(2) + ')';
+  }
+  if (!reduce) {
+    addEventListener('scroll', tilt, { passive: true }); addEventListener('resize', tilt);
+    stage.addEventListener('mousemove', e => { const r = stage.getBoundingClientRect(); mx = ((e.clientX - r.left) / r.width - .5) * 2; my = ((e.clientY - r.top) / r.height - .5) * 2; tilt(); });
+    stage.addEventListener('mouseleave', () => { mx = my = 0; tilt(); });
+    tilt();
+  }
+</script>
+</body>
+</html>

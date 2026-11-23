@@ -141,10 +141,14 @@ async function seed(client) {
       ctaLabel: "Request Dojo Go Max Quote",
       ctaTopic: "Dojo Go Max flagship card machine",
       icon: "store",
+      // Cut-outs built from Dojo's official high-resolution Dojo Go Max images (sources kept in
+      // docs/refdocs/Dojo Go max/official/). The hero stage and flagship preview float these out
+      // over the card; see components/ProductStage.js.
       photos: [
-        ["dojo-go-black-approved", "5:4", "Black finish", "Confident Black finish — approved payment screen."],
-        ["dojo-go-white-keypad", "5:4", "White finish", "Calm White finish — keypad view."],
-        ["dojo-go-side-profile", "5:4", "Side profile", "Ergonomic side profile."],
+        ["cutout/dojo-go-max-white", "1:1", "White", "Dojo Go Max — Calm White finish."],
+        ["cutout/dojo-go-max-black-keypad", "1:1", "Black", "Dojo Go Max — Confident Black finish, keypad view."],
+        ["cutout/dojo-go-max-black-front", "1:1", "Black front", "Front view — Confident Black."],
+        ["cutout/dojo-go-max-white-front", "1:1", "White front", "Front view — Calm White."],
       ],
     },
     {
