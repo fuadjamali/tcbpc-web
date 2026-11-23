@@ -204,7 +204,6 @@ async function seed(client) {
   // Merchant showcase: one image per business (public/images/tcbpc/portfolio/) — partner posters
   // and activation announcements. Image cards (no case-study fields), shown at their natural shape.
   const portfolio = [
-    ["Elmer Cafe & Tapas Bar", "elmer-cafe-tapas-bar"],
     ["HAVN — Breakfast, Brunch, Coffee & Cocktails", "havn"],
     ["Salt N Pepper Restaurant", "salt-n-pepper"],
     ["My Mobile Tech", "my-mobile-tech"],
