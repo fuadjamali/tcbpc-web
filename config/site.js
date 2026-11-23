@@ -1,6 +1,6 @@
 const siteConfig = {
   // The banner shown at the very top of every page ("Root Alert") is admin-editable at
-  // /admin/root-alert (lib/rootAlert.js) — no config here. Defaults on with Falcon Web
+  // /admin/root-alert (lib/rootAlert.js) — no config here. Defaults on with tcbpc-web
   // Suite's own demo disclaimer text; turn it off or reword it for a real client deployment.
 
   // Business name/tagline/description/domain are admin-editable at /admin/business
@@ -33,22 +33,10 @@ const siteConfig = {
 
   // Optional — set to null to remove the section from the home page. Static (not admin-
   // editable) since it's the site's own pricing tiers, defined in lib/planFeatures.js — only
-  // meaningful for Falcon Web Suite's own marketing site. A deployed client site has no
+  // meaningful for tcbpc-web's own marketing site. A deployed client site has no
   // reason to show its own Basic/Plus/Premium tiers to its visitors, so leave this `null` for
   // every client deployment.
-  plans: {
-    eyebrow: "Plans & pricing",
-    heading: "Start with the website you need today.",
-    headingAccent: "Grow into the one you'll need tomorrow.",
-    subheading:
-      "One setup fee. One simple monthly price. Upgrade whenever you're ready — same site, same login, nothing rebuilt.",
-    trust: [
-      "No VAT to add",
-      "Just 3 months minimum, then 30 days' notice",
-      "Edit it yourself — no developer needed",
-      "Pay monthly by Direct Debit",
-    ],
-  },
+  plans: null,
 
   // Footer heading/subheading is admin-editable at /admin/section-text (lib/sectionHeadings.js).
   // WhatsApp number/messages and the social icon row are admin-editable at /admin/social

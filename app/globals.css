@@ -28,39 +28,41 @@
  * and .dark selector), so they don't shift when the light/dark toggle is used.
  */
 
-/* Ocean Blue — crystal glossy finishing (default) */
+/* Dojo — Serene Green / Active Teal / Confident Black / Calm White (default).
+   Palette for TC Business Payments Consultant; occupies the default :root / .dark slot
+   (the theme formerly labelled "Ocean Blue"). */
 :root {
-  --background: #f0f9ff;
-  --foreground: #0c2d48;
+  --background: #f1f1ec;
+  --foreground: #180f06;
 
-  --primary: #0284c7;
-  --primary-hover: #0369a1;
+  --primary: #003f33;
+  --primary-hover: #065747;
   --primary-foreground: #ffffff;
 
-  --accent: #06b6d4;
-  --accent-foreground: #ffffff;
+  --accent: #3ceac7;
+  --accent-foreground: #180f06;
 
   --surface: #ffffff;
-  --surface-alt: #e0f2fe;
-  --border-color: #bae6fd;
-  --text-muted: #475569;
+  --surface-alt: #e6e7df;
+  --border-color: #d3d6cb;
+  --text-muted: #4a5a53;
 }
 
 .dark {
-  --background: #01121f;
-  --foreground: #e0f2fe;
+  --background: #180f06;
+  --foreground: #f1f1ec;
 
-  --primary: #38bdf8;
-  --primary-hover: #7dd3fc;
-  --primary-foreground: #01121f;
+  --primary: #3ceac7;
+  --primary-hover: #2cd4b2;
+  --primary-foreground: #180f06;
 
-  --accent: #22d3ee;
-  --accent-foreground: #01121f;
+  --accent: #3ceac7;
+  --accent-foreground: #180f06;
 
-  --surface: #0c2d48;
-  --surface-alt: #123a5c;
-  --border-color: #1e4a70;
-  --text-muted: #94a3b8;
+  --surface: #0a2e27;
+  --surface-alt: #003f33;
+  --border-color: #0e5a49;
+  --text-muted: #9db3ab;
 }
 
 /* Forest Green — matte finishing */

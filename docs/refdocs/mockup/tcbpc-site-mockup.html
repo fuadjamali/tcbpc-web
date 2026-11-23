@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>TC Business Payments Consultant — seeded-site mockup</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  /* Tokens copied from the app's built-in "Forest Green" light theme (app/globals.css) —
+     the closest existing palette to Dojo's Serene Green. No app code is changed. */
+  :root{--bg:#f7f8f4;--fg:#23331b;--primary:#4d6b3f;--primary-fg:#fff;--accent:#6b8e23;--surface:#fff;--alt:#eef1e6;--border:#d9ddc8;--muted:#5c6b4f}
+  body{background:var(--bg);color:var(--fg);font-family:system-ui,sans-serif}
+  .btn{background:var(--primary);color:var(--primary-fg);border-radius:9999px;padding:.6rem 1.25rem;font-weight:600;font-size:.875rem;display:inline-block}
+  .btn-o{border:1px solid currentColor;border-radius:9999px;padding:.6rem 1.25rem;font-weight:600;font-size:.875rem;display:inline-block}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:1rem}
+  .sec{padding:3.5rem 1.5rem}.wrap{max-width:72rem;margin:auto}
+  .muted{color:var(--muted)}
+  .tag{position:absolute;top:.5rem;right:.5rem;background:#111;color:#fff;font-size:10px;padding:2px 8px;border-radius:9999px;z-index:5;opacity:.85}
+  .rel{position:relative}
+  h2.t{font-size:1.75rem;font-weight:700;text-align:center}
+  p.s{text-align:center;color:var(--muted);margin-top:.4rem}
+</style>
+</head>
+<body>
+
+<div class="bg-yellow-100 text-yellow-900 text-sm p-3 text-center border-b border-yellow-300">
+  <strong>MOCKUP — nothing seeded yet.</strong> This shows the site as the existing app will render it with the supplied content
+  (Forest Green theme, existing sections only). Small black tags show which admin section holds each block.
+</div>
+
+<!-- ROOT ALERT -->
+<div class="rel text-center text-xs py-2 px-4" style="background:var(--primary);color:#fff">
+  <span class="tag">Root Alert</span>
+  Tausif Chowdhury is a self-employed Payments Consultant working on behalf of Dojo.
+</div>
+
+<!-- HEADER -->
+<header class="rel border-b" style="background:var(--surface);border-color:var(--border)">
+  <span class="tag">Nav + Business name</span>
+  <div class="wrap flex items-center justify-between px-6 py-4 gap-4">
+    <div class="font-bold">TC Business Payments Consultant</div>
+    <nav class="hidden md:flex gap-6 text-sm">
+      <a>Dojo Go &amp; Solutions</a><a>Merchant Portfolio</a><a>About &amp; Process</a><a>Refer a Friend</a>
+    </nav>
+    <a class="btn">Get a Quote</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="rel" style="background:#1f3318;color:#fff">
+  <span class="tag">Hero slide 1 of 2</span>
+  <img src="../Dojo Pocket/1200x520.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+  <div class="rel wrap px-6 py-20 text-center" style="position:relative">
+    <p class="text-sm font-semibold uppercase tracking-widest opacity-90">Listen first, recommend second</p>
+    <h1 class="text-4xl md:text-5xl font-extrabold mt-3 leading-tight">Upgrade the way your UK business takes card payments.</h1>
+    <p class="mt-4 max-w-2xl mx-auto opacity-90">Hi, I’m Tausif Chowdhury — a self-employed Payments Consultant working on behalf of Dojo. No call centres or pushy scripts: I review your current setup, cut unnecessary fees, and get your Dojo machine live with hands-on local support.</p>
+    <div class="mt-6 flex flex-wrap justify-center gap-3">
+      <a class="btn" style="background:#fff;color:#1f3318">Get a Free Rate Review &amp; Quote</a>
+      <a class="btn-o">07394 995 810</a>
+    </div>
+    <p class="mt-5 text-xs opacity-80">● 2nd slide (auto-rotates): “Refer a business, earn up to £100” → Refer a Friend</p>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="rel" style="background:#23331b;color:#fff">
+  <span class="tag">Stats</span>
+  <div class="wrap grid grid-cols-2 md:grid-cols-4 gap-4 px-6 py-8 text-center">
+    <div><div class="text-3xl font-extrabold">99.99%</div><div class="text-sm opacity-80">Uptime reliability</div></div>
+    <div><div class="text-3xl font-extrabold">&lt;2 sec</div><div class="text-sm opacity-80">Payments processed in under 2 seconds</div></div>
+    <div><div class="text-3xl font-extrabold">450+</div><div class="text-sm opacity-80">EPOS integrations</div></div>
+    <div><div class="text-3xl font-extrabold">Next-day</div><div class="text-sm opacity-80">Payouts, 7 days a week</div></div>
+  </div>
+</section>
+
+<!-- PARTNERS STRIP -->
+<section class="sec rel" style="background:var(--alt)">
+  <span class="tag">Partners strip (name cards)</span>
+  <div class="wrap">
+    <p class="text-center text-sm font-semibold muted">All major cards &amp; digital wallets accepted</p>
+    <div class="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 text-center text-sm font-semibold">
+      <div class="card p-3">Mastercard</div><div class="card p-3">Maestro</div><div class="card p-3">VISA</div>
+      <div class="card p-3">Apple Pay</div><div class="card p-3">Google Pay</div><div class="card p-3">Samsung Pay</div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sec rel">
+  <span class="tag">How It Works (3 steps)</span>
+  <div class="wrap">
+    <h2 class="t">Switching to Dojo in 3 straightforward steps</h2>
+    <p class="s">A simple, consultative process from first call to first payment.</p>
+    <div class="mt-8 grid md:grid-cols-3 gap-4">
+      <div class="card p-6"><div class="w-9 h-9 rounded-full flex items-center justify-center font-bold mb-3" style="background:var(--primary);color:#fff">1</div><h3 class="font-bold">Free Statement &amp; Setup Review</h3><p class="text-sm muted mt-1">Share a recent merchant statement or tell me about your current provider. I break down your transaction rates, hidden PCI/authorisation fees and hardware costs in plain English.</p></div>
+      <div class="card p-6"><div class="w-9 h-9 rounded-full flex items-center justify-center font-bold mb-3" style="background:var(--primary);color:#fff">2</div><h3 class="font-bold">Tailored Hardware &amp; Rate Proposal</h3><p class="text-sm muted mt-1">Whether you need a single Dojo Go, a multi-terminal Dojo Go Max setup or full EPOS integration, I present a transparent, competitive quote tailored to your turnover.</p></div>
+      <div class="card p-6"><div class="w-9 h-9 rounded-full flex items-center justify-center font-bold mb-3" style="background:var(--primary);color:#fff">3</div><h3 class="font-bold">Fast Activation &amp; Hands-On Support</h3><p class="text-sm muted mt-1">Once approved, your pre-configured Dojo machine arrives rapidly. I help get your first payment live and remain your direct contact whenever you need assistance.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="sec rel" style="background:var(--alt)">
+  <span class="tag">Products (5) + photo galleries</span>
+  <div class="wrap">
+    <h2 class="t">Dojo Go &amp; Payment Solutions</h2>
+    <p class="s">Tailored hardware and setups for every UK business — from a busy salon to a mobile catering van.</p>
+    <div class="mt-8 grid md:grid-cols-3 gap-5">
+      <div class="card overflow-hidden"><img src="../Dojo Go max/640x469 (1).webp" class="w-full bg-white" alt=""/><div class="p-5"><span class="text-xs font-bold muted">Card machines · Most popular</span><h3 class="font-bold text-lg">Dojo Go — Portable Card Machine &amp; Full Setup</h3><p class="text-sm muted mt-1">Contactless, Chip &amp; PIN and mobile wallets in under 2 seconds, with built-in 4G + Wi-Fi, an integrated receipt printer, smart tipping and next-day payouts. Free statement audit + 1-to-1 setup. Black &amp; white finishes.</p><p class="text-xs mt-2 font-semibold">Free statement audit · 4 photos</p></div></div>
+      <div class="card overflow-hidden"><img src="../Dojo Go max/640x469 (2).webp" class="w-full bg-white" alt=""/><div class="p-5"><span class="text-xs font-bold muted">Card machines · High volume</span><h3 class="font-bold text-lg">Dojo Go Max &amp; Multi-Terminal Setups</h3><p class="text-sm muted mt-1">Extra terminals and add-on devices for busy retail stores, hospitality venues and showrooms, to remove checkout bottlenecks.</p><p class="text-xs mt-2 font-semibold">Get a quote · uses Dojo Go photos</p></div></div>
+      <div class="card overflow-hidden"><img src="../Dojo Pocket/800x800.webp" class="w-full bg-white" alt=""/><div class="p-5"><span class="text-xs font-bold muted">Card machines · Compact</span><h3 class="font-bold text-lg">Dojo Pocket — Portable Payments, Perfected</h3><p class="text-sm muted mt-1">Lightweight 143 g handheld with dual Wi-Fi/4G, an 8-hour battery, a 4.95" touchscreen, point-to-point encryption and EPOS integration.</p><p class="text-xs mt-2 font-semibold">Get a quote · 2 photos</p></div></div>
+      <div class="card p-5"><span class="text-xs font-bold muted">Integrations</span><h3 class="font-bold text-lg">EPOS Integrated Setups</h3><p class="text-sm muted mt-1">Connect your Dojo card machine to 450+ EPOS systems. Push totals straight from your till and stop manual keying mistakes.</p><p class="text-xs mt-2 font-semibold">Check compatibility · no photo supplied</p></div>
+      <div class="card p-5"><span class="text-xs font-bold muted">Remote payments</span><h3 class="font-bold text-lg">Pay Links &amp; Virtual Terminal</h3><p class="text-sm muted mt-1">Take secure card payments over the phone, or send payment links by SMS/email — ideal for car deposits, salon bookings and invoices.</p><p class="text-xs mt-2 font-semibold">Ask about remote payments · no photo supplied</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="sec rel">
+  <span class="tag">Portfolio (Our Work) — 3</span>
+  <div class="wrap">
+    <h2 class="t">Recent Merchant Activations</h2>
+    <p class="s">Real UK businesses helped by Tausif Chowdhury with tailored Dojo payment upgrades.</p>
+    <div class="mt-8 grid md:grid-cols-3 gap-5">
+      <div class="card overflow-hidden"><div class="h-36 flex items-center justify-center text-white font-bold" style="background:#1f3318">My Mobile Tech</div><div class="p-5"><p class="text-xs font-bold muted">Tech &amp; mobile retail · Multi-terminal Dojo Go</p><p class="text-sm mt-1">Activated a second Dojo card machine to expand counter checkout capacity and keep pace with growing footfall.</p></div></div>
+      <div class="card overflow-hidden"><div class="h-36 flex items-center justify-center text-white font-bold" style="background:#2c4a21">Independent Retail Boutique</div><div class="p-5"><p class="text-xs font-bold muted">Fashion &amp; high-street retail · Dojo Go Max</p><p class="text-sm mt-1">Upgraded to faster, under-2-second contactless checkouts for busy weekend trading.</p></div></div>
+      <div class="card overflow-hidden"><div class="h-36 flex items-center justify-center text-white font-bold" style="background:#3b5f2c">AN Car Sales Ltd</div><div class="p-5"><p class="text-xs font-bold muted">Automotive dealership · Dojo Go Max add-on</p><p class="text-sm mt-1">Added a terminal for showroom-floor vehicle payments and instant customer deposits.</p></div></div>
+    </div>
+    <p class="text-xs muted text-center mt-3">Cards need an image each (branded name tiles shown here as stand-ins — see decisions below).</p>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sec rel" style="background:var(--alt)">
+  <span class="tag">About Us (feature-list layout)</span>
+  <div class="wrap max-w-4xl">
+    <h2 class="t">About Tausif Chowdhury</h2>
+    <p class="s">Self-employed Payments Consultant working on behalf of Dojo</p>
+    <p class="mt-5 text-center">With years of hands-on experience in the UK payments industry, I know every business operates differently — and the right card machine setup makes a genuine difference to your bottom line.</p>
+    <div class="mt-6 grid md:grid-cols-3 gap-4">
+      <div class="card p-5"><h3 class="font-bold">Listen first, recommend second</h3><p class="text-sm muted mt-1">I take time to understand how you trade, audit what you pay today, and highlight real savings — no one-size-fits-all contract.</p></div>
+      <div class="card p-5"><h3 class="font-bold">One dedicated contact</h3><p class="text-sm muted mt-1">No call centres, no being passed between departments — just honest advice from the same person every time.</p></div>
+      <div class="card p-5"><h3 class="font-bold">Hands-on support</h3><p class="text-sm muted mt-1">From the first payment going live to any question later, you can call or WhatsApp me directly.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS: REFERRAL -->
+<section class="sec rel">
+  <span class="tag">News &amp; Events → “Refer a Friend” post</span>
+  <div class="wrap max-w-4xl">
+    <h2 class="t">Refer a Friend to Dojo</h2>
+    <p class="s">Earn up to £100 for sharing Dojo with a fellow business.</p>
+    <div class="mt-6 grid grid-cols-3 gap-4 text-center">
+      <div class="card p-5"><div class="text-3xl font-extrabold" style="color:var(--primary)">£50</div><div class="text-sm muted">for your first referral</div></div>
+      <div class="card p-5"><div class="text-3xl font-extrabold" style="color:var(--primary)">£75</div><div class="text-sm muted">for your second referral</div></div>
+      <div class="card p-5"><div class="text-3xl font-extrabold" style="color:var(--primary)">£100</div><div class="text-sm muted">for every following referral</div></div>
+    </div>
+    <p class="text-center mt-5"><a class="btn">Refer a Business Now →</a></p>
+  </div>
+</section>
+
+<!-- CONTACT + ENQUIRY -->
+<section class="sec rel" style="background:var(--alt)">
+  <span class="tag">Contact Us + Send an Enquiry</span>
+  <div class="wrap max-w-4xl grid md:grid-cols-2 gap-6">
+    <div class="card p-6"><h3 class="font-bold text-lg">Contact Tausif</h3><p class="mt-2 text-sm">📞 07394 995 810 (call / WhatsApp)</p><p class="text-sm">✉️ tausif.chowdhury@dojo.tech</p><p class="text-sm muted mt-2">Supporting UK businesses nationwide with direct 1-to-1 onboarding.</p></div>
+    <div class="card p-6"><h3 class="font-bold text-lg">Get a Quote</h3><p class="text-sm muted">Tausif will reply directly with tailored rates and hardware options.</p>
+      <div class="mt-3 space-y-2 text-sm"><div class="border rounded p-2 muted">Name</div><div class="border rounded p-2 muted">Phone</div><div class="border rounded p-2 muted">Email</div><div class="border rounded p-2 muted h-14">Message</div></div><span class="btn mt-3">Send Message</span></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="rel text-center px-6 py-14 text-white" style="background:#23331b">
+  <span class="tag">Footer + WhatsApp + Legal</span>
+  <h2 class="text-2xl font-bold">Ready to upgrade your card payments?</h2>
+  <p class="mt-2 text-sm opacity-80 max-w-3xl mx-auto">Tausif Chowdhury is a self-employed Payments Consultant working on behalf of Dojo. Dojo is a trading name of Paymentsense Limited. Paymentsense Limited is authorised and regulated by the Financial Conduct Authority (FCA FRN 738728) and under the Electronic Money Regulations 2011 (FCA FRN 900925) for the issuing of electronic money and provision of payment services.</p>
+  <p class="mt-5"><span class="btn" style="background:#fff;color:#23331b">Chat on WhatsApp</span></p>
+  <p class="mt-8 text-xs opacity-60">© 2026 TC Business Payments Consultant. All rights reserved. · Privacy Policy · Terms of Service</p>
+</footer>
+
+<!-- SEED PLAN -->
+<section class="sec" style="background:#fff">
+  <div class="wrap max-w-4xl text-sm">
+    <h2 class="text-2xl font-bold">What will be seeded (dev DB only, no app code touched)</h2>
+    <table class="mt-4 w-full border-collapse">
+      <tr class="text-left border-b"><th class="py-2">Admin section</th><th>Content</th></tr>
+      <tr class="border-b"><td class="py-2">Business info</td><td>TC Business Payments Consultant · tagline · domain businesspaymentsconsultantco.uk</td></tr>
+      <tr class="border-b"><td class="py-2">Root alert</td><td>Independent-consultant disclosure (verbatim)</td></tr>
+      <tr class="border-b"><td class="py-2">Nav (public)</td><td>Dojo Go &amp; Solutions · Merchant Portfolio · About &amp; Process · Refer a Friend · Get a Quote</td></tr>
+      <tr class="border-b"><td class="py-2">Hero</td><td>2 slides (main + referral)</td></tr>
+      <tr class="border-b"><td class="py-2">Stats / Partners / How it works</td><td>4 approved claims · 6 payment-method cards · 3 steps</td></tr>
+      <tr class="border-b"><td class="py-2">Products / Portfolio / About</td><td>5 products with supplied photos · 3 merchants · bio</td></tr>
+      <tr class="border-b"><td class="py-2">News &amp; Events / Contact / Social</td><td>Refer-a-Friend post · phone + email · WhatsApp 07394 995 810</td></tr>
+      <tr class="border-b"><td class="py-2">Section headings / footer / legal</td><td>Retitled headings · FCA statement in footer · privacy &amp; terms drafts (unpublished)</td></tr>
+      <tr><td class="py-2">Switched off</td><td>Blog, Gallery, Reviews, Team, Certifications, Plans (tcbpc’s own pricing), Map (no address given)</td></tr>
+    </table>
+
+    <h3 class="text-lg font-bold mt-8">Limits of “no app code changes” — decisions needed</h3>
+    <ol class="list-decimal pl-5 mt-2 space-y-2">
+      <li><strong>Colours:</strong> the app has no Dojo teal/green theme; only its 8 built-in palettes. Mockup uses Forest Green. A true Dojo palette (#3CEAC7 / #003F33 / #180F06 / #F1F1EC) and Inter font would need a small CSS change in <code>app/globals.css</code>.</li>
+      <li><strong>Images:</strong> Blob storage isn’t configured locally, so the supplied .webp photos would be copied into <code>public/images/tcbpc/</code> (static assets, not code) and referenced by path. Portfolio needs an image per merchant: I can generate simple branded name tiles, or you can supply logos.</li>
+      <li><strong>Not possible without code:</strong> the 3D scroll-driven hero, black/white finish toggle, tabbed hardware explorer, “Business Name” field and product-prefilled message on the quote form, ZIP/HTML download buttons. Replaced by the hero carousel, product photo galleries and the standard enquiry form.</li>
+      <li><strong>Gaps in the reference docs:</strong> no Dojo Go Max specs (spec file is empty — its photos are Dojo Go), no address (map off), no testimonials, no photo of Tausif, no legal text. Dojo Pocket specs are taken from the supplied PDF.</li>
+      <li><strong>Refer a Friend</strong> has no dedicated section in the app, so it becomes hero slide 2 + a News &amp; Events post.</li>
+    </ol>
+  </div>
+</section>
+</body>
+</html>

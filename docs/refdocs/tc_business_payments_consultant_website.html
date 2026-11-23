@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="en-GB" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TC Business Payments Consultant | Tausif Chowdhury — Dojo Card Machines UK</title>
+  <meta name="description" content="Tausif Chowdhury — self-employed Payments Consultant working on behalf of Dojo. Upgrade your UK business card payments with Dojo Go, EPOS integration, and 1-to-1 local support." />
+  
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          colors: {
+            dojo: {
+              teal: '#3CEAC7',
+              tealHover: '#2cd4b2',
+              green: '#003F33',
+              greenLight: '#065747',
+              black: '#180F06',
+              white: '#F1F1EC',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-dojo-white text-dojo-black font-sans antialiased selection:bg-dojo-teal selection:text-dojo-black overflow-x-hidden">
+
+  <!-- Top Compliance & Direct Contact Bar -->
+  <div class="bg-dojo-black text-dojo-white/90 text-xs py-2.5 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
+      <p class="font-medium">
+        <span class="inline-block w-2 h-2 rounded-full bg-dojo-teal mr-1.5 align-middle"></span>
+        Tausif Chowdhury — <span class="text-dojo-teal font-semibold">self-employed Payments Consultant working on behalf of Dojo</span>
+      </p>
+      <div class="flex items-center gap-4">
+        <a href="tel:07394995810" class="hover:text-dojo-teal transition-colors flex items-center gap-1 font-medium">
+          <svg class="w-3.5 h-3.5 text-dojo-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          07394 995 810
+        </a>
+        <a href="mailto:tausif.chowdhury@dojo.tech" class="hidden md:flex hover:text-dojo-teal transition-colors items-center gap-1 font-medium">
+          <svg class="w-3.5 h-3.5 text-dojo-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          tausif.chowdhury@dojo.tech
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sticky Navigation Header -->
+  <header class="sticky top-0 z-40 bg-dojo-green/95 backdrop-blur-md border-b border-white/10 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Brand Logo -->
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-xl bg-dojo-teal text-dojo-black font-extrabold text-lg flex items-center justify-center shadow-md group-hover:scale-105 transition-transform">
+            TC
+          </div>
+          <div>
+            <span class="block font-bold text-base sm:text-lg tracking-tight leading-tight text-white">TC Business Payments</span>
+            <span class="block text-[11px] uppercase tracking-widest text-dojo-teal font-semibold">Consultant</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav class="hidden lg:flex items-center gap-7 text-sm font-medium text-white/90">
+          <a href="#solutions" class="hover:text-dojo-teal transition-colors py-2">Dojo Go & Solutions</a>
+          <a href="#portfolio" class="hover:text-dojo-teal transition-colors py-2">Merchant Portfolio</a>
+          <a href="#process" class="hover:text-dojo-teal transition-colors py-2">About & Process</a>
+          <a href="#referral" class="hover:text-dojo-teal transition-colors py-2">Refer a Friend</a>
+        </nav>
+
+        <!-- Desktop CTA & Mobile Menu Toggle -->
+        <div class="flex items-center gap-3">
+          <a href="#quote" class="bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black font-bold text-sm px-5 py-3 rounded-xl shadow-lg shadow-dojo-teal/20 transition-all active:scale-95">
+            Get a Quote
+          </a>
+          <button id="mobile-menu-btn" type="button" aria-label="Open menu" class="lg:hidden p-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white transition-colors">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Navigation Drawer -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-dojo-green border-t border-white/10 px-4 pt-3 pb-6 space-y-2">
+      <a href="#solutions" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10">Dojo Go & Solutions</a>
+      <a href="#portfolio" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10">Merchant Portfolio</a>
+      <a href="#process" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10">About & Process</a>
+      <a href="#referral" class="block px-4 py-3 rounded-xl text-base font-medium text-white hover:bg-white/10">Refer a Friend (£50–£100)</a>
+      <div class="pt-2 border-t border-white/10 flex flex-col gap-2">
+        <a href="tel:07394995810" class="w-full text-center py-3 rounded-xl bg-white/10 text-dojo-teal font-semibold">Call: 07394 995 810</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- SECTION 1: HERO & HARDWARE SPOTLIGHT -->
+  <section id="home" class="relative bg-dojo-green text-white overflow-hidden pt-10 pb-16 lg:py-20">
+    <!-- Decorative subtle radial glow -->
+    <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-dojo-teal/15 blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 -ml-24 -mb-24 w-80 h-80 rounded-full bg-dojo-teal/10 blur-3xl pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        <!-- Left Column: Consultant Value Prop & Mandatory Status -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-dojo-teal/30 text-dojo-teal text-xs sm:text-sm font-semibold">
+            <span>Listen First, Recommend Second</span>
+          </div>
+
+          <h1 class="text-3xl sm:text-5xl lg:text-[52px] font-extrabold tracking-tight leading-[1.12]">
+            Upgrade the way your UK business takes <span class="text-dojo-teal">card payments.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-dojo-white/90 max-w-2xl leading-relaxed">
+            Hi, I’m <strong class="text-white font-semibold">Tausif Chowdhury</strong> — a <strong class="text-dojo-teal font-semibold">self-employed Payments Consultant working on behalf of Dojo</strong>. No call centres or pushy scripts: I review your current setup, cut unnecessary fees, and get your Dojo Go machine live with hands-on local support.
+          </p>
+
+          <!-- Primary Hero CTAs -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2">
+            <a href="#quote" class="inline-flex items-center justify-center gap-2 bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black font-bold text-base px-7 py-4 rounded-2xl shadow-xl shadow-dojo-teal/20 transition-all hover:-translate-y-0.5">
+              <span>Get a Free Rate Review & Quote</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
+            </a>
+            <a href="tel:07394995810" class="inline-flex items-center justify-center gap-2.5 bg-white/10 hover:bg-white/15 border border-white/20 text-white font-semibold text-base px-6 py-4 rounded-2xl transition-all">
+              <svg class="w-5 h-5 text-dojo-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              <span>07394 995 810</span>
+            </a>
+          </div>
+
+          <!-- Micro Trust Line -->
+          <div class="pt-2 flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-dojo-white/80">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-dojo-teal" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Single dedicated point of contact
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-dojo-teal" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              4G + Wi-Fi included
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-dojo-teal" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Built-in thermal receipt printer
+            </span>
+          </div>
+        </div>
+
+        <!-- Right Column: Interactive Dojo Go Flagship Hardware Centerpiece -->
+        <div class="lg:col-span-5" style="perspective: 1400px;">
+          <div id="hero-3d-stage" class="relative bg-gradient-to-b from-white/10 to-white/5 border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-sm transition-transform duration-150 ease-out" style="transform-style: preserve-3d;">
+            <!-- Finish Switcher Pill -->
+            <div class="flex items-center justify-between mb-5" style="transform: translateZ(20px);">
+              <span class="text-xs font-bold uppercase tracking-wider text-dojo-teal bg-dojo-black/40 px-3 py-1 rounded-full">
+                Flagship Hardware: Dojo Go
+              </span>
+              <div class="inline-flex rounded-full bg-dojo-black/50 p-1 border border-white/10" role="group" aria-label="Select Dojo Go finish">
+                <button type="button" onclick="setHeroFinish('black')" id="btn-hero-black" class="px-3 py-1 rounded-full text-xs font-semibold bg-dojo-teal text-dojo-black transition-all">
+                  Confident Black
+                </button>
+                <button type="button" onclick="setHeroFinish('white')" id="btn-hero-white" class="px-3 py-1 rounded-full text-xs font-semibold text-white/80 hover:text-white transition-all">
+                  Calm White
+                </button>
+              </div>
+            </div>
+
+            <!-- 3D Scroll-Driven Product Showcase Container -->
+            <div class="relative flex items-center justify-center py-4 min-h-[340px]" style="transform-style: preserve-3d;">
+              <!-- Floating Ambient Glow Behind Device -->
+              <div id="hero-3d-glow" class="absolute w-56 h-56 rounded-full bg-dojo-teal/25 blur-3xl pointer-events-none transition-transform duration-150" style="transform: translateZ(-20px);"></div>
+
+              <!-- Floating Spec Badges with 3D Z-Depth -->
+              <div id="hero-badge-speed" class="hidden sm:flex items-center gap-1.5 absolute top-3 left-1 z-20 bg-dojo-black/85 border border-dojo-teal/40 text-white text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md" style="transform: translateZ(55px);">
+                <span class="w-2 h-2 rounded-full bg-dojo-teal animate-ping"></span>
+                <span>&lt;2 sec Approval</span>
+              </div>
+              <div id="hero-badge-connect" class="hidden sm:flex items-center gap-1.5 absolute bottom-5 right-1 z-20 bg-dojo-green/95 border border-dojo-teal/40 text-dojo-teal text-[11px] font-bold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-md" style="transform: translateZ(45px);">
+                <span>4G + Wi-Fi + Printer</span>
+              </div>
+
+              <!-- Dojo Go 3D Card & Product Image Render -->
+              <div id="hero-3d-device" class="relative w-64 sm:w-72 transition-transform duration-150 ease-out will-change-transform" style="transform-style: preserve-3d; transform: translateZ(35px);">
+                <!-- Product Image Frame -->
+                <div class="relative rounded-[32px] overflow-hidden bg-white shadow-[0_30px_65px_-12px_rgba(0,0,0,0.75)] border-2 border-white/30">
+                  <img
+                    id="hero-product-img"
+                    src="640x469 (1)_3.webp"
+                    alt="Dojo Go Portable Card Machine — Approved £33.00"
+                    class="w-full h-auto object-contain block transition-all duration-300"
+                    onerror="handleMissingLocalImage('hero')"
+                  />
+                  <!-- Fallback if browser sandbox blocks relative local file paths -->
+                  <div id="hero-terminal-fallback" class="hidden p-5 bg-white text-dojo-black text-center space-y-3">
+                    <div class="p-4 rounded-2xl bg-[#180F06] text-white">
+                      <div class="flex items-center justify-between px-1 pb-2">
+                        <span class="font-extrabold tracking-widest text-xs text-white">DOJO</span>
+                        <span class="text-[10px] text-dojo-teal font-semibold">4G • 100%</span>
+                      </div>
+                      <div class="bg-[#0B1915] rounded-[20px] p-4 text-center border border-white/10 min-h-[210px] flex flex-col justify-between">
+                        <div class="my-auto py-2 space-y-2">
+                          <div class="w-12 h-12 mx-auto rounded-full border-2 border-dojo-teal bg-dojo-teal/15 flex items-center justify-center">
+                            <svg class="w-6 h-6 text-dojo-teal" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
+                          </div>
+                          <div class="text-white font-bold text-lg">Approved</div>
+                          <div class="text-dojo-white/75 text-xs">£33.00 charged</div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-2">
+                          <div class="bg-white text-dojo-black rounded-xl py-1.5 text-[10px] font-bold">Get receipt</div>
+                          <div class="bg-dojo-green text-white rounded-xl py-1.5 text-[10px] font-bold border border-dojo-teal/30">Done</div>
+                        </div>
+                      </div>
+                    </div>
+                    <label class="inline-flex items-center justify-center gap-1.5 cursor-pointer bg-dojo-teal text-dojo-black font-bold text-xs px-3.5 py-2 rounded-xl shadow hover:bg-dojo-tealHover transition-all">
+                      <span>Attach 640x469 .webp Files</span>
+                      <input type="file" accept="image/*" multiple class="hidden" onchange="loadUserProductImages(event)" />
+                    </label>
+                  </div>
+                </div>
+
+                <!-- Dynamic 3D Floor Shadow -->
+                <div id="hero-3d-shadow" class="mx-auto mt-4 w-48 h-4 rounded-full bg-black/60 blur-md transition-transform duration-150"></div>
+              </div>
+            </div>
+
+            <!-- Hardware Caption -->
+            <div class="mt-3 text-center" style="transform: translateZ(15px);">
+              <p id="hero-finish-caption" class="text-xs text-dojo-white/85 font-medium">
+                Confident Black Edition • Scroll or hover to inspect in 3D
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- APPROVED PERFORMANCE CLAIMS BAR -->
+  <section class="bg-dojo-black text-white border-y border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="text-2xl sm:text-3xl font-extrabold text-dojo-teal">99.99%</div>
+          <div class="text-xs sm:text-sm text-dojo-white/85 mt-1 font-medium">Uptime reliability</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="text-2xl sm:text-3xl font-extrabold text-dojo-teal">&lt;2 sec</div>
+          <div class="text-xs sm:text-sm text-dojo-white/85 mt-1 font-medium">Payments processed in under 2 seconds</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="text-2xl sm:text-3xl font-extrabold text-dojo-teal">450+</div>
+          <div class="text-xs sm:text-sm text-dojo-white/85 mt-1 font-medium">EPOS integrations</div>
+        </div>
+        <div class="p-4 rounded-2xl bg-white/5 border border-white/10">
+          <div class="text-2xl sm:text-3xl font-extrabold text-dojo-teal">Next-day</div>
+          <div class="text-xs sm:text-sm text-dojo-white/85 mt-1 font-medium">Payouts, 7 days a week</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: PRODUCT & PAYMENT SOLUTIONS CATALOG -->
+  <section id="solutions" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="max-w-3xl mb-12">
+      <span class="inline-block text-xs font-bold uppercase tracking-widest text-dojo-green bg-dojo-teal/30 px-3 py-1 rounded-full mb-3">
+        Product &amp; Service Catalog
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-dojo-black tracking-tight">
+        Tailored Dojo payment hardware &amp; setups for every UK business.
+      </h2>
+      <p class="text-dojo-black/75 mt-3 text-base sm:text-lg leading-relaxed">
+        Whether you run a busy high-street salon, retail boutique, restaurant, or mobile catering van, I configure the exact hardware and rate package your business needs.
+      </p>
+    </div>
+
+    <!-- Flagship Product & Service Spotlight Card: DOJO GO -->
+    <div class="bg-white rounded-3xl border border-dojo-black/10 shadow-xl overflow-hidden mb-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12">
+        <!-- Product Details -->
+        <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-between">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-4">
+              <span class="bg-dojo-green text-dojo-teal text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                Most Popular • Flagship Solution
+              </span>
+              <span class="bg-dojo-white text-dojo-black text-xs font-semibold px-3 py-1 rounded-full border border-dojo-black/10">
+                Available in Confident Black &amp; Calm White
+              </span>
+            </div>
+
+            <h3 class="text-2xl sm:text-3xl font-extrabold text-dojo-black">
+              Dojo Go — Portable Card Machine &amp; Full Setup Service
+            </h3>
+            <p class="text-dojo-black/75 mt-3 text-base leading-relaxed">
+              Engineered for speed at the counter or on the move. Take contactless, Chip &amp; PIN, and mobile wallet payments in under 2 seconds with built-in 4G, Wi-Fi, and an integrated thermal receipt printer.
+            </p>
+
+            <!-- Feature Checklist Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-6">
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-dojo-white/70">
+                <div class="w-8 h-8 rounded-xl bg-dojo-green text-dojo-teal flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-dojo-black">&lt;2 Second Approvals</h4>
+                  <p class="text-xs text-dojo-black/70 mt-0.5">Bust queues fast with instant NFC tap &amp; Chip-and-PIN.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-dojo-white/70">
+                <div class="w-8 h-8 rounded-xl bg-dojo-green text-dojo-teal flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-dojo-black">Built-in 4G + Wi-Fi</h4>
+                  <p class="text-xs text-dojo-black/70 mt-0.5">Automatic failover keeps you taking payments everywhere.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-dojo-white/70">
+                <div class="w-8 h-8 rounded-xl bg-dojo-green text-dojo-teal flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-dojo-black">Integrated Receipt Printer</h4>
+                  <p class="text-xs text-dojo-black/70 mt-0.5">High-speed built-in printer with optional paperless mode.</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3 p-3.5 rounded-2xl bg-dojo-white/70">
+                <div class="w-8 h-8 rounded-xl bg-dojo-green text-dojo-teal flex items-center justify-center shrink-0 mt-0.5">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-dojo-black">Smart Tipping &amp; Next-Day Payouts</h4>
+                  <p class="text-xs text-dojo-black/70 mt-0.5">On-screen gratuity prompts + payouts 7 days a week.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Action Row -->
+          <div class="mt-8 pt-6 border-t border-dojo-black/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="block text-xs uppercase tracking-wider text-dojo-black/60 font-semibold">Included Consultant Service</span>
+              <span class="text-sm font-bold text-dojo-green">Free Statement Audit + Direct 1-to-1 Setup by Tausif</span>
+            </div>
+            <a href="#quote" onclick="prefillQuote('Dojo Go Card Machine')" class="inline-flex items-center justify-center bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black font-bold text-sm px-6 py-3.5 rounded-xl shadow-md transition-all">
+              Request Dojo Go Quote
+            </a>
+          </div>
+        </div>
+
+        <!-- Product Angle & Screen Showcase -->
+        <div class="lg:col-span-5 bg-dojo-green p-6 sm:p-10 text-white flex flex-col justify-between">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-dojo-teal">Interactive Preview</span>
+            <h4 class="text-lg font-bold mt-1">Explore Dojo Go Features</h4>
+            
+            <!-- View Tabs -->
+            <div class="flex flex-wrap gap-2 mt-4">
+              <button type="button" onclick="setCatalogScreen('keypad')" id="tab-keypad" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-dojo-teal text-dojo-black transition-all">
+                Calm White Keypad
+              </button>
+              <button type="button" onclick="setCatalogScreen('tip')" id="tab-tip" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 text-white hover:bg-white/20 transition-all">
+                Contactless &amp; Tip
+              </button>
+              <button type="button" onclick="setCatalogScreen('profile')" id="tab-profile" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white/10 text-white hover:bg-white/20 transition-all">
+                Ergonomic Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Visual Display -->
+          <div id="catalog-visual-stage" class="my-6 flex items-center justify-center min-h-[260px]">
+            <div class="w-64 rounded-[28px] overflow-hidden bg-white shadow-2xl border-4 border-white/30">
+              <img
+                id="catalog-product-img"
+                src="640x469 (2)_3.webp"
+                alt="Dojo Go Calm White Keypad"
+                class="w-full h-auto object-contain block"
+                onerror="handleMissingLocalImage('catalog')"
+              />
+              <div id="catalog-fallback-box" class="hidden p-4 bg-[#F1F1EC] text-dojo-black text-center space-y-2">
+                <div class="text-xs font-bold text-dojo-green">Dojo Go Product Preview</div>
+                <p class="text-[11px] text-dojo-black/70">Select your attached Dojo Go .webp images to preview them live inside this mockup.</p>
+                <label class="inline-flex items-center justify-center cursor-pointer bg-dojo-teal text-dojo-black font-bold text-xs px-3 py-1.5 rounded-lg">
+                  <span>Load .webp Images</span>
+                  <input type="file" accept="image/*" multiple class="hidden" onchange="loadUserProductImages(event)" />
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <p id="catalog-visual-caption" class="text-xs text-dojo-white/80 text-center">
+            Calm White finish featuring high-contrast HD touchscreen keypad and bottom Chip &amp; PIN slot.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Secondary Solutions Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1: Dojo Go Max / Multi-Terminal -->
+      <div class="bg-white rounded-3xl p-7 border border-dojo-black/10 shadow-sm hover:shadow-lg transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-dojo-green text-dojo-teal flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-dojo-green">High-Volume &amp; Multi-Till</span>
+          <h3 class="text-xl font-extrabold text-dojo-black mt-1">Dojo Go Max &amp; Multi-Terminal Setups</h3>
+          <p class="text-sm text-dojo-black/75 mt-2.5 leading-relaxed">
+            Ideal for busy retail stores, hospitality venues, and showrooms needing extra terminals or add-on devices to eliminate checkout bottlenecks.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-dojo-black/10">
+          <a href="#quote" onclick="prefillQuote('Dojo Go Max / Multi-Terminal Setup')" class="text-sm font-bold text-dojo-green hover:text-dojo-black inline-flex items-center gap-1.5">
+            <span>Enquire about multi-device deals</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 2: EPOS Integrated Countertop Setups -->
+      <div class="bg-white rounded-3xl p-7 border border-dojo-black/10 shadow-sm hover:shadow-lg transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-dojo-green text-dojo-teal flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/></svg>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-dojo-green">450+ Integrations</span>
+          <h3 class="text-xl font-extrabold text-dojo-black mt-1">EPOS Integrated Setups</h3>
+          <p class="text-sm text-dojo-black/75 mt-2.5 leading-relaxed">
+            Connect your Dojo card machine directly to over 450 leading EPOS systems. Push totals straight from your till to prevent manual keying mistakes.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-dojo-black/10">
+          <a href="#quote" onclick="prefillQuote('EPOS Integrated Setup')" class="text-sm font-bold text-dojo-green hover:text-dojo-black inline-flex items-center gap-1.5">
+            <span>Check EPOS compatibility</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Card 3: Remote & Online Payments / Pay Links -->
+      <div class="bg-white rounded-3xl p-7 border border-dojo-black/10 shadow-sm hover:shadow-lg transition-shadow flex flex-col justify-between">
+        <div>
+          <div class="w-12 h-12 rounded-2xl bg-dojo-green text-dojo-teal flex items-center justify-center mb-5">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-dojo-green">Remote &amp; Deposits</span>
+          <h3 class="text-xl font-extrabold text-dojo-black mt-1">Pay Links &amp; Virtual Terminal</h3>
+          <p class="text-sm text-dojo-black/75 mt-2.5 leading-relaxed">
+            Take secure card payments over the phone or send instant payment links via SMS/email — ideal for car deposits, salon bookings, and invoices.
+          </p>
+        </div>
+        <div class="mt-6 pt-4 border-t border-dojo-black/10">
+          <a href="#quote" onclick="prefillQuote('Pay Links & Virtual Terminal')" class="text-sm font-bold text-dojo-green hover:text-dojo-black inline-flex items-center gap-1.5">
+            <span>Ask about remote payments</span>
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accepted Payment Methods Strip -->
+    <div class="mt-10 bg-white rounded-2xl p-5 border border-dojo-black/10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <span class="text-xs font-bold uppercase tracking-wider text-dojo-black/70">All Major Cards &amp; Digital Wallets Accepted:</span>
+      <div class="flex flex-wrap items-center justify-center gap-3 text-xs font-bold">
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-white border border-dojo-black/10">Mastercard</span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-white border border-dojo-black/10">Maestro</span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-white border border-dojo-black/10">VISA</span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-black text-white">Apple Pay</span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-white border border-dojo-black/10">Google Pay</span>
+        <span class="px-3.5 py-1.5 rounded-lg bg-dojo-white border border-dojo-black/10">Samsung Pay</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: MERCHANT PORTFOLIO & RECENT ACTIVATIONS -->
+  <section id="portfolio" class="bg-dojo-green text-white py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+        <div>
+          <span class="inline-block text-xs font-bold uppercase tracking-widest text-dojo-teal bg-white/10 px-3 py-1 rounded-full mb-3">
+            Proven UK Track Record
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Recent Merchant Activations
+          </h2>
+        </div>
+        <p class="text-dojo-white/80 max-w-md text-sm sm:text-base">
+          Real UK businesses helped by Tausif Chowdhury with tailored Dojo payment upgrades and on-site activation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Case Study 1: My Mobile Tech -->
+        <div class="bg-white/10 border border-white/15 rounded-3xl p-6 flex flex-col justify-between backdrop-blur-sm">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full bg-dojo-teal text-dojo-black text-xs font-bold">
+                Live Activation
+              </span>
+              <span class="text-xs text-dojo-white/75 font-medium">Tech &amp; Mobile Retail</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">My Mobile Tech</h3>
+            <p class="text-xs font-semibold text-dojo-teal mt-1">Hardware: Multi-Terminal Dojo Go</p>
+            <p class="text-sm text-dojo-white/85 mt-3 leading-relaxed">
+              Activated a second Dojo card machine to expand counter checkout capacity and keep pace with growing daily customer footfall.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-dojo-white/75">
+            <span>Status: Accepting Payments</span>
+            <span class="text-dojo-teal font-semibold">✓ Verified Milestone</span>
+          </div>
+        </div>
+
+        <!-- Case Study 2: Independent Fashion Boutique -->
+        <div class="bg-white/10 border border-white/15 rounded-3xl p-6 flex flex-col justify-between backdrop-blur-sm">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full bg-dojo-teal text-dojo-black text-xs font-bold">
+                Deal Signed
+              </span>
+              <span class="text-xs text-dojo-white/75 font-medium">Fashion &amp; High-Street Retail</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">Independent Retail Boutique</h3>
+            <p class="text-xs font-semibold text-dojo-teal mt-1">Hardware: Dojo Go Max Setup</p>
+            <p class="text-sm text-dojo-white/85 mt-3 leading-relaxed">
+              Upgraded an independent clothing &amp; accessories retailer to smarter, faster &lt;2 second contactless checkouts for busy weekend trading.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-dojo-white/75">
+            <span>Benefit: Faster Queue Turnover</span>
+            <span class="text-dojo-teal font-semibold">✓ Verified Milestone</span>
+          </div>
+        </div>
+
+        <!-- Case Study 3: AN Car Sales Ltd -->
+        <div class="bg-white/10 border border-white/15 rounded-3xl p-6 flex flex-col justify-between backdrop-blur-sm">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-4">
+              <span class="px-3 py-1 rounded-full bg-dojo-teal text-dojo-black text-xs font-bold">
+                Add-On Secured
+              </span>
+              <span class="text-xs text-dojo-white/75 font-medium">Automotive Dealership</span>
+            </div>
+            <h3 class="text-xl font-extrabold text-white">AN Car Sales Ltd</h3>
+            <p class="text-xs font-semibold text-dojo-teal mt-1">Hardware: Dojo Go Max Add-On</p>
+            <p class="text-sm text-dojo-white/85 mt-3 leading-relaxed">
+              Deployed an additional Dojo Go Max solution for seamless showroom floor vehicle payments and instant customer deposits.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-white/10 flex items-center justify-between text-xs text-dojo-white/75">
+            <span>Benefit: High-Value Reliability</span>
+            <span class="text-dojo-teal font-semibold">✓ Verified Milestone</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4: ABOUT TAUSIF & THE 3-STEP CONSULTATIVE PROCESS -->
+  <section id="process" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      <!-- Consultant Bio Card -->
+      <div class="lg:col-span-5 bg-white rounded-3xl p-7 sm:p-9 border border-dojo-black/10 shadow-md">
+        <div class="flex items-center gap-4 mb-6">
+          <div class="w-16 h-16 rounded-2xl bg-dojo-green text-dojo-teal font-extrabold text-2xl flex items-center justify-center shrink-0">
+            TC
+          </div>
+          <div>
+            <h2 class="text-2xl font-extrabold text-dojo-black">Tausif Chowdhury</h2>
+            <p class="text-xs font-bold text-dojo-green mt-0.5">
+              Self-employed Payments Consultant working on behalf of Dojo
+            </p>
+          </div>
+        </div>
+
+        <div class="space-y-4 text-sm sm:text-base text-dojo-black/80 leading-relaxed">
+          <p>
+            With years of hands-on experience in the UK payments industry, I know that every business operates differently — and that the right card machine setup makes a genuine difference to your bottom line.
+          </p>
+          <p>
+            My approach is simple: <strong class="text-dojo-black font-semibold">listen first, recommend second</strong>. Rather than pushing a one-size-fits-all contract, I take the time to understand how you trade, audit what you are currently paying, and highlight real savings.
+          </p>
+          <p>
+            Working with me means you get a <strong class="text-dojo-black font-semibold">single, dedicated point of contact</strong>. No call centres, no being passed between departments — just honest advice and hands-on support.
+          </p>
+        </div>
+
+        <div class="mt-6 pt-6 border-t border-dojo-black/10 flex flex-col gap-2.5 text-sm">
+          <a href="tel:07394995810" class="font-bold text-dojo-green hover:underline flex items-center gap-2">
+            <span>📞 Direct Mobile / WhatsApp:</span>
+            <span>07394 995 810</span>
+          </a>
+          <a href="mailto:tausif.chowdhury@dojo.tech" class="font-bold text-dojo-green hover:underline flex items-center gap-2">
+            <span>✉️ Direct Email:</span>
+            <span>tausif.chowdhury@dojo.tech</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- 3-Step Process -->
+      <div class="lg:col-span-7 space-y-6">
+        <div>
+          <span class="inline-block text-xs font-bold uppercase tracking-widest text-dojo-green bg-dojo-teal/30 px-3 py-1 rounded-full mb-3">
+            How It Works
+          </span>
+          <h3 class="text-3xl font-extrabold text-dojo-black tracking-tight">
+            Switching to Dojo in 3 straightforward steps
+          </h3>
+        </div>
+
+        <div class="space-y-4">
+          <!-- Step 1 -->
+          <div class="bg-white rounded-3xl p-6 border border-dojo-black/10 flex items-start gap-5">
+            <div class="w-11 h-11 rounded-2xl bg-dojo-teal text-dojo-black font-extrabold text-lg flex items-center justify-center shrink-0">
+              1
+            </div>
+            <div>
+              <h4 class="text-lg font-extrabold text-dojo-black">Free Statement &amp; Setup Review</h4>
+              <p class="text-sm text-dojo-black/75 mt-1 leading-relaxed">
+                Share a recent merchant statement or tell me about your current provider. I break down your transaction rates, hidden PCI/authorisation fees, and hardware costs in plain English.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="bg-white rounded-3xl p-6 border border-dojo-black/10 flex items-start gap-5">
+            <div class="w-11 h-11 rounded-2xl bg-dojo-teal text-dojo-black font-extrabold text-lg flex items-center justify-center shrink-0">
+              2
+            </div>
+            <div>
+              <h4 class="text-lg font-extrabold text-dojo-black">Tailored Hardware &amp; Rate Proposal</h4>
+              <p class="text-sm text-dojo-black/75 mt-1 leading-relaxed">
+                Whether you need a single Dojo Go, multi-terminal Dojo Go Max setup, or full EPOS integration, I present a transparent, competitive quote tailored to your turnover.
+              </p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="bg-white rounded-3xl p-6 border border-dojo-black/10 flex items-start gap-5">
+            <div class="w-11 h-11 rounded-2xl bg-dojo-teal text-dojo-black font-extrabold text-lg flex items-center justify-center shrink-0">
+              3
+            </div>
+            <div>
+              <h4 class="text-lg font-extrabold text-dojo-black">Fast Activation &amp; Hands-On Support</h4>
+              <p class="text-sm text-dojo-black/75 mt-1 leading-relaxed">
+                Once approved, your pre-configured Dojo machine arrives rapidly. I help get your first payment live and remain your direct contact whenever you need assistance.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 5: REFER A FRIEND PROGRAM -->
+  <section id="referral" class="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-16 sm:mb-24">
+    <div class="bg-dojo-black text-white rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+      <div class="absolute right-0 top-0 w-72 h-72 bg-dojo-teal/15 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <span class="inline-block text-xs font-bold uppercase tracking-widest bg-dojo-teal text-dojo-black px-3 py-1 rounded-full">
+            Refer a Friend to Dojo
+          </span>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            Earn up to <span class="text-dojo-teal">£100</span> for sharing Dojo with a fellow business.
+          </h2>
+          <p class="text-dojo-white/80 text-sm sm:text-base leading-relaxed">
+            Know another UK business owner frustrated with slow card machines or high processing fees? Introduce them to Tausif Chowdhury and earn cash rewards as your referrals go live.
+          </p>
+          <div class="pt-2">
+            <a href="#quote" onclick="prefillQuote('Business Referral Submission')" class="inline-flex items-center justify-center bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black font-bold text-sm px-6 py-3.5 rounded-xl transition-all">
+              Refer a Business Now →
+            </a>
+          </div>
+        </div>
+
+        <!-- Tier Cards -->
+        <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+            <div class="text-3xl font-extrabold text-dojo-teal">£50</div>
+            <div class="text-xs text-dojo-white/85 mt-1.5 font-medium">for your first referral</div>
+          </div>
+          <div class="bg-white/10 border border-white/15 rounded-2xl p-5 text-center">
+            <div class="text-3xl font-extrabold text-dojo-teal">£75</div>
+            <div class="text-xs text-dojo-white/85 mt-1.5 font-medium">for your second referral</div>
+          </div>
+          <div class="bg-dojo-green border border-dojo-teal/50 rounded-2xl p-5 text-center shadow-lg">
+            <div class="text-3xl font-extrabold text-dojo-teal">£100</div>
+            <div class="text-xs text-white mt-1.5 font-semibold">for every following referral</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 6: GET A QUOTE (LEAD CAPTURE FORM) -->
+  <section id="quote" class="py-12 sm:py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+    <div class="bg-white rounded-3xl border border-dojo-black/10 shadow-xl p-6 sm:p-12">
+      <div class="max-w-xl mx-auto text-center mb-8">
+        <span class="inline-block text-xs font-bold uppercase tracking-widest text-dojo-green bg-dojo-teal/30 px-3 py-1 rounded-full mb-3">
+          No-Obligation Consultation
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-dojo-black tracking-tight">Get a Quote</h2>
+        <p class="text-sm sm:text-base text-dojo-black/70 mt-2">
+          Fill in your details below and Tausif Chowdhury will get back to you directly with tailored rates and hardware options.
+        </p>
+      </div>
+
+      <form id="quote-form" class="max-w-xl mx-auto space-y-5" novalidate>
+        <div>
+          <label for="lead-name" class="block text-sm font-bold text-dojo-black mb-1.5">Name <span class="text-red-600">*</span></label>
+          <input type="text" id="lead-name" name="name" required placeholder="Your name"
+            class="w-full px-4 py-3.5 rounded-xl border border-dojo-black/20 bg-white text-dojo-black placeholder-dojo-black/40 focus:outline-none focus:ring-2 focus:ring-dojo-teal focus:border-dojo-green transition-all" />
+        </div>
+
+        <div>
+          <label for="lead-phone" class="block text-sm font-bold text-dojo-black mb-1.5">Phone <span class="text-red-600">*</span></label>
+          <input type="tel" id="lead-phone" name="phone" required placeholder="Your phone number"
+            class="w-full px-4 py-3.5 rounded-xl border border-dojo-black/20 bg-white text-dojo-black placeholder-dojo-black/40 focus:outline-none focus:ring-2 focus:ring-dojo-teal focus:border-dojo-green transition-all" />
+        </div>
+
+        <div>
+          <label for="lead-email" class="block text-sm font-bold text-dojo-black mb-1.5">Email <span class="text-red-600">*</span></label>
+          <input type="email" id="lead-email" name="email" required placeholder="Your email address"
+            class="w-full px-4 py-3.5 rounded-xl border border-dojo-black/20 bg-white text-dojo-black placeholder-dojo-black/40 focus:outline-none focus:ring-2 focus:ring-dojo-teal focus:border-dojo-green transition-all" />
+        </div>
+
+        <div>
+          <label for="lead-business" class="block text-sm font-bold text-dojo-black mb-1.5">Business Name</label>
+          <input type="text" id="lead-business" name="business" placeholder="Your business name (optional)"
+            class="w-full px-4 py-3.5 rounded-xl border border-dojo-black/20 bg-white text-dojo-black placeholder-dojo-black/40 focus:outline-none focus:ring-2 focus:ring-dojo-teal focus:border-dojo-green transition-all" />
+        </div>
+
+        <div>
+          <label for="lead-message" class="block text-sm font-bold text-dojo-black mb-1.5">Message <span class="text-red-600">*</span></label>
+          <textarea id="lead-message" name="message" rows="4" required placeholder="Tell us about your business and what you need..."
+            class="w-full px-4 py-3.5 rounded-xl border border-dojo-black/20 bg-white text-dojo-black placeholder-dojo-black/40 focus:outline-none focus:ring-2 focus:ring-dojo-teal focus:border-dojo-green transition-all"></textarea>
+        </div>
+
+        <!-- Inline Form Feedback Box (Replaces alert) -->
+        <div id="form-feedback" class="hidden rounded-2xl p-4 text-sm font-medium"></div>
+
+        <div class="pt-2 text-center">
+          <button type="submit" class="w-full sm:w-auto min-w-[220px] bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black font-extrabold text-base px-8 py-4 rounded-full shadow-lg shadow-dojo-teal/25 transition-all active:scale-95">
+            Send Message
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- GLOBAL REGULATORY & CONTACT FOOTER -->
+  <footer class="bg-dojo-black text-dojo-white/85 pt-14 pb-10 px-4 sm:px-6 lg:px-8 border-t border-white/10">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10 pb-10 border-b border-white/10">
+        <!-- Col 1: Brand & Status -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-9 h-9 rounded-xl bg-dojo-teal text-dojo-black font-extrabold flex items-center justify-center">TC</div>
+            <span class="font-bold text-white text-lg">TC Business Payments Consultant</span>
+          </div>
+          <p class="text-xs text-dojo-teal font-semibold">
+            Tausif Chowdhury is a self-employed Payments Consultant working on behalf of Dojo.
+          </p>
+          <p class="text-xs text-dojo-white/60">
+            Domain: businesspaymentsconsultantco.uk
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div>
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="#solutions" class="hover:text-dojo-teal transition-colors">Dojo Go &amp; Payment Solutions</a></li>
+            <li><a href="#portfolio" class="hover:text-dojo-teal transition-colors">Merchant Portfolio</a></li>
+            <li><a href="#process" class="hover:text-dojo-teal transition-colors">About Tausif &amp; 3-Step Process</a></li>
+            <li><a href="#referral" class="hover:text-dojo-teal transition-colors">Refer a Friend (£50–£100)</a></li>
+            <li><a href="#quote" class="hover:text-dojo-teal transition-colors">Get a Quote</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Direct Contact -->
+        <div>
+          <h4 class="text-sm font-bold text-white uppercase tracking-wider mb-3">Direct Consultant Contact</h4>
+          <ul class="space-y-2.5 text-sm">
+            <li>
+              <a href="tel:07394995810" class="hover:text-dojo-teal transition-colors font-semibold text-white">
+                Phone / WhatsApp: 07394 995 810
+              </a>
+            </li>
+            <li>
+              <a href="mailto:tausif.chowdhury@dojo.tech" class="hover:text-dojo-teal transition-colors">
+                Email: tausif.chowdhury@dojo.tech
+              </a>
+            </li>
+            <li class="text-xs text-dojo-white/65 pt-1">
+              Supporting UK businesses nationwide with direct 1-to-1 onboarding.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Mandatory Dojo / Paymentsense FCA Regulatory Footer -->
+      <div class="pt-8 space-y-3 text-xs text-dojo-white/70 leading-relaxed">
+        <p class="font-medium text-dojo-white/85">
+          Dojo is a trading name of Paymentsense Limited. Paymentsense Limited is authorised and regulated by the Financial Conduct Authority (FCA FRN 738728) and under the Electronic Money Regulations 2011 (FCA FRN 900925) for the issuing of electronic money and provision of payment services.
+        </p>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+          <p class="text-dojo-white/50">
+            &copy; <span id="copyright-year">2026</span> TC Business Payments Consultant. All rights reserved.
+          </p>
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" onclick="downloadHtmlFile()" class="inline-flex items-center gap-1.5 bg-white/10 hover:bg-white/20 text-white text-xs font-semibold px-3.5 py-2 rounded-xl border border-white/15 transition-all">
+              <span>⬇ Download index.html</span>
+            </button>
+            <button type="button" onclick="downloadSiteZip()" class="inline-flex items-center gap-1.5 bg-dojo-teal hover:bg-dojo-tealHover text-dojo-black text-xs font-bold px-3.5 py-2 rounded-xl shadow transition-all">
+              <span>📦 Download Website .ZIP</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JSZip for instant client-side .zip packaging -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <script>
+    // Set current year dynamically
+    const yearEl = document.getElementById('copyright-year');
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    if (mobileMenuBtn && mobileMenu) {
+      mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
+    }
+
+    // Store resolved image URLs (defaults to your exact attached filenames)
+    const productImageSources = {
+      blackApproved: '640x469 (1)_3.webp',
+      whiteKeypad: '640x469 (2)_3.webp',
+      sideProfile: '640x469 (3)_3.webp'
+    };
+    const loadedUserFiles = {};
+
+    let currentHeroFinish = 'black';
+    let currentCatalogView = 'keypad';
+
+    function handleMissingLocalImage(target) {
+      if (target === 'hero') {
+        const img = document.getElementById('hero-product-img');
+        const fb = document.getElementById('hero-terminal-fallback');
+        if (img) img.classList.add('hidden');
+        if (fb) fb.classList.remove('hidden');
+      } else if (target === 'catalog') {
+        const img = document.getElementById('catalog-product-img');
+        const fb = document.getElementById('catalog-fallback-box');
+        if (img) img.classList.add('hidden');
+        if (fb) fb.classList.remove('hidden');
+      }
+    }
+
+    // Allows instant loading of the local .webp files in browser preview sandboxes & includes them in ZIP
+    function loadUserProductImages(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+
+      files.forEach(file => {
+        loadedUserFiles[file.name] = file;
+        const objectUrl = URL.createObjectURL(file);
+        if (file.name.includes('(1)')) {
+          productImageSources.blackApproved = objectUrl;
+        } else if (file.name.includes('(2)')) {
+          productImageSources.whiteKeypad = objectUrl;
+        } else if (file.name.includes('(3)')) {
+          productImageSources.sideProfile = objectUrl;
+        } else if (files.length === 1) {
+          productImageSources.blackApproved = objectUrl;
+          productImageSources.whiteKeypad = objectUrl;
+        }
+      });
+
+      const heroImg = document.getElementById('hero-product-img');
+      const heroFb = document.getElementById('hero-terminal-fallback');
+      if (heroImg && heroFb) {
+        heroImg.classList.remove('hidden');
+        heroFb.classList.add('hidden');
+      }
+
+      const catImg = document.getElementById('catalog-product-img');
+      const catFb = document.getElementById('catalog-fallback-box');
+      if (catImg && catFb) {
+        catImg.classList.remove('hidden');
+        catFb.classList.add('hidden');
+      }
+
+      setHeroFinish(currentHeroFinish);
+      setCatalogScreen(currentCatalogView);
+    }
+
+    // Interactive Hero Finish Switcher (Confident Black vs Calm White)
+    function setHeroFinish(finish) {
+      currentHeroFinish = finish;
+      const productImg = document.getElementById('hero-product-img');
+      const caption = document.getElementById('hero-finish-caption');
+      const btnBlack = document.getElementById('btn-hero-black');
+      const btnWhite = document.getElementById('btn-hero-white');
+
+      if (finish === 'black') {
+        if (productImg) {
+          productImg.src = productImageSources.blackApproved;
+          productImg.alt = 'Dojo Go Confident Black — Approved £33.00';
+        }
+        if (caption) {
+          caption.textContent = 'Confident Black Edition • Scroll or hover to inspect in 3D';
+        }
+
+        btnBlack.classList.add('bg-dojo-teal', 'text-dojo-black');
+        btnBlack.classList.remove('text-white/80');
+        btnWhite.classList.remove('bg-dojo-teal', 'text-dojo-black');
+        btnWhite.classList.add('text-white/80');
+      } else {
+        if (productImg) {
+          productImg.src = productImageSources.whiteKeypad;
+          productImg.alt = 'Dojo Go Calm White — £30.00 Keypad';
+        }
+        if (caption) {
+          caption.textContent = 'Calm White Edition • Scroll or hover to inspect in 3D';
+        }
+
+        btnWhite.classList.add('bg-dojo-teal', 'text-dojo-black');
+        btnWhite.classList.remove('text-white/80');
+        btnBlack.classList.remove('bg-dojo-teal', 'text-dojo-black');
+        btnBlack.classList.add('text-white/80');
+      }
+    }
+
+    // Interactive Catalog Angle/Screen Preview Switcher
+    function setCatalogScreen(view) {
+      currentCatalogView = view;
+      const catImg = document.getElementById('catalog-product-img');
+      const caption = document.getElementById('catalog-visual-caption');
+      const tabs = ['keypad', 'tip', 'profile'];
+
+      tabs.forEach(t => {
+        const el = document.getElementById('tab-' + t);
+        if (!el) return;
+        if (t === view) {
+          el.classList.add('bg-dojo-teal', 'text-dojo-black');
+          el.classList.remove('bg-white/10', 'text-white');
+        } else {
+          el.classList.remove('bg-dojo-teal', 'text-dojo-black');
+          el.classList.add('bg-white/10', 'text-white');
+        }
+      });
+
+      if (view === 'keypad') {
+        if (catImg) {
+          catImg.src = productImageSources.whiteKeypad;
+          catImg.alt = 'Dojo Go Calm White Keypad';
+        }
+        if (caption) caption.textContent = 'Calm White finish featuring high-contrast HD touchscreen keypad and bottom Chip & PIN slot.';
+      } else if (view === 'tip') {
+        if (catImg) {
+          catImg.src = productImageSources.blackApproved;
+          catImg.alt = 'Dojo Go Instant Approval & Receipt Screen';
+        }
+        if (caption) caption.textContent = 'Instant <2 second transaction approval with on-screen receipt printing or paperless checkout.';
+      } else if (view === 'profile') {
+        if (catImg) {
+          catImg.src = productImageSources.sideProfile;
+          catImg.alt = 'Dojo Go Ergonomic Side Profile';
+        }
+        if (caption) caption.textContent = 'Ergonomic balanced profile houses a full-size thermal receipt roll and Active Teal power button.';
+      }
+    }
+
+    // 3D Scroll-Driven Perspective & Mouse Tilt Controller
+    (function initHero3D() {
+      const stage = document.getElementById('hero-3d-stage');
+      const device = document.getElementById('hero-3d-device');
+      const glow = document.getElementById('hero-3d-glow');
+      const shadow = document.getElementById('hero-3d-shadow');
+      if (!stage || !device) return;
+
+      let mouseX = 0;
+      let mouseY = 0;
+
+      function update3DTransform() {
+        const rect = stage.getBoundingClientRect();
+        const winH = window.innerHeight || 800;
+        const progress = Math.max(-1, Math.min(1, (rect.top + rect.height / 2 - winH / 2) / (winH * 0.75)));
+
+        const scrollRotateY = progress * -14;
+        const scrollRotateX = progress * 8;
+        const scrollTranslateY = progress * -18;
+
+        const totalRotY = scrollRotateY + mouseX * 12;
+        const totalRotX = scrollRotateX - mouseY * 10;
+
+        device.style.transform = `translate3d(0, ${scrollTranslateY.toFixed(1)}px, 35px) rotateY(${totalRotY.toFixed(2)}deg) rotateX(${totalRotX.toFixed(2)}deg)`;
+        if (glow) {
+          glow.style.transform = `translate3d(${(-totalRotY * 1.4).toFixed(1)}px, ${(scrollTranslateY * 0.6).toFixed(1)}px, -20px)`;
+        }
+        if (shadow) {
+          shadow.style.transform = `translateX(${(-totalRotY * 1.2).toFixed(1)}px) scale(${(1 - Math.abs(progress) * 0.12).toFixed(2)})`;
+        }
+      }
+
+      window.addEventListener('scroll', update3DTransform, { passive: true });
+      window.addEventListener('resize', update3DTransform, { passive: true });
+
+      stage.addEventListener('mousemove', (e) => {
+        const rect = stage.getBoundingClientRect();
+        mouseX = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        mouseY = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        update3DTransform();
+      });
+
+      stage.addEventListener('mouseleave', () => {
+        mouseX = 0;
+        mouseY = 0;
+        update3DTransform();
+      });
+
+      update3DTransform();
+    })();
+
+    // Pre-fill Quote Form Message when clicking solution/referral CTAs
+    function prefillQuote(topic) {
+      const msgBox = document.getElementById('lead-message');
+      if (msgBox) {
+        msgBox.value = `Hi Tausif, I'm interested in learning more about: ${topic}. Please get in touch for a quote/review.`;
+      }
+    }
+
+    // Export standalone index.html
+    function downloadHtmlFile() {
+      const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'index.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Export complete website bundle as .zip
+    async function downloadSiteZip() {
+      if (typeof JSZip === 'undefined') {
+        downloadHtmlFile();
+        return;
+      }
+      const zip = new JSZip();
+      const fullHtml = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+      zip.file('index.html', fullHtml);
+      zip.file(
+        'README.txt',
+        'TC Business Payments Consultant Website Package (businesspaymentsconsultantco.uk)\n' +
+        '------------------------------------------------------------------------------\n' +
+        '1. Place your Dojo Go product images in the same folder as index.html:\n' +
+        '   - 640x469 (1)_3.webp\n' +
+        '   - 640x469 (2)_3.webp\n' +
+        '   - 640x469 (3)_3.webp\n' +
+        '2. Upload all files to your hosting root or Squarespace Code Injection / Custom Page.\n'
+      );
+
+      // Include any attached .webp files if loaded in the session
+      Object.entries(loadedUserFiles).forEach(([fileName, fileObj]) => {
+        zip.file(fileName, fileObj);
+      });
+
+      const content = await zip.generateAsync({ type: 'blob' });
+      const url = URL.createObjectURL(content);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'tc-business-payments-consultant-website.zip';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    // Quote Form Submission Handler (Interactive Feedback)
+    const quoteForm = document.getElementById('quote-form');
+    const feedbackBox = document.getElementById('form-feedback');
+
+    if (quoteForm && feedbackBox) {
+      quoteForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const name = document.getElementById('lead-name').value.trim();
+        const phone = document.getElementById('lead-phone').value.trim();
+        const email = document.getElementById('lead-email').value.trim();
+        const business = document.getElementById('lead-business').value.trim();
+        const message = document.getElementById('lead-message').value.trim();
+
+        if (!name || !phone || !email || !message) {
+          feedbackBox.className = 'rounded-2xl p-4 text-sm font-medium bg-red-50 text-red-800 border border-red-200 block';
+          feedbackBox.textContent = 'Please fill in your Name, Phone, Email, and Message so Tausif can get back to you.';
+          return;
+        }
+
+        feedbackBox.className = 'rounded-2xl p-4 text-sm font-medium bg-dojo-green text-white border border-dojo-teal block';
+        feedbackBox.innerHTML = `
+          <div class="font-bold text-dojo-teal mb-1">✓ Thank you, ${name}! Your enquiry is ready.</div>
+          <p class="text-xs text-dojo-white/90">
+            Your request for <strong>${business || 'your business'}</strong> has been logged. For an immediate response, call or WhatsApp Tausif directly on 
+            <a href="tel:07394995810" class="underline font-bold text-dojo-teal">07394 995 810</a>.
+          </p>
+        `;
+
+        quoteForm.reset();
+      });
+    }
+  </script>
+</body>
+</html>

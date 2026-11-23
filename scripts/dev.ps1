@@ -4,11 +4,11 @@
 # Run with: npm run dev:full:ps1   (or  .\scripts\dev.ps1  /  powershell -File scripts\dev.ps1)
 #
 # Assumes Docker Desktop is already up (start it yourself first) - this script only brings up
-# the falcon-web-db Postgres container (docker-compose.yml's postgres service), waits until it
+# the tcbpc-web-db Postgres container (docker-compose.yml's postgres service), waits until it
 # is actually accepting connections, then runs "next dev".
 
-$DbContainer = "falcon-web-db"
-$DbUser = "falcon"
+$DbContainer = "tcbpc-web-db"
+$DbUser = "tcbpc"
 $MaxWaitSeconds = 30
 $PollIntervalSeconds = 1
 

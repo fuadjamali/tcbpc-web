@@ -1,68 +1,77 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+Guidance for Claude Code when working in this repository.
 
-## Status
+@AGENTS.md
 
-This repository is currently empty — scaffolding has not started yet. This file describes the intended
-architecture from the project brief so setup can resume consistently. Update this file once real code,
-scripts, and config exist (re-run project init at that point for accurate commands and structure).
+## What this is
 
-## Intended stack
+"tcbpc-web" (package name `tcbpc-web`): a template/suite for small-business websites. Each client
+gets their own deployment (own Vercel project, Neon Postgres, Vercel Blob store). It has a public
+site, a Postgres-backed admin panel for nearly all content, and three pricing tiers enforced in code.
 
-- Next.js (App Router) + React
-- PostgreSQL — local via Docker for dev, Vercel Postgres for production
-- Auth.js (NextAuth) with a Credentials provider for admin login, JWT session strategy
-- Styling: Tailwind CSS (recommended)
-- Deploy target: Vercel
+Stack: Next.js 16 (App Router) + React 19, Tailwind v4, raw `pg` (no ORM), NextAuth v4 (Credentials,
+JWT) for admins, a separate HMAC-signed cookie for member login, Vercel Blob for images.
 
-## Intended routes and access control
+## Commands
 
-- `/` — Home page, public, "Coming Soon" placeholder
-- `/admin/login` — Login page, public
-- `/admin` — Admin page, protected (requires a valid session)
-- Any other/unrecognized route — returns HTTP 401 and renders a "Site Unavailable" page
-
-Access control is enforced centrally in `middleware.js`:
-- `/` and `/admin/login` are always accessible
-- `/admin` and any future protected routes require a valid session, else redirect to `/admin/login`
-- Any route not matching a known public/protected pattern returns 401 with the "Site Unavailable" page
-
-## Data model
-
-- `admins` table (Postgres): `id`, `email`, `password_hash`
-- A seed script inserts one admin with a bcrypt-hashed password
-
-## Environment configuration
-
-- `.env.example` / `.env.local.example` hold placeholders for `DATABASE_URL`, `NEXTAUTH_SECRET`, and other
-  local vs. production values — copy to `.env.local` for local dev, never commit real secrets
-- Local Postgres is defined in `docker-compose.yml`
-
-## Original project brief
-
+```bash
+docker-compose up -d        # local Postgres (host port 5436, see docker-compose.yml)
+npm run dev                 # dev server
+npm run dev:full            # start DB container + dev server together
+npm run build               # production build
+npm run lint
+npm run seed                # create first admin (SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD)
+npm run smoke-test          # route health + plan gating (BASE_URL, TEST_PLAN env vars)
+npm run db:pull-prod        # pull production DB locally
+npm run generate-identity -- --source logo.png
 ```
-Create an MVP template project called "falcon-app" with:
-Stack:
-- Next.js (App Router) + React
-- PostgreSQL (local via Docker for dev, Vercel Postgres for production)
-- Auth.js (NextAuth) with Credentials provider for admin login
-- Deploy target: Vercel
-Pages:
-1. Home Page (public) - route: / - displays a "Coming Soon" page (simple centered message/logo, no real content yet)
-2. Login Page (public) - route: /admin/login
-3. Admin Page (protected, requires login) - route: /admin
-4. Site Unavailable Page (401) - shown for any route that isn't Home, Login, or an authenticated Admin route
-Requirements:
-- Set up middleware.js so that:
-  - "/" (Home) and "/admin/login" are always accessible
-  - "/admin" and any future protected routes require a valid session, else redirect to /admin/login
-  - Any other unrecognized/future route returns a 401 status and renders the "Site Unavailable" page
-- Create an `admins` Postgres table (id, email, password_hash) with a seed script to insert one admin with a bcrypt-hashed password
-- Auth.js config using Credentials provider, JWT session strategy
-- Basic clean layout/styling (plain CSS or Tailwind — recommend Tailwind for speed)
-- Include a docker-compose.yml for local PostgreSQL
-- Include .env.example and .env.local.example with placeholders for DATABASE_URL, NEXTAUTH_SECRET, etc. (local vs production values)
-- Add a simple README with setup steps (Docker for local dev) + Vercel deployment steps
-Keep it minimal and clean — this is a starting template, not a full production app yet.
-```
+
+Env vars and deployment checklist: `docs/developer-notes.md`. Copy `.env.local.example` to `.env.local`.
+
+## Next.js 16 gotchas
+
+- Read `node_modules/next/dist/docs/` before writing Next code (see AGENTS.md).
+- `middleware.js` is now `proxy.js` (repo root). It runs on the Edge runtime, so no `pg` there.
+- `params` and `searchParams` are Promises: `const { slug } = await params`.
+- Pages that query the DB per request need `export const dynamic = "force-dynamic"` or ISR (`revalidate`).
+
+## Architecture rules that bite
+
+- **Route allowlist (`proxy.js`)**: anything not explicitly public or protected returns 401 "Site Unavailable".
+  Every new public or admin route must be added there (`PUBLIC_ROUTES`/`PUBLIC_PREFIXES`/
+  `PROTECTED_ROUTES`/`PROTECTED_PREFIXES`), including static-asset extensions and extensionless routes.
+- **Plan tiers (`PLAN` env: basic | plus | premium, default premium)**: `lib/plan.js` gates modules per route,
+  nav and home sections. A new module must be wired into `lib/plan.js` (`CORE_MODULES`, `ANCHOR_MODULES`,
+  `ADMIN_ROUTE_MODULES`, `NAV_HREF_MODULES`) and `lib/moduleSettings.js` (`MODULE_GROUPS`). Verify with
+  `curl`/smoke-test, not by eyeballing prefixes. Keep `docs/package-plans.md` in sync.
+- **No migrations directory**: each `lib/<feature>.js` has `ensureTable()` (`CREATE TABLE IF NOT EXISTS` +
+  `ALTER TABLE ADD COLUMN IF NOT EXISTS`). Guard creation against races (swallow `23505`/`42P07`, or an
+  advisory lock for seeded parent/child data). Change CHECK constraints by adding a new `_v2`-named one.
+- **Feature shape**: `lib/<feature>.js` + `app/admin/(protected)/<feature>/` (list, new, `[id]` detail,
+  `[id]/edit`, `actions.js` Server Actions) + shared `components/<Feature>Form.js`. Mutations call
+  `revalidatePath` for every public route showing the data, delete uses `DeleteButton` confirmation,
+  images use `ImageFileInput` + `lib/blob.js`.
+- **Content is DB-backed**; `config/site.js` only keeps a few static keys. Set an optional section to `null` to remove it.
+- **Never nest `<form>`** (e.g. the AI button calls its server action directly).
+- **Cookies** can't be modified in Server Components; use `redirect()` or a Server Action.
+- **Members**: public flows linking records to a member use `getActiveMemberSession()`, not `getMemberSession()`.
+  Order/booking member ids are derived server-side, never from client input.
+- **Dates**: compute "today" from local date parts, not `toISOString()`.
+- **Full-bleed images** use `object-contain object-bottom` below `sm:`, not `object-cover`.
+- **Theming**: use the theme tokens (`bg-primary`, `bg-surface`, `text-muted`, `border-border`), not hardcoded grays.
+- **Testing Server Actions**: `curl` can't invoke them; use a real browser (`form.requestSubmit()`).
+
+## Docs
+
+All in `docs/`; keep them current when features change.
+
+- `modules-blueprint.md`: full feature inventory (source of truth)
+- `developer-notes.md`: env vars, tiers, deployment, architecture gotchas
+- `package-plans.md`: client-facing tiers and pricing (`lib/planFeatures.js` holds the prices)
+- `hero-partners-about-gallery-internals.md`, `site-content-sections-extended.md`, `team-people-internals.md`,
+  `whatsapp-cta-internals.md`, `portfolio-links-sizes-previews.md`: per-feature internals
+- `future-work.md`, `multilingual-i18n-plan.md`, `todo-live-site-launch.md`: backlog and plans
+- `work-log.md`: reconstructed work history
+
+`PLAN.md` is the original MVP build log and is historical; `README.md` covers first-time setup.

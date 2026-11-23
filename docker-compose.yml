@@ -1,16 +1,16 @@
 services:
   postgres:
     image: postgres:17-alpine
-    container_name: falcon-web-db
+    container_name: tcbpc-web-db
     restart: unless-stopped
     environment:
-      POSTGRES_USER: falcon
-      POSTGRES_PASSWORD: falcon
-      POSTGRES_DB: falcon_web
+      POSTGRES_USER: tcbpc
+      POSTGRES_PASSWORD: tcbpc
+      POSTGRES_DB: tcbpc_web
     ports:
       - "5436:5432"
     volumes:
-      - falcon-web-db-data:/var/lib/postgresql/data
+      - tcbpc-web-db-data:/var/lib/postgresql/data
 
 volumes:
-  falcon-web-db-data:
+  tcbpc-web-db-data:
