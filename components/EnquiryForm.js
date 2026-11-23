@@ -14,7 +14,7 @@ function topicMessage(topic) {
 // The home page's quote/enquiry form (POST /api/enquiries, read at /admin/enquiries). Name,
 // phone, email and message are required; business name is optional. A click on any
 // `data-quote-topic` button elsewhere on the page (see QuotePrefill.js) pre-fills the message.
-export default function EnquiryForm() {
+export default function EnquiryForm({ privacyHref = null }) {
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
   const [message, setMessage] = useState("");
 
@@ -136,6 +136,16 @@ export default function EnquiryForm() {
       {status === "error" && (
         <p className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
           Something went wrong — please try again.
+        </p>
+      )}
+
+      {privacyHref && (
+        <p className="text-center text-xs text-muted">
+          Your details are only used to reply to your enquiry. See our{" "}
+          <a href={privacyHref} className="font-semibold underline">
+            privacy policy
+          </a>
+          .
         </p>
       )}
 

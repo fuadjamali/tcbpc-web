@@ -2,13 +2,11 @@
 
 import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
-import ColorThemeSwitcher from "@/components/ColorThemeSwitcher";
 
 export default function GlobalError({ reset }) {
   return (
     <div className="min-h-screen bg-surface-alt">
-      <div className="fixed right-6 top-6 flex items-center gap-2">
-        <ColorThemeSwitcher />
+      <div className="fixed right-6 top-20 flex items-center gap-2">
         <ThemeToggle />
       </div>
 

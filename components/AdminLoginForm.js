@@ -7,7 +7,7 @@ import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ColorThemeSwitcher from "@/components/ColorThemeSwitcher";
 
-export default function AdminLoginForm({ businessName, heading, subheading }) {
+export default function AdminLoginForm({ businessName, heading, subheading, themesEnabled = true }) {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -37,8 +37,8 @@ export default function AdminLoginForm({ businessName, heading, subheading }) {
 
   return (
     <div className="min-h-screen bg-surface-alt">
-      <div className="fixed right-6 top-6 flex items-center gap-2">
-        <ColorThemeSwitcher />
+      <div className="fixed right-6 top-20 flex items-center gap-2">
+        {themesEnabled && <ColorThemeSwitcher />}
         <ThemeToggle />
       </div>
 

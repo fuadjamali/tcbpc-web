@@ -7,6 +7,8 @@ import { getBusinessInfo } from "@/lib/businessInfo";
 import { getContactInfo } from "@/lib/contactInfo";
 import { getSocialSettings, getWhatsappHref } from "@/lib/socialSettings";
 import { buildPageMetadata } from "@/lib/seo";
+import { notFound } from "next/navigation";
+import siteConfig from "@/config/site";
 
 // ISR like the home page: the closing band reads WhatsApp/phone from the database, so without
 // this the page is frozen at build time. Admin Social/Contact saves also revalidate it.
@@ -46,6 +48,8 @@ function categorise(features) {
 }
 
 export default async function ComparePlansPage() {
+  // The template's own pricing page — hidden on client sites, where the Plans section is off.
+  if (!siteConfig.plans) notFound();
   const categories = categorise(FEATURES);
   const business = await getBusinessInfo();
   const contact = await getContactInfo();

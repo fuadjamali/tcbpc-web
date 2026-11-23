@@ -10,7 +10,7 @@ locked, not just a sales description.
 
 Flat rates, not ranges. Setup fees were raised in Nov 2026; monthly fees were kept the same.
 This is the price shown on the live site's Plans section and the printed flyer
-(`lib/planFeatures.js`, `docs/falcon-web-suite-flyer.html`). The downloadable flyer PDF served by the site is `public/downloads/falcon-web-suite-flyer.pdf` — copy `docs/falcon-web-suite-flyer.pdf` over it whenever the flyer is regenerated.
+(`lib/planFeatures.js`, `docs/falcon-web-suite-flyer.html`). The flyer PDF lives at `docs/falcon-web-suite-flyer.pdf`; it is no longer served from `public/` on client sites (the Plans section and `/compare-plans` are off when `config/site.js` `plans` is null). To offer it on the template's own marketing site, copy it to `public/downloads/falcon-web-suite-flyer.pdf`.
 
 | | **Basic** | **Plus** | **Premium** |
 |---|:---:|:---:|:---:|

@@ -2,6 +2,7 @@ import Logo from "@/components/Logo";
 import ThemeToggle from "@/components/ThemeToggle";
 import ColorThemeSwitcher from "@/components/ColorThemeSwitcher";
 import { getSiteText } from "@/lib/siteText";
+import { getModuleStates, isEnabled } from "@/lib/plan";
 
 export const dynamic = "force-dynamic";
 
@@ -11,15 +12,16 @@ export const dynamic = "force-dynamic";
 export const metadata = { robots: { index: false, follow: false } };
 
 export default async function SiteUnavailablePage() {
-  const siteText = await getSiteText();
+  const [siteText, moduleStates] = await Promise.all([getSiteText(), getModuleStates()]);
+  const themesEnabled = isEnabled("themes", moduleStates);
   const errorCodeLabel = siteText.unavailable_error_code_label;
   const heading = siteText.unavailable_heading;
   const message = siteText.unavailable_message;
 
   return (
     <div className="min-h-screen bg-surface-alt">
-      <div className="fixed right-6 top-6 flex items-center gap-2">
-        <ColorThemeSwitcher />
+      <div className="fixed right-6 top-20 flex items-center gap-2">
+        {themesEnabled && <ColorThemeSwitcher />}
         <ThemeToggle />
       </div>
 

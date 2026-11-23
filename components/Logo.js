@@ -1,27 +1,37 @@
 "use client";
 
 import { useLogoUrl } from "@/components/LogoContext";
+import { useBusinessName } from "@/components/BusinessNameContext";
+import { monogram } from "@/lib/brand";
 
-// Falls back to the built-in vector mark whenever no logo has been uploaded at /admin/logo —
-// every one of this component's ~20 call sites across the site keeps working unchanged, since
-// they just render <Logo className="..." /> and never need to know which case applies.
+// The uploaded logo (/admin/logo) when there is one; otherwise a monogram badge built from the
+// business name (e.g. "TC") in the brand teal — so a site that hasn't uploaded a logo shows its
+// own initials, never the template's mark. Every call site keeps working unchanged: they just
+// render <Logo className="..." /> and the badge scales with that size.
 export default function Logo({ className = "h-7 w-7" }) {
   const logoUrl = useLogoUrl();
+  const businessName = useBusinessName();
 
   if (logoUrl) {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src={logoUrl} alt="" className={`${className} object-contain`} />;
   }
 
+  const initials = monogram(businessName) || "•";
   return (
-    <svg
-      viewBox="0 0 100 100"
-      className={className}
-      fill="currentColor"
-      fillRule="evenodd"
-      aria-hidden="true"
-    >
-      <path d="M50,10 L85,20 L92,50 L80,80 L55,92 L40,92 L48,70 L35,66 L12,72 L25,56 L5,48 L25,38 L18,26 L32,18 Z M38,34 A6,6 0 1,1 37.99,34 Z" />
+    <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
+      <rect width="64" height="64" rx="16" fill="#3CEAC7" />
+      <text
+        x="32"
+        y="43"
+        textAnchor="middle"
+        fontFamily="Inter, Arial, Helvetica, sans-serif"
+        fontSize={initials.length > 2 ? 24 : 30}
+        fontWeight="800"
+        fill="#180F06"
+      >
+        {initials}
+      </text>
     </svg>
   );
 }

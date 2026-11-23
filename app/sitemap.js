@@ -4,6 +4,7 @@ import { getItems } from "@/lib/newsEvents";
 import { getPhotos } from "@/lib/gallery";
 import { getModuleStates, isEnabled } from "@/lib/plan";
 import { getAllLegalPages } from "@/lib/legalPages";
+import siteConfig from "@/config/site";
 
 export default async function sitemap() {
   const baseUrl = process.env.NEXTAUTH_URL || "http://localhost:3000";
@@ -16,15 +17,18 @@ export default async function sitemap() {
       changeFrequency: "monthly",
       priority: 1,
     },
-    // Always public regardless of plan/module (proxy.js's PUBLIC_ROUTES) — the pricing
-    // comparison page every visitor can reach.
-    {
+  ];
+
+  // The template's own pricing comparison — only when the Plans section is in use
+  // (config/site.js `plans`); a client site has it set to null and the page 404s.
+  if (siteConfig.plans) {
+    entries.push({
       url: `${baseUrl}/compare-plans`,
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.5,
-    },
-  ];
+    });
+  }
 
   // Was previously unconditional — membership lookup is a Premium-only feature
   // (lib/plan.js's PREMIUM_MODULES), so a Basic/Plus deployment was listing a page that 401s.
@@ -67,14 +71,18 @@ export default async function sitemap() {
     });
   }
 
+  // Product detail pages are only listed when the home page links to them — the card-style
+  // showcase (a flagship product is set) keeps everything on the home page instead.
   const products = await getProducts();
-  for (const product of products) {
-    entries.push({
-      url: `${baseUrl}/products/${product.id}`,
-      lastModified: new Date(product.updated_at),
-      changeFrequency: "monthly",
-      priority: 0.6,
-    });
+  if (!products.some((p) => p.is_flagship)) {
+    for (const product of products) {
+      entries.push({
+        url: `${baseUrl}/products/${product.id}`,
+        lastModified: new Date(product.updated_at),
+        changeFrequency: "monthly",
+        priority: 0.6,
+      });
+    }
   }
 
   if (isEnabled("blog", moduleStates)) {

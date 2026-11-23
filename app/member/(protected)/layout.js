@@ -43,7 +43,7 @@ export default async function MemberProtectedLayout({ children }) {
               View site
             </a>
             <ColorThemeSwitcher className="hidden sm:inline-block" />
-            <ThemeToggle className="hidden sm:inline-block" />
+            <ThemeToggle className="hidden sm:inline-flex" />
             <MemberSignOutButton />
           </div>
         </div>

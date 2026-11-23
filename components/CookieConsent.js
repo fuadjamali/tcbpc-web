@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { CONSENT_EVENT, CONSENT_KEY, getConsent } from "@/lib/consent";
 
-export default function CookieConsent({ message, acceptLabel, declineLabel }) {
+export default function CookieConsent({ message, acceptLabel, declineLabel, privacyHref }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,17 @@ export default function CookieConsent({ message, acceptLabel, declineLabel }) {
 
   return (
     <div className="fixed bottom-20 left-4 right-4 z-40 max-w-sm md:bottom-6 md:left-6 md:right-auto rounded-xl border border-border bg-surface p-4 shadow-lg">
-      <p className="text-sm text-foreground">{message}</p>
+      <p className="text-sm text-foreground">
+        {message}
+        {privacyHref && (
+          <>
+            {" "}
+            <a href={privacyHref} className="font-semibold underline">
+              Privacy policy
+            </a>
+          </>
+        )}
+      </p>
       <div className="mt-3 flex gap-2">
         <button
           type="button"

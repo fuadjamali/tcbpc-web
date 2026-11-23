@@ -90,7 +90,7 @@ export default function SiteHeader({
         <div className="flex items-center gap-3">
           {cartEnabled && <CartIcon />}
           {themesEnabled && <ColorThemeSwitcher className="hidden sm:inline-block" />}
-          <ThemeToggle className="hidden !border-white/25 !text-white hover:!bg-white/10 sm:inline-block" />
+          <ThemeToggle className="hidden !border-white/25 !text-white hover:!bg-white/10 sm:inline-flex" />
           {membersEnabled && (
             <a
               href="/member/login"

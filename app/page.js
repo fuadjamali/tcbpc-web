@@ -425,7 +425,16 @@ export default async function Home({ searchParams }) {
       </div>
     </aside>
   );
-  const jsonLd = buildLocalBusinessJsonLd({ business, address: contactInfo.address, siteConfig });
+  const jsonLd = buildLocalBusinessJsonLd({
+    business,
+    address: contactInfo.address,
+    contact: contactInfo,
+    siteConfig,
+  });
+  // Linked from the quote form and cookie banner once the admin has published it (/admin/legal).
+  const privacyHref = publishedLegalPages.some((p) => p.slug === "privacy-policy")
+    ? "/privacy-policy"
+    : null;
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -1248,7 +1257,7 @@ export default async function Home({ searchParams }) {
               <p className="mt-2 text-sm text-muted sm:text-base">{enquiryForm.subheading}</p>
             </div>
             <div className="mx-auto max-w-xl">
-              <EnquiryForm />
+              <EnquiryForm privacyHref={privacyHref} />
             </div>
           </div>
         </section>
@@ -1301,6 +1310,7 @@ export default async function Home({ searchParams }) {
         message={siteText.cookie_message}
         acceptLabel={siteText.cookie_accept_label}
         declineLabel={siteText.cookie_decline_label}
+        privacyHref={privacyHref}
       />
     </div>
   );
