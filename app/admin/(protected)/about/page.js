@@ -22,6 +22,7 @@ export default async function AdminAboutPage() {
           bodyFieldId="about-body"
           aiEnabled={aiEnabled}
           allowBehindPosition
+          showSubtitle
           hidesWhenBodyEmpty={false}
         />
       </div>

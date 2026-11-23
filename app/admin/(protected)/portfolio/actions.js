@@ -24,6 +24,11 @@ async function readForm(formData) {
     name: formData.get("name")?.toString().trim() || "",
     description: formData.get("description")?.toString().trim() || "",
     displayOrder: parseInt(formData.get("displayOrder"), 10) || 0,
+    badge: formData.get("badge")?.toString().trim() || "",
+    sector: formData.get("sector")?.toString().trim() || "",
+    solution: formData.get("solution")?.toString().trim() || "",
+    benefit: formData.get("benefit")?.toString().trim() || "",
+    statusText: formData.get("statusText")?.toString().trim() || "",
     websiteUrl,
     imageSize: formData.get("imageSize")?.toString() || "",
     livePreview,
@@ -34,9 +39,9 @@ async function readForm(formData) {
 export async function createPortfolioItemAction(formData) {
   const data = await readForm(formData);
 
-  const image = await uploadImage(formData.get("imageFile"), "portfolio");
-  if (!image) return;
-  data.image = image;
+  // Image is optional now — a case-study card (sector/solution/benefit) needs no photo.
+  data.image = (await uploadImage(formData.get("imageFile"), "portfolio")) || null;
+  if (!data.image && !data.name) return;
 
   await createPortfolioItem(data);
 
@@ -56,7 +61,7 @@ export async function updatePortfolioItemAction(id, formData) {
   } else {
     data.image = existing?.image;
   }
-  if (!data.image) return;
+  if (!data.image && !data.name) return;
 
   await updatePortfolioItem(id, data);
 

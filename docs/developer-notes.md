@@ -433,3 +433,26 @@ panel text/nav — see modules-blueprint.md 1.10 and 8.5) follow a lighter versi
 shape: a `lib/<feature>.js` with the same self-migrating schema and CRUD, but usually one admin
 page with an inline form per item rather than the full List/Create/Detail/Edit/Delete route
 tree, since these are small, fixed-shape lists (or singletons) rather than open-ended content.
+
+## Card-style home page design (TC Business Payments Consultant)
+
+The home page has a "card-style" look (fixed brand bands: top bar, dark header, split hero,
+metrics bar, flagship product spotlight, green portfolio band, About + process, referral banner,
+quote card, three-column footer). It is still fully data-driven — nothing is hard-coded — and
+every block is editable in the admin panel:
+
+| Block | Source (admin page) |
+|---|---|
+| Top bar | Root Alert message + Contact Us phone/email |
+| Split hero (`layout = split`) | Hero slide: eyebrow, trust points, floating badges, product shown on the stage — the stage uses that product's photos (label = finish toggle, caption) |
+| Metrics bar | Stats |
+| Flagship spotlight + product cards | Products: "Home-page showcase" fields (flagship tick, badges, feature cards, service line, button label, quote topic, icon) and per-photo label/caption |
+| Payment-methods strip, footer regulatory text | Site Text → Footer & Payment Methods |
+| Section eyebrow pills | Section Text (eyebrow field) |
+| Portfolio case-study cards | Portfolio: badge, sector, solution, status, benefit (image optional) |
+| About card + process steps | About (subtitle field) + How It Works, rendered together when both are on |
+| Referral banner | Refer a Friend (`/admin/referral`, `lib/referral.js`) — own on/off switch, works on every plan |
+| Quote form | Section Text → Send an Enquiry; business name is stored on `enquiries.business_name`; any link with `data-quote-topic` pre-fills the message (`components/QuotePrefill.js`) |
+
+Constant brand colours live in `app/globals.css` (`--brand-*`, used as `bg-brand-deep`, `text-brand-teal`
+etc.) so these bands look the same in light/dark mode. `npm run seed:tcbpc` loads the TC content.

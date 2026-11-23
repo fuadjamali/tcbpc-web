@@ -12,8 +12,7 @@ export default function PortfolioItemForm({ action, item, submitLabel, aiEnabled
         name="imageFile"
         label="Image"
         currentImage={item?.image}
-        required={!item}
-        helpText={item ? undefined : "Required."}
+        helpText="Optional — case-study cards (the fields below) don't need a photo."
       />
 
       <div>
@@ -41,6 +40,38 @@ export default function PortfolioItemForm({ action, item, submitLabel, aiEnabled
           <AIAssistantButton targetId="portfolio-description" fieldLabel="portfolio project description" />
         )}
       </div>
+
+      <fieldset className="space-y-4 rounded-lg border border-border bg-surface-alt p-4">
+        <legend className="px-1 text-sm font-semibold text-foreground">Case-study card (optional)</legend>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-foreground">Badge</label>
+            <input name="badge" defaultValue={item?.badge} placeholder="Live Activation" className={fieldClass} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground">Sector</label>
+            <input name="sector" defaultValue={item?.sector} placeholder="Tech & Mobile Retail" className={fieldClass} />
+          </div>
+        </div>
+        <div>
+          <label className="block text-sm font-medium text-foreground">Hardware / solution</label>
+          <input name="solution" defaultValue={item?.solution} placeholder="Multi-Terminal Dojo Go" className={fieldClass} />
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-foreground">Footer — status</label>
+            <input name="statusText" defaultValue={item?.status_text} placeholder="Status: Accepting Payments" className={fieldClass} />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground">Footer — benefit</label>
+            <input name="benefit" defaultValue={item?.benefit} placeholder="✓ Verified Milestone" className={fieldClass} />
+          </div>
+        </div>
+        <p className="text-xs text-muted">
+          When a badge, sector or solution is filled in, the project is shown as a case-study card
+          instead of an image card.
+        </p>
+      </fieldset>
 
       <PortfolioDisplayFields item={item} />
 

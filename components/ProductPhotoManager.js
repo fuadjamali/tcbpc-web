@@ -6,6 +6,7 @@ import {
   addProductPhotoAction,
   setCoverPhotoAction,
   updatePhotoOrderAction,
+  updatePhotoTextAction,
   deleteProductPhotoAction,
 } from "@/app/admin/(protected)/products/actions";
 import ImageCropModal from "@/components/ImageCropModal";
@@ -161,6 +162,18 @@ export default function ProductPhotoManager({ productId, photos: initialPhotos }
     await updatePhotoOrderAction(formData);
   }
 
+  async function handleTextChange(photo, field, value) {
+    if ((photo[field] || "") === value) return;
+    const next = { ...photo, [field]: value };
+    setPhotos((prev) => prev.map((p) => (p.id === photo.id ? next : p)));
+    const formData = new FormData();
+    formData.set("productId", productId);
+    formData.set("photoId", photo.id);
+    formData.set("label", next.label || "");
+    formData.set("caption", next.caption || "");
+    await updatePhotoTextAction(formData);
+  }
+
   async function handleDelete(photo) {
     if (!window.confirm("Delete this photo? This can't be undone.")) return;
     setMutating(true);
@@ -220,6 +233,27 @@ export default function ProductPhotoManager({ productId, photos: initialPhotos }
                     onBlur={(e) => handleOrderChange(photo.id, e.target.value)}
                     className="mt-1 w-full rounded-md border border-border bg-surface px-1.5 py-1 text-xs text-foreground"
                     title="Display order"
+                  />
+                </label>
+
+                <label className="block text-xs text-muted">
+                  Label (e.g. finish name)
+                  <input
+                    type="text"
+                    maxLength={60}
+                    defaultValue={photo.label || ""}
+                    onBlur={(e) => handleTextChange(photo, "label", e.target.value)}
+                    className="mt-1 w-full rounded-md border border-border bg-surface px-1.5 py-1 text-xs text-foreground"
+                  />
+                </label>
+                <label className="block text-xs text-muted">
+                  Caption
+                  <input
+                    type="text"
+                    maxLength={255}
+                    defaultValue={photo.caption || ""}
+                    onBlur={(e) => handleTextChange(photo, "caption", e.target.value)}
+                    className="mt-1 w-full rounded-md border border-border bg-surface px-1.5 py-1 text-xs text-foreground"
                   />
                 </label>
 

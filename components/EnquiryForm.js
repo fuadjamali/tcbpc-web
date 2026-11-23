@@ -1,9 +1,30 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { QUOTE_TOPIC_EVENT } from "@/components/QuotePrefill";
 
+const fieldClass =
+  "mt-1.5 w-full rounded-xl border border-foreground/20 bg-surface px-4 py-3.5 text-sm text-foreground placeholder-muted transition focus:border-primary focus:outline-none focus:ring-2 focus:ring-accent";
+const labelClass = "block text-sm font-bold text-foreground";
+
+function topicMessage(topic) {
+  return `Hi, I'm interested in learning more about: ${topic}. Please get in touch for a quote/review.`;
+}
+
+// The home page's quote/enquiry form (POST /api/enquiries, read at /admin/enquiries). Name,
+// phone, email and message are required; business name is optional. A click on any
+// `data-quote-topic` button elsewhere on the page (see QuotePrefill.js) pre-fills the message.
 export default function EnquiryForm() {
   const [status, setStatus] = useState("idle"); // idle | loading | success | error
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    function onTopic(e) {
+      setMessage(topicMessage(e.detail));
+    }
+    window.addEventListener(QUOTE_TOPIC_EVENT, onTopic);
+    return () => window.removeEventListener(QUOTE_TOPIC_EVENT, onTopic);
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -14,7 +35,8 @@ export default function EnquiryForm() {
       name: form.name.value,
       email: form.email.value,
       phone: form.phone.value,
-      message: form.message.value,
+      businessName: form.businessName.value,
+      message,
     };
 
     try {
@@ -27,6 +49,8 @@ export default function EnquiryForm() {
       if (!res.ok) throw new Error("Request failed");
 
       setStatus("success");
+      setMessage("");
+      window.__quoteTopic = undefined;
       form.reset();
     } catch {
       setStatus("error");
@@ -35,13 +59,13 @@ export default function EnquiryForm() {
 
   if (status === "success") {
     return (
-      <div className="mt-10 rounded-lg border border-border bg-surface p-6 text-center">
-        <p className="font-semibold text-foreground">Thanks — your enquiry has been sent.</p>
-        <p className="mt-1 text-sm text-muted">We&apos;ll get back to you soon.</p>
+      <div className="mt-8 rounded-2xl border border-brand-teal bg-brand-deep p-6 text-center text-white">
+        <p className="font-bold text-brand-teal">Thank you — your enquiry has been sent.</p>
+        <p className="mt-1 text-sm text-white/90">We&apos;ll get back to you directly.</p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-4 text-sm font-medium text-accent underline"
+          className="mt-4 text-sm font-semibold text-brand-teal underline"
         >
           Send another
         </button>
@@ -50,64 +74,80 @@ export default function EnquiryForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-10 space-y-4">
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div>
-          <label className="block text-sm font-medium text-foreground">Name</label>
-          <input
-            type="text"
-            name="name"
-            required
-            placeholder="Your name"
-            className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-foreground">Phone</label>
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Optional"
-            className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none"
-          />
-        </div>
+    <form onSubmit={handleSubmit} className="mt-8 space-y-5">
+      <div>
+        <label className={labelClass}>
+          Name <span className="text-red-600">*</span>
+        </label>
+        <input type="text" name="name" required placeholder="Your name" className={fieldClass} />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-foreground">Email</label>
+        <label className={labelClass}>
+          Phone <span className="text-red-600">*</span>
+        </label>
+        <input
+          type="tel"
+          name="phone"
+          required
+          placeholder="Your phone number"
+          className={fieldClass}
+        />
+      </div>
+
+      <div>
+        <label className={labelClass}>
+          Email <span className="text-red-600">*</span>
+        </label>
         <input
           type="email"
           name="email"
           required
-          placeholder="you@example.com"
-          className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none"
+          placeholder="Your email address"
+          className={fieldClass}
         />
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-foreground">Message</label>
+        <label className={labelClass}>Business Name</label>
+        <input
+          type="text"
+          name="businessName"
+          placeholder="Your business name (optional)"
+          className={fieldClass}
+        />
+      </div>
+
+      <div>
+        <label className={labelClass}>
+          Message <span className="text-red-600">*</span>
+        </label>
         <textarea
           name="message"
           rows={4}
           required
-          placeholder="Tell us what you're looking for"
-          className="mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          placeholder="Tell us about your business and what you need..."
+          className={fieldClass}
         />
       </div>
 
       {status === "error" && (
-        <p className="text-sm text-red-600 dark:text-red-400">
+        <p className="rounded-2xl border border-red-200 bg-red-50 p-4 text-sm font-medium text-red-800">
           Something went wrong — please try again.
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={status === "loading"}
-        className="w-full rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground hover:bg-primary-hover disabled:opacity-50"
-      >
-        {status === "loading" ? "Sending..." : "Send enquiry"}
-      </button>
+      <div className="pt-2 text-center">
+        <button
+          type="submit"
+          disabled={status === "loading"}
+          className="w-full min-w-[220px] rounded-full bg-brand-teal px-8 py-4 text-base font-extrabold text-brand-ink shadow-lg shadow-brand-teal/25 transition hover:bg-brand-teal-hover active:scale-95 disabled:opacity-50 sm:w-auto"
+        >
+          {status === "loading" ? "Sending..." : "Send Message"}
+        </button>
+      </div>
     </form>
   );
 }

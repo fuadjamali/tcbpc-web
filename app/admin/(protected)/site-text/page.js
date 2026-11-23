@@ -1,6 +1,7 @@
 import { getSiteText } from "@/lib/siteText";
 import CookieConsentForm from "@/components/CookieConsentForm";
 import SiteUnavailableForm from "@/components/SiteUnavailableForm";
+import FooterTextForm from "@/components/FooterTextForm";
 
 export const dynamic = "force-dynamic";
 
@@ -9,6 +10,17 @@ export default async function AdminSiteTextPage() {
 
   return (
     <div className="w-full max-w-2xl space-y-6 px-6">
+      <div className="rounded-xl border border-border bg-surface p-8 shadow-sm">
+        <h1 className="text-xl font-bold text-foreground">Footer &amp; Payment Methods</h1>
+        <p className="mt-1 text-sm text-muted">
+          The regulatory statement shown at the bottom of every page, and the &quot;accepted
+          payment methods&quot; strip under the products section.
+        </p>
+        <div className="mt-6">
+          <FooterTextForm values={siteText} />
+        </div>
+      </div>
+
       <div className="rounded-xl border border-border bg-surface p-8 shadow-sm">
         <h1 className="text-xl font-bold text-foreground">Cookie Consent Banner</h1>
         <p className="mt-1 text-sm text-muted">

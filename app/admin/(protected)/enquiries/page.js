@@ -14,8 +14,9 @@ async function getEnquiries() {
         created_at TIMESTAMPTZ NOT NULL DEFAULT now()
       );
     `);
+    await db.query(`ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS business_name VARCHAR(255)`);
     const result = await db.query(
-      "SELECT id, name, email, phone, message, created_at FROM enquiries ORDER BY created_at DESC LIMIT 100"
+      "SELECT id, name, email, phone, message, business_name, created_at FROM enquiries ORDER BY created_at DESC LIMIT 100"
     );
     return result.rows;
   } catch {
@@ -47,6 +48,7 @@ export default async function EnquiriesPage() {
                   </p>
                 </div>
                 <p className="mt-1 text-sm text-muted">
+                  {enquiry.business_name ? `${enquiry.business_name} · ` : ""}
                   {enquiry.email}
                   {enquiry.phone ? ` · ${enquiry.phone}` : ""}
                 </p>

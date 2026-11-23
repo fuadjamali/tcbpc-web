@@ -35,6 +35,13 @@ export default function SectionHeadingForm({ def, values }) {
       ) : (
         <div />
       )}
+      <input
+        type="text"
+        name="eyebrow"
+        defaultValue={values.eyebrow || ""}
+        placeholder="Small pill above the heading (optional)"
+        className={`${fieldClass} sm:col-start-2 sm:col-span-2`}
+      />
       <div className="flex items-start pt-1">
         <button
           type="submit"

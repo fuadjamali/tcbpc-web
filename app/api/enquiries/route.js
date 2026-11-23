@@ -12,6 +12,7 @@ async function ensureTable() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT now()
     );
   `);
+  await db.query(`ALTER TABLE enquiries ADD COLUMN IF NOT EXISTS business_name VARCHAR(255)`);
 }
 
 export async function POST(request) {
@@ -27,8 +28,8 @@ export async function POST(request) {
   await ensureTable();
 
   await db.query(
-    "INSERT INTO enquiries (name, email, phone, message) VALUES ($1, $2, $3, $4)",
-    [body.name, body.email, body.phone || null, body.message]
+    "INSERT INTO enquiries (name, email, phone, message, business_name) VALUES ($1, $2, $3, $4, $5)",
+    [body.name, body.email, body.phone || null, body.message, body.businessName || null]
   );
 
   return NextResponse.json({ ok: true }, { status: 201 });

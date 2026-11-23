@@ -12,7 +12,8 @@ const labelClass = "block text-sm font-medium text-foreground";
 // One slide's full editor — used by both /admin/hero/new and /admin/hero/[id]/edit. `slide` is
 // null on the create page. Reordering, activating, and deleting all happen from the list page
 // (app/admin/(protected)/hero/page.js) instead, same split as Products.
-export default function HeroSlideForm({ slide, action, submitLabel = "Save" }) {
+export default function HeroSlideForm({ slide, action, submitLabel = "Save", products = [] }) {
+  const [layout, setLayout] = useState(slide?.layout || "fullbleed");
   const [mediaType, setMediaType] = useState(slide?.media_type || "image");
   const [focalPosition, setFocalPosition] = useState(slide?.focal_position ?? 50);
 
@@ -35,7 +36,8 @@ export default function HeroSlideForm({ slide, action, submitLabel = "Save" }) {
           className={fieldClass}
         />
         <p className="mt-1 text-xs text-muted">
-          Two short statements separated by &quot;. &quot; render as two lines automatically.
+          Two short statements separated by &quot;. &quot; render as two lines automatically. In the
+          split layout, wrap words in **double asterisks** to highlight them in the accent colour.
         </p>
       </div>
 
@@ -48,6 +50,60 @@ export default function HeroSlideForm({ slide, action, submitLabel = "Save" }) {
           className={fieldClass}
         />
       </div>
+
+      <div>
+        <label className={labelClass}>Layout</label>
+        <select
+          name="layout"
+          value={layout}
+          onChange={(e) => setLayout(e.target.value)}
+          className={fieldClass}
+        >
+          <option value="fullbleed">Full-width background (centred text)</option>
+          <option value="split">Split — copy on the left, product stage on the right</option>
+        </select>
+      </div>
+
+      {layout === "split" && (
+        <div className="space-y-4 rounded-lg border border-border bg-surface-alt p-4">
+          <div>
+            <label className={labelClass}>Eyebrow (small pill above the heading)</label>
+            <input name="eyebrow" defaultValue={slide?.eyebrow || ""} className={fieldClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Trust points (one per line)</label>
+            <textarea
+              name="trustPoints"
+              rows={3}
+              defaultValue={slide?.trust_points || ""}
+              className={fieldClass}
+            />
+          </div>
+          <div>
+            <label className={labelClass}>Floating badges on the product (one per line, up to 2)</label>
+            <textarea name="badges" rows={2} defaultValue={slide?.badges || ""} className={fieldClass} />
+          </div>
+          <div>
+            <label className={labelClass}>Product shown on the stage</label>
+            <select
+              name="stageProductId"
+              defaultValue={slide?.stage_product_id || ""}
+              className={fieldClass}
+            >
+              <option value="">The flagship product</option>
+              {products.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.name}
+                </option>
+              ))}
+            </select>
+            <p className="mt-1 text-xs text-muted">
+              The stage uses that product&apos;s photos (set each photo&apos;s finish label and caption on
+              the product page). The background image/video below is not used in this layout.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div>
         <label className={labelClass}>Background</label>

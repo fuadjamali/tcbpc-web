@@ -8,6 +8,7 @@ import {
   addProductPhoto,
   setCoverPhoto,
   updatePhotoOrder,
+  updatePhotoText,
   deleteProductPhoto,
 } from "@/lib/productPhotos";
 import { deleteImage } from "@/lib/blob";
@@ -21,6 +22,14 @@ function readForm(formData) {
     priceAmount: priceAmountRaw ? parseFloat(priceAmountRaw) : null,
     category: formData.get("category")?.toString().trim() || "",
     displayOrder: parseInt(formData.get("displayOrder"), 10) || 0,
+    isFlagship: formData.get("isFlagship") === "on",
+    badges: formData.get("badges")?.toString().trim() || "",
+    features: formData.get("features")?.toString().trim() || "",
+    serviceLabel: formData.get("serviceLabel")?.toString().trim() || "",
+    serviceText: formData.get("serviceText")?.toString().trim() || "",
+    ctaLabel: formData.get("ctaLabel")?.toString().trim() || "",
+    ctaTopic: formData.get("ctaTopic")?.toString().trim() || "",
+    icon: formData.get("icon")?.toString() || "",
   };
 }
 
@@ -97,6 +106,19 @@ export async function updatePhotoOrderAction(formData) {
   await updatePhotoOrder(photoId, displayOrder);
   revalidatePath(`/products/${productId}`);
   revalidatePath(`/admin/products/${productId}/edit`);
+}
+
+export async function updatePhotoTextAction(formData) {
+  const productId = formData.get("productId")?.toString();
+  const photoId = formData.get("photoId")?.toString();
+  if (!photoId) return;
+
+  await updatePhotoText(photoId, {
+    label: formData.get("label")?.toString().trim().slice(0, 60),
+    caption: formData.get("caption")?.toString().trim().slice(0, 255),
+  });
+  revalidatePath("/");
+  revalidatePath(`/products/${productId}`);
 }
 
 export async function deleteProductPhotoAction(formData) {

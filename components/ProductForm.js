@@ -1,4 +1,5 @@
 import AIAssistantButton from "@/components/AIAssistantButton";
+import { PRODUCT_ICONS } from "@/lib/products";
 
 const fieldClass =
   "mt-1 w-full rounded-lg border border-border bg-surface px-3 py-2 text-sm text-foreground placeholder-muted focus:border-accent focus:outline-none";
@@ -74,6 +75,110 @@ export default function ProductForm({ action, product, submitLabel, aiEnabled = 
           className={fieldClass}
         />
       </div>
+
+      <fieldset className="space-y-4 rounded-lg border border-border bg-surface-alt p-4">
+        <legend className="px-1 text-sm font-semibold text-foreground">Home-page showcase</legend>
+
+        <label className="flex items-start gap-2 text-sm text-foreground">
+          <input
+            type="checkbox"
+            name="isFlagship"
+            defaultChecked={product?.is_flagship}
+            className="mt-0.5 h-4 w-4 rounded border-border"
+          />
+          <span>
+            Flagship product — gets the large spotlight card and fills the split hero&apos;s product
+            stage. Only one product can be the flagship; ticking this clears it from the others.
+          </span>
+        </label>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground">Badges (one per line)</label>
+          <textarea
+            name="badges"
+            rows={2}
+            defaultValue={product?.badges}
+            placeholder={"Flagship Solution\nMulti-device deals available"}
+            className={fieldClass}
+          />
+          <p className="mt-1 text-xs text-muted">Small pills above the title (flagship card only).</p>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground">
+            Feature cards (one per line, &quot;Title | short description&quot;)
+          </label>
+          <textarea
+            name="features"
+            rows={4}
+            defaultValue={product?.features}
+            placeholder={"Built for high volume | Capacity for busy counters."}
+            className={fieldClass}
+          />
+          <p className="mt-1 text-xs text-muted">Flagship card only — up to 4 are shown.</p>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-foreground">Service line — label</label>
+            <input
+              type="text"
+              name="serviceLabel"
+              defaultValue={product?.service_label}
+              placeholder="Included Consultant Service"
+              className={fieldClass}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground">Service line — text</label>
+            <input
+              type="text"
+              name="serviceText"
+              defaultValue={product?.service_text}
+              placeholder="Free statement audit + 1-to-1 setup"
+              className={fieldClass}
+            />
+          </div>
+        </div>
+
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div>
+            <label className="block text-sm font-medium text-foreground">Button label</label>
+            <input
+              type="text"
+              name="ctaLabel"
+              defaultValue={product?.cta_label}
+              placeholder="Request a quote"
+              className={fieldClass}
+            />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-foreground">Quote topic</label>
+            <input
+              type="text"
+              name="ctaTopic"
+              defaultValue={product?.cta_topic}
+              placeholder="Dojo Go Max card machine"
+              className={fieldClass}
+            />
+            <p className="mt-1 text-xs text-muted">
+              The button scrolls to the enquiry form and pre-fills its message with this topic.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-foreground">Icon (smaller cards)</label>
+          <select name="icon" defaultValue={product?.icon || ""} className={fieldClass}>
+            <option value="">Default</option>
+            {PRODUCT_ICONS.map((icon) => (
+              <option key={icon} value={icon}>
+                {icon}
+              </option>
+            ))}
+          </select>
+        </div>
+      </fieldset>
 
       <div>
         <label className="block text-sm font-medium text-foreground">Display order</label>

@@ -22,6 +22,7 @@ export default function ImageTextSectionForm({
   aiEnabled,
   allowBehindPosition = false,
   hidesWhenBodyEmpty = true,
+  showSubtitle = false,
 }) {
   const [state, formAction, pending] = useActionState(action, {});
 
@@ -37,6 +38,22 @@ export default function ImageTextSectionForm({
           className={fieldClass}
         />
       </div>
+
+      {showSubtitle && (
+        <div>
+          <label className={labelClass}>Subtitle (optional)</label>
+          <input
+            type="text"
+            name="subtitle"
+            defaultValue={data.subtitle || ""}
+            placeholder="e.g. Self-employed Payments Consultant working on behalf of Dojo"
+            className={fieldClass}
+          />
+          <p className="mt-1 text-xs text-muted">
+            Shown under the heading on the About card. Leave blank to hide it.
+          </p>
+        </div>
+      )}
 
       <div>
         <label className={labelClass}>Body</label>

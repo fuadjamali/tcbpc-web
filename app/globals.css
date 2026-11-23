@@ -65,6 +65,18 @@
   --text-muted: #9db3ab;
 }
 
+/* Fixed brand bands (top bar, header, hero, metrics, portfolio, referral, footer): the same in
+   light and dark mode and in every theme, like the always-dark footer before them. Dojo's Serene
+   Green / Confident Black / Active Teal / Calm White. */
+:root {
+  --brand-deep: #003f33;
+  --brand-deep-light: #065747;
+  --brand-ink: #180f06;
+  --brand-teal: #3ceac7;
+  --brand-teal-hover: #2cd4b2;
+  --brand-cream: #f1f1ec;
+}
+
 /* Forest Green — matte finishing */
 [data-theme="forest"] {
   --background: #f7f8f4;
@@ -292,6 +304,12 @@
   --color-surface-alt: var(--surface-alt);
   --color-border: var(--border-color);
   --color-text-muted: var(--text-muted);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-deep-light: var(--brand-deep-light);
+  --color-brand-ink: var(--brand-ink);
+  --color-brand-teal: var(--brand-teal);
+  --color-brand-teal-hover: var(--brand-teal-hover);
+  --color-brand-cream: var(--brand-cream);
   --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }

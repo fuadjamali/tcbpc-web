@@ -1,7 +1,8 @@
 // Seeds the "TC Business Payments Consultant" site content into the database that DATABASE_URL
-// points at: business info, root alert, nav, hero slides, stats, partners, how-it-works, products
-// (Dojo Go Max flagship) + photos, portfolio, about, contact, WhatsApp, section headings,
-// switched-off modules, and unpublished privacy/terms drafts.
+// points at: business info, root alert, nav, the split hero, stats, partners, how-it-works,
+// products (Dojo Go Max flagship) + photos, portfolio case studies, about card, contact, WhatsApp,
+// referral banner, section headings, footer/regulatory text, switched-off modules, and
+// unpublished privacy/terms drafts.
 //
 // Run: npm run seed:tcbpc
 //
@@ -21,7 +22,7 @@ const WARM_UP_PATHS = ["/", "/products/1", "/news-events", "/gallery", "/blog", 
 const REQUIRED_TABLES = [
   "business_info", "root_alert", "nav_items", "hero_slides", "stats", "partners", "how_it_works_steps",
   "products", "product_photos", "portfolio_items", "about_info", "contact_info", "news_events",
-  "social_settings", "section_headings", "module_settings", "legal_pages",
+  "social_settings", "section_headings", "module_settings", "legal_pages", "referral_banner", "site_text",
 ];
 
 const DISCLOSURE = "Tausif Chowdhury is a self-employed Payments Consultant working on behalf of Dojo.";
@@ -73,39 +74,32 @@ async function seed(client) {
     ["Dojo Go Max & Solutions", "#products", false],
     ["Merchant Portfolio", "#portfolio", false],
     ["About & Process", "#about", false],
+    ["Refer a Friend", "#referral", false],
     ["Get a Quote", "#enquiry", true],
   ];
   for (const [i, [label, href, cta]] of nav.entries()) {
     await q(`INSERT INTO nav_items(label,href,cta,highlight,display_order) VALUES ($1,$2,$3,false,$4)`, [label, href, cta, i + 1]);
   }
 
+  // One split hero slide: copy + buttons on the left, the flagship product's photos on the right.
   await q(`DELETE FROM hero_slides`);
-  const slides = [
-    {
-      heading: "Upgrade the way your UK business takes card payments.",
-      sub: `Hi, I’m Tausif Chowdhury — a self-employed Payments Consultant working on behalf of Dojo. I review your current setup, cut unnecessary fees, and get your Dojo machine live — with our flagship Dojo Go Max for busy counters and hands-on local support.`,
-      image: `${IMG}/dojo-go-black-approved.webp`,
-      cta1: ["Get a Dojo Go Max Quote", "#enquiry"],
-      cta2: ["Explore Dojo Go Max", "#products"],
-      overlay: "light",
-    },
-    {
-      heading: "Refer a business, earn up to £100.",
-      sub: "£50 for your first referral, £75 for your second and £100 for every following referral — for introducing a fellow UK business to Dojo.",
-      image: `${IMG}/hero-dojo-handheld.webp`,
-      cta1: ["Refer a Business Now", "#enquiry"],
-      cta2: [null, null],
-      overlay: "dark",
-    },
-  ];
-  for (const [i, s] of slides.entries()) {
-    await q(
-      `INSERT INTO hero_slides(display_order,active,heading,subheading,media_type,background_image,
-         primary_cta_label,primary_cta_href,secondary_cta_label,secondary_cta_href,overlay_strength,text_style)
-       VALUES ($1,true,$2,$3,'image',$4,$5,$6,$7,$8,$9,'auto')`,
-      [i + 1, s.heading, s.sub, s.image, s.cta1[0], s.cta1[1], s.cta2[0], s.cta2[1], s.overlay]
-    );
-  }
+  await q(
+    `INSERT INTO hero_slides(display_order,active,layout,eyebrow,heading,subheading,media_type,
+       primary_cta_label,primary_cta_href,secondary_cta_label,secondary_cta_href,trust_points,badges,
+       overlay_strength,text_style)
+     VALUES (1,true,'split',$1,$2,$3,'image',$4,$5,$6,$7,$8,$9,'medium','auto')`,
+    [
+      "Listen First, Recommend Second",
+      "Upgrade the way your UK business takes **card payments.**",
+      `Hi, I’m Tausif Chowdhury — a self-employed Payments Consultant working on behalf of Dojo. No call centres or pushy scripts: I review your current setup, cut unnecessary fees, and get your Dojo machine live — with our flagship Dojo Go Max for busy counters and hands-on local support.`,
+      "Get a Free Rate Review & Quote",
+      "#enquiry",
+      "07394 995 810",
+      "tel:07394995810",
+      "Single dedicated point of contact\nFree statement & rate review\nNext-day payouts, 7 days a week",
+      "<2 sec Approval\nNext-day payouts",
+    ]
+  );
 
   await q(`DELETE FROM stats`);
   const stats = [
@@ -137,46 +131,71 @@ async function seed(client) {
   await q(`DELETE FROM products`);
   const products = [
     {
-      id: 2, order: 1, category: "Flagship", price: "Flagship · Free statement audit",
+      id: 2, order: 1, category: "Flagship", price: "Flagship · Free statement audit", flagship: true,
       name: "Dojo Go Max — Flagship High-Volume Card Machine",
-      desc: "My flagship setup for busy counters. Dojo Go Max gives retail stores, hospitality venues and showrooms the checkout capacity to keep queues short — add extra terminals or add-on devices as you grow, with multi-device deals available. Includes a free statement audit and direct 1-to-1 setup by Tausif.",
-      photos: [["dojo-go-black-approved", "5:4"], ["dojo-go-white-keypad", "5:4"], ["dojo-go-side-profile", "5:4"]],
+      desc: "My flagship setup for busy counters. Dojo Go Max gives retail stores, hospitality venues and showrooms the checkout capacity to keep queues short — add extra terminals or add-on devices as you grow, with multi-device deals available.",
+      badges: "Flagship Solution\nMulti-device deals available",
+      features: "Built for high volume | Checkout capacity for busy retail, hospitality and showrooms.\nMulti-terminal ready | Add extra terminals or add-on devices as you grow.\nMulti-device deals | Ask for a bundled quote across every till you run.\nNext-day payouts | Payouts 7 days a week, with <2 second payments.",
+      serviceLabel: "Included Consultant Service",
+      serviceText: "Free Statement Audit + Direct 1-to-1 Setup by Tausif",
+      ctaLabel: "Request Dojo Go Max Quote",
+      ctaTopic: "Dojo Go Max flagship card machine",
+      icon: "store",
+      photos: [
+        ["dojo-go-black-approved", "5:4", "Black finish", "Confident Black finish — approved payment screen."],
+        ["dojo-go-white-keypad", "5:4", "White finish", "Calm White finish — keypad view."],
+        ["dojo-go-side-profile", "5:4", "Side profile", "Ergonomic side profile."],
+      ],
     },
     {
       id: 1, order: 2, category: "Card machines", price: "Free statement audit",
-      name: "Dojo Go — Portable Card Machine & Full Setup Service",
-      desc: "Take contactless, Chip & PIN and mobile wallet payments in under 2 seconds with built-in 4G + Wi-Fi (automatic failover), an integrated thermal receipt printer with a paperless option, on-screen tipping and next-day payouts 7 days a week. Includes a free statement audit and direct 1-to-1 setup by Tausif. Available in Confident Black and Calm White.",
-      photos: [["dojo-go-white-tip", "5:4"], ["dojo-go-white-keypad", "5:4"], ["dojo-go-black-approved", "5:4"], ["dojo-go-side-profile", "5:4"]],
+      name: "Dojo Go — Portable Card Machine & Full Setup",
+      desc: "Contactless, Chip & PIN and mobile wallets in under 2 seconds with built-in 4G + Wi-Fi, an integrated receipt printer, smart tipping and next-day payouts. Includes a free statement audit and direct 1-to-1 setup by Tausif.",
+      ctaLabel: "Request a Dojo Go quote", ctaTopic: "Dojo Go card machine", icon: "card",
+      photos: [
+        ["dojo-go-white-tip", "5:4", null, null],
+        ["dojo-go-white-keypad", "5:4", null, null],
+        ["dojo-go-black-approved", "5:4", null, null],
+        ["dojo-go-side-profile", "5:4", null, null],
+      ],
     },
     {
       id: 3, order: 3, category: "Card machines", price: "Get a quote",
       name: "Dojo Pocket — Portable Payments, Perfected",
-      desc: 'A lightweight 143 g handheld (170 × 70 × 14.7 mm) that connects automatically to Wi-Fi or 4G, with an 8-hour battery, a 4.95" touchscreen, point-to-point encryption and cloud-based EPOS integration. Accepts all major cards plus Apple Pay and Google Pay.',
-      photos: [["dojo-pocket-1", "1:1"], ["dojo-pocket-2", "1:1"]],
+      desc: 'A lightweight 143 g handheld (170 × 70 × 14.7 mm) that connects automatically to Wi-Fi or 4G, with an 8-hour battery, a 4.95" touchscreen, point-to-point encryption and cloud-based EPOS integration.',
+      ctaLabel: "Request a Dojo Pocket quote", ctaTopic: "Dojo Pocket", icon: "handheld",
+      photos: [["dojo-pocket-1", "1:1", null, null], ["dojo-pocket-2", "1:1", null, null]],
     },
     {
-      id: 4, order: 4, category: "Integrations", price: "Check compatibility",
+      id: 4, order: 4, category: "450+ Integrations", price: "Check compatibility",
       name: "EPOS Integrated Setups",
       desc: "Connect your Dojo card machine directly to over 450 leading EPOS systems. Push bill totals straight from your till to prevent manual keying mistakes.",
+      ctaLabel: "Check EPOS compatibility", ctaTopic: "EPOS integrated setup", icon: "plug",
       photos: [],
     },
     {
-      id: 5, order: 5, category: "Remote payments", price: "Get a quote",
+      id: 5, order: 5, category: "Remote & Deposits", price: "Get a quote",
       name: "Pay Links & Virtual Terminal",
       desc: "Take secure card payments over the phone, or send instant payment links by SMS or email — ideal for vehicle deposits, salon bookings and invoices.",
+      ctaLabel: "Ask about remote payments", ctaTopic: "Pay Links and Virtual Terminal", icon: "link",
       photos: [],
     },
   ];
   for (const p of products) {
     const cover = p.photos.length ? `${IMG}/${p.photos[0][0]}.webp` : null;
     await q(
-      `INSERT INTO products(id,name,description,price,image,category,display_order) VALUES ($1,$2,$3,$4,$5,$6,$7)`,
-      [p.id, p.name, p.desc, p.price, cover, p.category, p.order]
+      `INSERT INTO products(id,name,description,price,image,category,display_order,is_flagship,badges,features,
+         service_label,service_text,cta_label,cta_topic,icon)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15)`,
+      [p.id, p.name, p.desc, p.price, cover, p.category, p.order, Boolean(p.flagship), p.badges || null,
+        p.features || null, p.serviceLabel || null, p.serviceText || null, p.ctaLabel || null,
+        p.ctaTopic || null, p.icon || null]
     );
-    for (const [i, [file, ratio]] of p.photos.entries()) {
+    for (const [i, [file, ratio, label, caption]] of p.photos.entries()) {
       await q(
-        `INSERT INTO product_photos(product_id,image,is_cover,display_order,aspect_ratio) VALUES ($1,$2,$3,$4,$5)`,
-        [p.id, `${IMG}/${file}.webp`, i === 0, i + 1, ratio]
+        `INSERT INTO product_photos(product_id,image,is_cover,display_order,aspect_ratio,label,caption)
+         VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+        [p.id, `${IMG}/${file}.webp`, i === 0, i + 1, ratio, label, caption]
       );
     }
   }
@@ -184,33 +203,48 @@ async function seed(client) {
 
   await q(`DELETE FROM portfolio_items`);
   const portfolio = [
-    ["My Mobile Tech", "Tech & mobile retail — multi-terminal Dojo Go. Activated a second Dojo card machine to expand counter checkout capacity and keep pace with growing daily footfall.", "merchant-my-mobile-tech"],
-    ["Independent Retail Boutique", "Fashion & high-street retail — Dojo Go Max setup. Upgraded to faster, under-2-second contactless checkouts for busy weekend trading.", "merchant-retail-boutique"],
-    ["AN Car Sales Ltd", "Automotive dealership — Dojo Go Max add-on. Deployed an additional terminal for showroom-floor vehicle payments and instant customer deposits.", "merchant-an-car-sales"],
+    ["My Mobile Tech", "Live Activation", "Tech & Mobile Retail", "Multi-Terminal Dojo Go", "Activated a second Dojo card machine to expand counter checkout capacity and keep pace with growing daily customer footfall.", "Status: Accepting Payments", "✓ Verified Milestone"],
+    ["Independent Retail Boutique", "Deal Signed", "Fashion & High-Street Retail", "Dojo Go Max Setup", "Upgraded an independent clothing & accessories retailer to smarter, faster, under-2-second contactless checkouts for busy weekend trading.", "Benefit: Faster Queue Turnover", "✓ Verified Milestone"],
+    ["AN Car Sales Ltd", "Add-On Secured", "Automotive Dealership", "Dojo Go Max Add-On", "Deployed an additional Dojo Go Max solution for seamless showroom-floor vehicle payments and instant customer deposits.", "Benefit: High-Value Reliability", "✓ Verified Milestone"],
   ];
-  for (const [i, [n, d, f]] of portfolio.entries()) {
-    await q(`INSERT INTO portfolio_items(name,description,image,display_order) VALUES ($1,$2,$3,$4)`, [n, d, `${IMG}/${f}.svg`, i + 1]);
+  for (const [i, [n, badge, sector, solution, d, status, benefit]] of portfolio.entries()) {
+    await q(
+      `INSERT INTO portfolio_items(name,description,image,display_order,badge,sector,solution,status_text,benefit)
+       VALUES ($1,$2,NULL,$3,$4,$5,$6,$7,$8)`,
+      [n, d, i + 1, badge, sector, solution, status, benefit]
+    );
   }
 
   await q(
-    `UPDATE about_info SET heading=$1, image=NULL, image_position='left', body=$2, updated_at=now() WHERE id=1`,
+    `UPDATE about_info SET heading=$1, subtitle=$2, image=NULL, image_position='left', body=$3, updated_at=now() WHERE id=1`,
     [
-      "About Tausif Chowdhury",
+      "Tausif Chowdhury",
+      "Self-employed Payments Consultant working on behalf of Dojo",
       `With years of hands-on experience in the UK payments industry, I know that every business operates differently — and that the right card machine setup makes a genuine difference to your bottom line.
 
-Listen first, recommend second: I take the time to understand how you trade, audit what you currently pay and highlight real savings, rather than pushing a one-size-fits-all contract.
+My approach is simple — listen first, recommend second. Rather than pushing a one-size-fits-all contract, I take the time to understand how you trade, audit what you are currently paying, and highlight real savings.
 
-One dedicated contact: no call centres and no being passed between departments — just honest advice from the same person every time.
-
-Hands-on support: from your first live payment to any question later on, you can call or WhatsApp me directly.
-
-${DISCLOSURE}`,
+Working with me means you get a single, dedicated point of contact. No call centres, no being passed between departments — just honest advice and hands-on support.`,
     ]
   );
 
+  // The Contact Us *section* stays off — its details are shown in the top bar, About card and
+  // footer instead — but the row's phone/email/heading still feed those.
   await q(
-    `UPDATE contact_info SET heading=$1, subheading=$2, address=NULL, phone=$3, email=$4, enabled=true, updated_at=now() WHERE id=1`,
-    ["Contact Tausif", "Supporting UK businesses nationwide with direct 1-to-1 onboarding.", "07394 995 810", "tausif.chowdhury@dojo.tech"]
+    `UPDATE contact_info SET heading=$1, subheading=$2, address=NULL, phone=$3, email=$4, enabled=false, updated_at=now() WHERE id=1`,
+    ["Direct Consultant Contact", "Supporting UK businesses nationwide with direct 1-to-1 onboarding.", "07394 995 810", "tausif.chowdhury@dojo.tech"]
+  );
+
+  await q(
+    `UPDATE referral_banner SET enabled=true, eyebrow=$1, heading=$2, body=$3, cta_label=$4, cta_topic=$5, tiers=$6, updated_at=now() WHERE id=1`,
+    [
+      "Refer a Friend to Dojo",
+      "Earn up to **£100** for sharing Dojo with a fellow business.",
+      "Know another UK business owner frustrated with slow card machines or high processing fees? Introduce them to Tausif Chowdhury and earn cash rewards as your referrals go live.",
+      "Refer a Business Now →",
+      "Business Referral Submission",
+      "£50 | for your first referral\n£75 | for your second referral\n£100 | for every following referral",
+    ]
   );
 
   // Kept so an upgrade to Plus (which enables News & Events) already has the referral post.
@@ -239,21 +273,27 @@ To refer a business, use the Get a Quote form on this site or call or WhatsApp 0
   );
 
   const headings = [
-    ["howItWorks", "Switching to Dojo in 3 straightforward steps", "A simple, consultative process from first call to first payment."],
-    ["products", "Dojo Go Max & Payment Solutions", "Our flagship Dojo Go Max for busy counters, plus tailored hardware and setups for every UK business."],
-    ["portfolio", "Recent Merchant Activations", "Real UK businesses helped by Tausif Chowdhury with tailored Dojo payment upgrades."],
-    ["partners", "All major cards & digital wallets accepted", null],
-    ["newsEvents", "Refer a Friend", "Earn up to £100 for sharing Dojo with a fellow business."],
-    ["enquiryForm", "Get a Quote", "Tell Tausif about your business and he will reply directly with tailored rates and hardware options."],
-    ["footer", "Ready to upgrade your card payments?", `${DISCLOSURE} ${FCA}`],
+    ["howItWorks", "Switching to Dojo in 3 straightforward steps", "A simple, consultative process from first call to first payment.", "How It Works"],
+    ["products", "Tailored Dojo payment hardware & setups for every UK business.", "Whether you run a busy high-street salon, retail boutique, restaurant, or mobile catering van, I configure the exact hardware and rate package your business needs.", "Product & Service Catalog"],
+    ["portfolio", "Recent Merchant Activations", "Real UK businesses helped by Tausif Chowdhury with tailored Dojo payment upgrades and on-site activation.", "Proven UK Track Record"],
+    ["partners", "All major cards & digital wallets accepted", null, null],
+    ["newsEvents", "Refer a Friend", "Earn up to £100 for sharing Dojo with a fellow business.", null],
+    ["enquiryForm", "Get a Quote", "Fill in your details below and Tausif Chowdhury will get back to you directly with tailored rates and hardware options.", "No-Obligation Consultation"],
+    ["footer", "Ready to upgrade your card payments?", "Reach out directly — I’ll reply personally with tailored rates and hardware options.", null],
   ];
-  for (const [key, h, s] of headings) {
+  for (const [key, h, s, eyebrow] of headings) {
     await q(
-      `INSERT INTO section_headings(section_key,heading,subheading) VALUES ($1,$2,$3)
-       ON CONFLICT (section_key) DO UPDATE SET heading=EXCLUDED.heading, subheading=EXCLUDED.subheading, updated_at=now()`,
-      [key, h, s]
+      `INSERT INTO section_headings(section_key,heading,subheading,eyebrow) VALUES ($1,$2,$3,$4)
+       ON CONFLICT (section_key) DO UPDATE SET heading=EXCLUDED.heading, subheading=EXCLUDED.subheading,
+         eyebrow=EXCLUDED.eyebrow, updated_at=now()`,
+      [key, h, s, eyebrow]
     );
   }
+
+  await q(
+    `UPDATE site_text SET regulatory_text=$1, payments_label=$2, payment_methods=$3, updated_at=now() WHERE id=1`,
+    [`${FCA}`, "All Major Cards & Digital Wallets Accepted:", "Mastercard\nMaestro\nVISA\nApple Pay\nGoogle Pay\nSamsung Pay"]
+  );
 
   for (const m of ["blog", "gallery", "reviews", "team", "certifications", "map", "visionMission", "history"]) {
     await q(
@@ -264,7 +304,7 @@ To refer a business, use the Get a Quote form on this site or call or WhatsApp 0
   }
 
   const legal = {
-    "privacy-policy": ["Privacy Policy", `DRAFT — review before publishing. TC Business Payments Consultant (Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo) collects the name, phone, email and message you submit through the enquiry form solely to respond to your enquiry. Anonymous visit analytics are collected only if you accept cookies. To ask about your data, email tausif.chowdhury@dojo.tech.`],
+    "privacy-policy": ["Privacy Policy", `DRAFT — review before publishing. TC Business Payments Consultant (Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo) collects the name, phone, email, business name and message you submit through the enquiry form solely to respond to your enquiry. Anonymous visit analytics are collected only if you accept cookies. To ask about your data, email tausif.chowdhury@dojo.tech.`],
     "terms-of-service": ["Terms of Service", `DRAFT — review before publishing. This website is operated by Tausif Chowdhury, a self-employed Payments Consultant working on behalf of Dojo. Information here is general and not a binding offer; rates and hardware are confirmed in your written Dojo proposal. Dojo is a trading name of Paymentsense Limited, authorised and regulated by the FCA (FRN 738728 and FRN 900925).`],
   };
   for (const [slug, [title, body]] of Object.entries(legal)) {

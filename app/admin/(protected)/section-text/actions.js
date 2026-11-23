@@ -17,6 +17,7 @@ export async function updateSectionHeadingAction(prevState, formData) {
   await updateSectionHeading(key, {
     heading,
     subheading: formData.get("subheading")?.toString().trim(),
+    eyebrow: formData.get("eyebrow")?.toString().trim(),
   });
 
   revalidatePath("/");

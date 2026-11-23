@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { updateCookieConsentText, updateSiteUnavailableText } from "@/lib/siteText";
+import { updateCookieConsentText, updateSiteUnavailableText, updateFooterText } from "@/lib/siteText";
 
 export async function updateCookieConsentAction(prevState, formData) {
   const message = formData.get("message")?.toString().trim();
@@ -15,6 +15,17 @@ export async function updateCookieConsentAction(prevState, formData) {
   revalidatePath("/");
   revalidatePath("/admin/site-text");
   return { success: "Cookie consent banner saved." };
+}
+
+export async function updateFooterTextAction(prevState, formData) {
+  await updateFooterText({
+    regulatoryText: formData.get("regulatoryText")?.toString().trim(),
+    paymentsLabel: formData.get("paymentsLabel")?.toString().trim(),
+    paymentMethods: formData.get("paymentMethods")?.toString().trim(),
+  });
+  revalidatePath("/");
+  revalidatePath("/admin/site-text");
+  return { success: "Footer & payment methods saved." };
 }
 
 export async function updateSiteUnavailableAction(prevState, formData) {

@@ -54,6 +54,7 @@ const PROTECTED_ROUTES = [
   "/admin/admin-text",
   "/admin/admin-nav",
   "/admin/enquiries",
+  "/admin/referral",
   "/admin/analytics",
   "/admin/contact",
   "/admin/social",

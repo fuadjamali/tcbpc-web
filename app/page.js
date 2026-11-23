@@ -15,19 +15,27 @@ import VisitTracker from "@/components/VisitTracker";
 import CookieConsent from "@/components/CookieConsent";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import BackToTopButton from "@/components/BackToTopButton";
-import SocialLinks from "@/components/SocialLinks";
 import CategoryFilter from "@/components/CategoryFilter";
-import Logo from "@/components/Logo";
 import ImageTextSection from "@/components/ImageTextSection";
 import MemberCard from "@/components/MemberCard";
 import siteConfig from "@/config/site";
 import { buildLocalBusinessJsonLd } from "@/lib/structuredData";
-import { getProducts, getProductCategories } from "@/lib/products";
+import { getProducts, getProductCategories, getFlagshipProduct, getProduct } from "@/lib/products";
+import { getProductPhotos } from "@/lib/productPhotos";
+import { getReferralBanner } from "@/lib/referral";
+import { getRootAlert } from "@/lib/rootAlert";
 import { getContactInfo } from "@/lib/contactInfo";
 import { getSocialSettings, getWhatsappHref } from "@/lib/socialSettings";
 import { getBusinessInfo } from "@/lib/businessInfo";
 import { getActiveHeroSlides, getHeroSettings } from "@/lib/heroSlides";
 import HeroCarousel from "@/components/HeroCarousel";
+import HeroSplit from "@/components/HeroSplit";
+import ProductShowcase from "@/components/ProductShowcase";
+import AboutProcess from "@/components/AboutProcess";
+import ReferralBanner from "@/components/ReferralBanner";
+import SiteFooter from "@/components/SiteFooter";
+import PortfolioCaseCard from "@/components/PortfolioCaseCard";
+import QuotePrefill from "@/components/QuotePrefill";
 import { getAllLegalPages } from "@/lib/legalPages";
 import { getSectionHeadings } from "@/lib/sectionHeadings";
 import { getNavTree } from "@/lib/navItems";
@@ -92,6 +100,9 @@ export default async function Home({ searchParams }) {
     navTree,
     siteText,
     homeLayout,
+    referralBanner,
+    flagship,
+    rootAlert,
   ] = await Promise.all([
     getModuleStates(),
     getContactInfo(),
@@ -104,8 +115,12 @@ export default async function Home({ searchParams }) {
     getNavTree(),
     getSiteText(),
     getHomeLayout(),
+    getReferralBanner(),
+    getFlagshipProduct(),
+    getRootAlert(),
   ]);
   const publishedLegalPages = legalPages.filter((p) => p.enabled);
+  const rootAlertText = rootAlert.enabled ? rootAlert.message : null;
   const { plans } = siteConfig;
   const {
     howItWorks,
@@ -164,7 +179,11 @@ export default async function Home({ searchParams }) {
   // and drops a group entirely if every one of its children got filtered out — same pattern
   // as the admin nav's filterNav in app/admin/(protected)/layout.js.
   const isNavHrefEnabled = (href) =>
-    href === "#contact-info" ? contactInfo.enabled : isPublicPathEnabled(href, moduleStates);
+    href === "#contact-info"
+      ? contactInfo.enabled
+      : href === "#referral"
+        ? referralBanner.enabled
+        : isPublicPathEnabled(href, moduleStates);
   const filteredNav = navTree
     .map((item) => {
       if (!item.children) return item;
@@ -216,6 +235,22 @@ export default async function Home({ searchParams }) {
     isEnabled("certifications", moduleStates) ? getCertifications() : Promise.resolve([]),
   ]);
 
+  // A "split" first hero slide shows a product's photos on its right-hand stage — the slide's own
+  // choice (/admin/hero), else the flagship product.
+  const firstHeroSlide = heroSlides[0];
+  const heroSplit = isEnabled("hero", moduleStates) && firstHeroSlide?.layout === "split";
+  const stageProduct = heroSplit
+    ? firstHeroSlide.stage_product_id
+      ? await getProduct(firstHeroSlide.stage_product_id)
+      : flagship
+    : null;
+  const stagePhotos = stageProduct ? await getProductPhotos(stageProduct.id) : [];
+  const flagshipPhotos = flagship
+    ? stageProduct?.id === flagship.id
+      ? stagePhotos
+      : await getProductPhotos(flagship.id)
+    : [];
+
   const footerWhatsappHref = getWhatsappHref(
     socialSettings,
     socialSettings.footer_whatsapp_message || socialSettings.whatsapp_message
@@ -228,6 +263,14 @@ export default async function Home({ searchParams }) {
     : contactInfo.enabled
       ? "#contact-info"
       : "#plans";
+  // Product/referral buttons scroll here; each also pre-fills the enquiry form (QuotePrefill).
+  const quoteHref = isEnabled("enquiryForm", moduleStates) ? "#enquiry" : plansQuoteHref;
+  // About Us and How It Works share one two-column section when both have something to show.
+  const aboutEnabled = isEnabled("about", moduleStates);
+  const combineAboutProcess = aboutEnabled && howItWorksSteps.length > 0;
+  const quickLinks = filteredNav
+    .filter((item) => !item.children && !item.cta)
+    .map((item) => ({ href: item.href, label: item.label }));
 
   // Sidebar Layout's aside content — one of three already-feed-shaped sections, admin's choice
   // (homeLayout.asideContent). Each has its own item shape (dated + typed for News & Events,
@@ -390,6 +433,7 @@ export default async function Home({ searchParams }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <VisitTracker />
+      <QuotePrefill />
 
       {/* COMPONENT: header-nav (required) */}
       <SiteHeader
@@ -407,7 +451,17 @@ export default async function Home({ searchParams }) {
           exactly like the original single hero; two or more play as a sliding carousel — see
           components/HeroCarousel.js. */}
       {isEnabled("hero", moduleStates) && heroSlides.length > 0 && (
-        <HeroCarousel slides={heroSlides} sectionMaxW={sectionMaxW} heightPx={heroSettings?.height_px} />
+        heroSplit ? (
+          <HeroSplit
+            slide={firstHeroSlide}
+            photos={stagePhotos}
+            stageName={stageProduct?.name?.split(/\s[—-]\s/)[0]}
+            sectionMaxW={sectionMaxW}
+            heightPx={heroSettings?.height_px}
+          />
+        ) : (
+          <HeroCarousel slides={heroSlides} sectionMaxW={sectionMaxW} heightPx={heroSettings?.height_px} />
+        )
       )}
 
       {/* Sidebar Layout's grid wrapper — everything from Stats through Send an Enquiry lives
@@ -441,14 +495,20 @@ export default async function Home({ searchParams }) {
 
       {/* COMPONENT: stats (optional — live from Postgres, editable at /admin/stats) */}
       {statsEnabled && statItems.length > 0 && (
-        <section className="border-y border-border py-10" style={{ order: sectionOrder.stats }}>
-          <div className={`mx-auto grid ${sectionMaxW} grid-cols-2 gap-8 px-6 text-center sm:grid-cols-4`}>
-            {statItems.map((stat) => (
-              <div key={stat.id}>
-                <p className="text-3xl font-extrabold">{stat.value}</p>
-                <p className="mt-1 text-sm text-muted">{stat.label}</p>
-              </div>
-            ))}
+        <section
+          id="metrics"
+          className="border-y border-white/10 bg-brand-ink text-white"
+          style={{ order: sectionOrder.stats }}
+        >
+          <div className={`mx-auto ${sectionMaxW} px-4 py-8 sm:px-6 lg:px-8`}>
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
+              {statItems.map((stat) => (
+                <div key={stat.id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-2xl font-extrabold text-brand-teal sm:text-3xl">{stat.value}</p>
+                  <p className="mt-1 text-xs font-medium text-brand-cream/85 sm:text-sm">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       )}
@@ -507,7 +567,7 @@ export default async function Home({ searchParams }) {
       )}
 
       {/* COMPONENT: how-it-works (optional — live from Postgres, editable at /admin/how-it-works) */}
-      {isEnabled("howItWorks", moduleStates) && howItWorksSteps.length > 0 && (
+      {!combineAboutProcess && isEnabled("howItWorks", moduleStates) && howItWorksSteps.length > 0 && (
         <section
           id="how-it-works"
           className={`mx-auto ${sectionMaxW} px-6 py-20`}
@@ -548,16 +608,34 @@ export default async function Home({ searchParams }) {
         className={`mx-auto ${sectionMaxW} px-6 py-20`}
         style={{ order: sectionOrder.products }}
       >
-        <h2 className="text-3xl font-bold">{products.heading}</h2>
-        <p className="mt-2 text-muted">{products.subheading}</p>
+        {products.eyebrow && (
+          <span className="mb-3 inline-block rounded-full bg-brand-teal/30 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary">
+            {products.eyebrow}
+          </span>
+        )}
+        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{products.heading}</h2>
+        <p className="mt-2 max-w-3xl text-muted">{products.subheading}</p>
 
-        {productCategories.length > 0 && (
+        {flagship && (
+          <div className="mt-10">
+            <ProductShowcase
+              flagship={flagship}
+              flagshipPhotos={flagshipPhotos}
+              others={productItems.filter((p) => p.id !== flagship.id)}
+              quoteHref={quoteHref}
+              paymentsLabel={siteText.payments_label}
+              paymentMethods={siteText.payment_methods}
+            />
+          </div>
+        )}
+
+        {!flagship && productCategories.length > 0 && (
           <div className="mt-6">
             <CategoryFilter categories={productCategories} selected={selectedCategory} />
           </div>
         )}
 
-        {productItems.length === 0 ? (
+        {flagship ? null : productItems.length === 0 ? (
           <p className="mt-10 text-center text-sm text-muted">No products in this category.</p>
         ) : (
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
@@ -675,10 +753,37 @@ export default async function Home({ searchParams }) {
       {isEnabled("portfolio", moduleStates) && portfolioItems.length > 0 && (
         <section
           id="portfolio"
-          className="bg-surface-alt py-20"
+          className={
+            portfolioItems.some((item) => item.badge || item.sector || item.solution)
+              ? "bg-brand-deep px-4 py-16 text-white sm:px-6 sm:py-24 lg:px-8"
+              : "bg-surface-alt py-20"
+          }
           style={{ order: sectionOrder.portfolio }}
         >
-          <div className={`mx-auto ${sectionMaxW} px-6`}>
+          <div className={`mx-auto ${sectionMaxW} ${portfolioItems.some((item) => item.badge || item.sector || item.solution) ? "" : "px-6"}`}>
+            {portfolioItems.some((item) => item.badge || item.sector || item.solution) ? (
+              <>
+                <div className="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+                  <div>
+                    {portfolio.eyebrow && (
+                      <span className="mb-3 inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-bold uppercase tracking-widest text-brand-teal">
+                        {portfolio.eyebrow}
+                      </span>
+                    )}
+                    <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{portfolio.heading}</h2>
+                  </div>
+                  {portfolio.subheading && (
+                    <p className="max-w-md text-sm text-brand-cream/80 sm:text-base">{portfolio.subheading}</p>
+                  )}
+                </div>
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+                  {portfolioItems.map((item) => (
+                    <PortfolioCaseCard key={item.id} item={item} />
+                  ))}
+                </div>
+              </>
+            ) : (
+            <>
             <h2 className="text-3xl font-bold">{portfolio.heading}</h2>
             <p className="mt-2 text-muted">{portfolio.subheading}</p>
 
@@ -689,6 +794,8 @@ export default async function Home({ searchParams }) {
                 <PortfolioCard key={item.id} item={item} />
               ))}
             </div>
+            </>
+            )}
           </div>
         </section>
       )}
@@ -928,7 +1035,18 @@ export default async function Home({ searchParams }) {
           image_position, including the hero-style "behind the text" full-bleed background) is
           shared with vision-mission/history below via components/ImageTextSection.js — see that
           file for why each layout looks the way it does. */}
-      {isEnabled("about", moduleStates) && (
+      {aboutEnabled && combineAboutProcess && (
+        <AboutProcess
+          about={aboutInfo}
+          steps={howItWorksSteps}
+          stepsHeading={howItWorks.heading}
+          contact={contactInfo}
+          businessName={business.name}
+          sectionMaxW={sectionMaxW}
+          style={{ order: sectionOrder.about }}
+        />
+      )}
+      {aboutEnabled && !combineAboutProcess && (
         <ImageTextSection
           id="about"
           data={aboutInfo}
@@ -1035,6 +1153,16 @@ export default async function Home({ searchParams }) {
         </section>
       )}
 
+      {/* COMPONENT: referral (optional — singleton at /admin/referral with its own on/off switch) */}
+      {referralBanner.enabled && (
+        <ReferralBanner
+          banner={referralBanner}
+          quoteHref={quoteHref}
+          sectionMaxW={sectionMaxW}
+          style={{ order: sectionOrder.referral }}
+        />
+      )}
+
       {/* COMPONENT: map (optional — live-queries Google Maps with contactInfo.address, the
           same admin-editable value shown in the Contact Us section below, rather than a
           second independent address that could drift out of sync with it) */}
@@ -1105,14 +1233,22 @@ export default async function Home({ searchParams }) {
       {isEnabled("enquiryForm", moduleStates) && (
         <section
           id="enquiry"
-          className="bg-surface-alt py-20"
+          className="px-4 py-12 sm:px-6 sm:py-20 lg:px-8"
           style={{ order: sectionOrder.enquiryForm }}
         >
-          <div className="mx-auto max-w-xl px-6">
-            <h2 className="text-center text-3xl font-bold">{enquiryForm.heading}</h2>
-            <p className="mt-2 text-center text-muted">{enquiryForm.subheading}</p>
-
-            <EnquiryForm />
+          <div className="mx-auto max-w-5xl rounded-3xl border border-foreground/10 bg-surface p-6 shadow-xl sm:p-12">
+            <div className="mx-auto max-w-xl text-center">
+              {enquiryForm.eyebrow && (
+                <span className="mb-3 inline-block rounded-full bg-brand-teal/30 px-3 py-1 text-xs font-bold uppercase tracking-widest text-primary">
+                  {enquiryForm.eyebrow}
+                </span>
+              )}
+              <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{enquiryForm.heading}</h2>
+              <p className="mt-2 text-sm text-muted sm:text-base">{enquiryForm.subheading}</p>
+            </div>
+            <div className="mx-auto max-w-xl">
+              <EnquiryForm />
+            </div>
           </div>
         </section>
       )}
@@ -1129,42 +1265,18 @@ export default async function Home({ searchParams }) {
           header when jumped to via #contact — otherwise, being the final element on the page,
           the browser can't scroll far enough and the Enquiry section above it stays in view. */}
       {footerEnabled && (
-      <footer
-        id="contact"
-        className="flex min-h-[calc(100vh-88px)] flex-col items-center justify-center bg-gray-900 dark:bg-black py-16 text-center text-white"
-        style={{ order: 999 }}
-      >
-        <h2 className="text-2xl font-bold">{footer.heading}</h2>
-        <p className="mt-2 text-gray-300">{footer.subheading}</p>
-        {footerWhatsappHref && (
-          <a
-            href={footerWhatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-gray-900 hover:bg-gray-200"
-          >
-            Chat on WhatsApp
-          </a>
-        )}
-
-        {/* COMPONENT: social-links (optional) */}
-        <SocialLinks />
-
-        <p className="mt-10 flex items-center justify-center gap-2 text-xs text-gray-400">
-          <Logo className="h-4 w-4" />© {new Date().getFullYear()} {business.name}. All rights reserved.
-        </p>
-        {/* COMPONENT: legal-page-links (optional — only pages an admin has actually published
-            at /admin/legal show up here; an un-filled-in page never gets linked). */}
-        {publishedLegalPages.length > 0 && (
-          <p className="mt-2 flex items-center justify-center gap-3 text-xs text-gray-400">
-            {publishedLegalPages.map((page) => (
-              <a key={page.slug} href={`/${page.slug}`} className="hover:text-white">
-                {page.title}
-              </a>
-            ))}
-          </p>
-        )}
-      </footer>
+        <SiteFooter
+          businessName={business.name}
+          statusText={rootAlertText}
+          heading={footer.heading}
+          subheading={footer.subheading}
+          whatsappHref={footerWhatsappHref}
+          navLinks={quickLinks}
+          contact={contactInfo}
+          regulatoryText={siteText.regulatory_text}
+          legalPages={publishedLegalPages}
+          tagline={business.tagline}
+        />
       )}
       </main>
 

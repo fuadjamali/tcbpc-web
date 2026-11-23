@@ -95,6 +95,11 @@ function readCommon(formData) {
     textStyle: formData.get("textStyle")?.toString(),
     active: formData.get("active") === "on",
     focalPosition: formData.get("focalPosition"),
+    layout: formData.get("layout")?.toString(),
+    eyebrow: formData.get("eyebrow")?.toString().trim(),
+    trustPoints: formData.get("trustPoints")?.toString().trim(),
+    badges: formData.get("badges")?.toString().trim(),
+    stageProductId: formData.get("stageProductId")?.toString(),
   };
 }
 

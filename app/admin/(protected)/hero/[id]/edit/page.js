@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getHeroSlide } from "@/lib/heroSlides";
+import { getProducts } from "@/lib/products";
 import HeroSlideForm from "@/components/HeroSlideForm";
 import { updateHeroSlideAction } from "../../actions";
 
@@ -13,13 +14,14 @@ export default async function EditHeroSlidePage({ params }) {
     notFound();
   }
 
+  const products = await getProducts();
   const boundUpdate = updateHeroSlideAction.bind(null, slide.id);
 
   return (
     <div className="w-full max-w-lg px-6">
       <div className="rounded-xl border border-border bg-surface p-8 shadow-sm">
         <h1 className="text-xl font-bold text-foreground">Edit slide</h1>
-        <HeroSlideForm slide={slide} action={boundUpdate} submitLabel="Save changes" />
+        <HeroSlideForm slide={slide} action={boundUpdate} submitLabel="Save changes" products={products} />
       </div>
     </div>
   );

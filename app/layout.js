@@ -7,6 +7,8 @@ import { LogoProvider } from "@/components/LogoContext";
 import { getBusinessInfo } from "@/lib/businessInfo";
 import { getBranding } from "@/lib/branding";
 import { getRootAlert } from "@/lib/rootAlert";
+import { getContactInfo } from "@/lib/contactInfo";
+import { IconMail, IconPhone } from "@tabler/icons-react";
 import "./globals.css";
 
 const inter = Inter({
@@ -42,10 +44,11 @@ export async function generateMetadata() {
 }
 
 export default async function RootLayout({ children }) {
-  const [business, branding, rootAlert] = await Promise.all([
+  const [business, branding, rootAlert, contact] = await Promise.all([
     getBusinessInfo(),
     getBranding(),
     getRootAlert(),
+    getContactInfo(),
   ]);
 
   return (
@@ -58,9 +61,41 @@ export default async function RootLayout({ children }) {
         <ThemeScript />
       </head>
       <body className="min-h-full flex flex-col">
-        {rootAlert.enabled && rootAlert.message && (
-          <div className="border-b border-amber-200 bg-amber-50 px-4 py-2 text-center text-xs font-medium text-amber-800 dark:border-amber-900 dark:bg-amber-950/40 dark:text-amber-400">
-            {rootAlert.message}
+        {/* Top bar: the Root Alert message (admin: /admin/root-alert) on the left — used for the
+            "independent consultant" disclosure — and the Contact Us phone/email (/admin/contact)
+            as click-to-call / click-to-email links on the right. */}
+        {((rootAlert.enabled && rootAlert.message) || contact.phone || contact.email) && (
+          <div className="border-b border-white/10 bg-brand-ink px-4 py-2.5 text-xs text-brand-cream/90">
+            <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
+              {rootAlert.enabled && rootAlert.message ? (
+                <p className="font-medium">
+                  <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-brand-teal align-middle" />
+                  {rootAlert.message}
+                </p>
+              ) : (
+                <span />
+              )}
+              <div className="flex items-center gap-4">
+                {contact.phone && (
+                  <a
+                    href={`tel:${contact.phone.replace(/\s+/g, "")}`}
+                    className="flex items-center gap-1 font-medium hover:text-brand-teal"
+                  >
+                    <IconPhone size={14} className="text-brand-teal" />
+                    {contact.phone}
+                  </a>
+                )}
+                {contact.email && (
+                  <a
+                    href={`mailto:${contact.email}`}
+                    className="hidden items-center gap-1 font-medium hover:text-brand-teal md:flex"
+                  >
+                    <IconMail size={14} className="text-brand-teal" />
+                    {contact.email}
+                  </a>
+                )}
+              </div>
+            </div>
           </div>
         )}
         <BusinessNameProvider name={business.name}>
