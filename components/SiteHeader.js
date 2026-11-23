@@ -4,7 +4,6 @@ import { useState } from "react";
 import { IconChevronDown, IconMenu2, IconUserCircle } from "@tabler/icons-react";
 import Logo from "@/components/Logo";
 import { useLogoUrl } from "@/components/LogoContext";
-import ThemeToggle from "@/components/ThemeToggle";
 import ColorThemeSwitcher from "@/components/ColorThemeSwitcher";
 import CartIcon from "@/components/CartIcon";
 import SiteNavDropdown from "@/components/SiteNavDropdown";
@@ -90,7 +89,6 @@ export default function SiteHeader({
         <div className="flex items-center gap-3">
           {cartEnabled && <CartIcon />}
           {themesEnabled && <ColorThemeSwitcher className="hidden sm:inline-block" />}
-          <ThemeToggle className="hidden !border-white/25 !text-white hover:!bg-white/10 sm:inline-flex" />
           {membersEnabled && (
             <a
               href="/member/login"
@@ -182,10 +180,11 @@ export default function SiteHeader({
               </a>
             )}
 
-            <div className="mt-2 flex items-center gap-2 sm:hidden">
-              {themesEnabled && <ColorThemeSwitcher />}
-              <ThemeToggle />
-            </div>
+            {themesEnabled && (
+              <div className="mt-2 flex items-center gap-2 sm:hidden">
+                <ColorThemeSwitcher />
+              </div>
+            )}
           </div>
         </div>
       )}
