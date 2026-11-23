@@ -1,9 +1,9 @@
 const THEME_SCRIPT = `
 (function () {
-  var storedMode = localStorage.getItem("falcon-theme");
+  // Follow the device's light/dark setting (light when it can't tell). The theme toggle was removed,
+  // so any old saved choice is ignored.
   var prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-  var mode = storedMode || (prefersDark ? "dark" : "light");
-  if (mode === "dark") document.documentElement.classList.add("dark");
+  if (prefersDark) document.documentElement.classList.add("dark");
 
   var storedColor = localStorage.getItem("falcon-color-theme") || "ocean";
   document.documentElement.setAttribute("data-theme", storedColor);
