@@ -65,17 +65,17 @@ export default async function RootLayout({ children }) {
             "independent consultant" disclosure — and the Contact Us phone/email (/admin/contact)
             as click-to-call / click-to-email links on the right. */}
         {((rootAlert.enabled && rootAlert.message) || contact.phone || contact.email) && (
-          <div className="border-b border-white/10 bg-brand-ink px-4 py-2.5 text-xs text-brand-cream/90">
+          <div className="border-b border-white/10 bg-brand-ink px-2 py-1.5 text-xs text-brand-cream/90 sm:px-4 sm:py-2.5">
             <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-2 text-center sm:flex-row sm:text-left">
               {rootAlert.enabled && rootAlert.message ? (
-                <p className="font-medium">
-                  <span className="mr-1.5 inline-block h-2 w-2 rounded-full bg-brand-teal align-middle" />
+                <p className="whitespace-nowrap text-[length:clamp(7.5px,calc((100vw-20px)/40.5),11px)] font-medium tracking-tight sm:text-xs sm:tracking-normal">
+                  <span className="mr-1.5 hidden h-2 w-2 rounded-full bg-brand-teal align-middle sm:inline-block" />
                   {rootAlert.message}
                 </p>
               ) : (
                 <span />
               )}
-              <div className="flex items-center gap-4">
+              <div className="hidden items-center gap-4 sm:flex">
                 {contact.phone && (
                   <a
                     href={`tel:${contact.phone.replace(/\s+/g, "")}`}
