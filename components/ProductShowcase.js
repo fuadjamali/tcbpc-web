@@ -154,9 +154,26 @@ export default function ProductShowcase({
                 className="flex flex-col justify-between rounded-3xl border border-foreground/10 bg-surface p-7 shadow-sm transition-shadow hover:shadow-lg"
               >
                 <div>
-                  <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-deep text-brand-teal">
-                    <Icon size={24} />
-                  </div>
+                  {product.image ? (
+                    // A real photo of the product/service, edge to edge across the card top, with the
+                    // small icon badge sitting over its corner. Admin-editable URL — plain <img>.
+                    <div className="relative -mx-7 -mt-7 mb-5 aspect-square overflow-hidden rounded-t-3xl bg-surface-alt">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                        loading="lazy"
+                        className="h-full w-full object-cover"
+                      />
+                      <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-brand-deep text-brand-teal shadow-md">
+                        <Icon size={20} />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-deep text-brand-teal">
+                      <Icon size={24} />
+                    </div>
+                  )}
                   {product.category && (
                     <span className="text-xs font-bold uppercase tracking-wider text-primary">
                       {product.category}

@@ -143,7 +143,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
         />
         <div
           className="relative mx-auto h-[var(--ps-h)] w-full"
-          style={{ "--ps-h": `clamp(160px, 44vw, ${size}px)` }}
+          style={{ "--ps-h": `clamp(240px, 88vw, ${size}px)` }}
         >
           {count > 1 && <div key={index} aria-hidden="true" className="ps-flare" />}
           <div ref={tiltRef} className="absolute inset-0 will-change-transform" style={{ transformStyle: "preserve-3d" }}>

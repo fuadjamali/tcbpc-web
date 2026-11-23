@@ -120,7 +120,7 @@ async function seed(client) {
   await q(`DELETE FROM how_it_works_steps`);
   const steps = [
     ["Free statement review", "Send a recent statement — I explain your rates and hidden fees in plain English."],
-    ["Tailored proposal", "A transparent quote for your turnover — Go Max, Go or EPOS."],
+    ["Tailored proposal", "A transparent quote for your turnover — Go Max, Pocket or EPOS."],
     ["Fast, supported activation", "Pre-configured machine, first payment live with me, then ongoing 1-to-1 support."],
   ];
   for (const [i, [t, d]] of steps.entries()) {
@@ -146,21 +146,8 @@ async function seed(client) {
       // over the card; see components/ProductStage.js.
       photos: [
         ["cutout/dojo-go-max-white", "1:1", "White", "Dojo Go Max — Calm White finish."],
-        ["cutout/dojo-go-max-black-keypad", "1:1", "Black", "Dojo Go Max — Confident Black finish, keypad view."],
         ["cutout/dojo-go-max-black-front", "1:1", "Black front", "Front view — Confident Black."],
         ["cutout/dojo-go-max-white-front", "1:1", "White front", "Front view — Calm White."],
-      ],
-    },
-    {
-      id: 1, order: 2, category: "Portable", price: "Free statement audit",
-      name: "Dojo Go",
-      desc: "Contactless in under 2 seconds, with 4G + Wi-Fi and a built-in printer.",
-      ctaLabel: "Get a Go quote", ctaTopic: "Dojo Go card machine", icon: "card",
-      photos: [
-        ["dojo-go-white-tip", "5:4", null, null],
-        ["dojo-go-white-keypad", "5:4", null, null],
-        ["dojo-go-black-approved", "5:4", null, null],
-        ["dojo-go-side-profile", "5:4", null, null],
       ],
     },
     {
@@ -168,21 +155,29 @@ async function seed(client) {
       name: "Dojo Pocket",
       desc: "143 g handheld with 4G + Wi-Fi and an 8-hour battery.",
       ctaLabel: "Get a Pocket quote", ctaTopic: "Dojo Pocket", icon: "handheld",
+      // Dojo Pocket photos supplied in docs/refdocs/Dojo Pocket/ (front + back, and the tip screen).
       photos: [["dojo-pocket-1", "1:1", null, null], ["dojo-pocket-2", "1:1", null, null]],
     },
     {
-      id: 4, order: 4, category: "450+ systems", price: "Check compatibility",
+      id: 6, order: 4, category: "No extra hardware", price: "Get a quote",
+      name: "Tap to Pay on iPhone",
+      desc: "Take contactless payments at the till, table or anywhere — just your iPhone and the Dojo app.",
+      ctaLabel: "Ask about Tap to Pay", ctaTopic: "Tap to Pay on iPhone", icon: "handheld",
+      photos: [["tap-to-pay-iphone", "1:1", null, null]],
+    },
+    {
+      id: 4, order: 5, category: "450+ systems", price: "Check compatibility",
       name: "EPOS integration",
       desc: "Totals go straight from your till — no manual keying.",
       ctaLabel: "Check EPOS compatibility", ctaTopic: "EPOS integrated setup", icon: "plug",
-      photos: [],
+      photos: [["dojo-countertop-epos", "1:1", null, null]],
     },
     {
-      id: 5, order: 5, category: "Remote payments", price: "Get a quote",
+      id: 5, order: 6, category: "Remote payments", price: "Get a quote",
       name: "Pay links & virtual terminal",
       desc: "Take card payments by phone, SMS or email link.",
       ctaLabel: "Ask about remote payments", ctaTopic: "Pay Links and Virtual Terminal", icon: "link",
-      photos: [],
+      photos: [["pay-links-app", "1:1", null, null]],
     },
   ];
   for (const p of products) {

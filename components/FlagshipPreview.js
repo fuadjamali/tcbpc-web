@@ -15,7 +15,7 @@ export default function FlagshipPreview({ title, photos }) {
         <h4 className="mt-1 text-lg font-bold">{title}</h4>
       </div>
       <div className="mt-6">
-        <ProductStage photos={photos} size={270} />
+        <ProductStage photos={photos} size={340} />
       </div>
     </div>
   );
