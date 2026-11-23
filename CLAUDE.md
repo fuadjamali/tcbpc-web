@@ -22,6 +22,7 @@ npm run dev:full            # start DB container + dev server together
 npm run build               # production build
 npm run lint
 npm run seed                # create first admin (SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD)
+npm run seed:tcbpc          # load the TC Business Payments Consultant site content (replaces content; PLAN=basic)
 npm run smoke-test          # route health + plan gating (BASE_URL, TEST_PLAN env vars)
 npm run db:pull-prod        # pull production DB locally
 npm run generate-identity -- --source logo.png

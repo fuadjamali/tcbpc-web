@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "node --env-file=.env.local scripts/seed.js",
+    "seed:tcbpc": "node --env-file=.env.local scripts/seed-tcbpc.js",
     "db:pull-prod": "node --env-file=.env.local scripts/pull-prod-db.js",
     "generate-identity": "node scripts/generate-identity.js",
     "smoke-test": "node --env-file-if-exists=.env.local scripts/smoke-test.js"
