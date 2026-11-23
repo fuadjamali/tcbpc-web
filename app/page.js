@@ -1298,7 +1298,6 @@ export default async function Home({ searchParams }) {
         <MobileActionBar
           phone={contactInfo.phone}
           whatsappHref={footerWhatsappHref}
-          quoteHref={isEnabled("enquiryForm", moduleStates) ? "#enquiry" : null}
         />
       )}
 
