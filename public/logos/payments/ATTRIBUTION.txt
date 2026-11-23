@@ -1,0 +1,4 @@
+Payment logos (mastercard.svg, maestro.svg, visa.svg, apple-pay.svg, google-pay.svg, samsung-pay.svg)
+from https://github.com/datatrans/payment-logos — licensed CC BY-SA 4.0
+(https://creativecommons.org/licenses/by-sa/4.0/). Unmodified. The marks themselves are trademarks
+of their respective owners and are shown only to indicate accepted payment methods.

@@ -21,7 +21,7 @@ export default function CookieConsent({ message, acceptLabel, declineLabel }) {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-6 left-6 z-30 max-w-sm rounded-xl border border-border bg-surface p-4 shadow-lg">
+    <div className="fixed bottom-20 left-4 right-4 z-40 max-w-sm md:bottom-6 md:left-6 md:right-auto rounded-xl border border-border bg-surface p-4 shadow-lg">
       <p className="text-sm text-foreground">{message}</p>
       <div className="mt-3 flex gap-2">
         <button

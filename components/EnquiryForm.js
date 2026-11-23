@@ -76,19 +76,19 @@ export default function EnquiryForm() {
   return (
     <form onSubmit={handleSubmit} className="mt-8 space-y-5">
       <div>
-        <label className={labelClass}>
+        <label htmlFor="enquiry-name" className={labelClass}>
           Name <span className="text-red-600">*</span>
         </label>
-        <input type="text" name="name" required placeholder="Your name" className={fieldClass} />
+        <input type="text" id="enquiry-name" name="name" required placeholder="Your name" className={fieldClass} />
       </div>
 
       <div>
-        <label className={labelClass}>
+        <label htmlFor="enquiry-phone" className={labelClass}>
           Phone <span className="text-red-600">*</span>
         </label>
         <input
           type="tel"
-          name="phone"
+          id="enquiry-phone" name="phone"
           required
           placeholder="Your phone number"
           className={fieldClass}
@@ -96,12 +96,12 @@ export default function EnquiryForm() {
       </div>
 
       <div>
-        <label className={labelClass}>
+        <label htmlFor="enquiry-email" className={labelClass}>
           Email <span className="text-red-600">*</span>
         </label>
         <input
           type="email"
-          name="email"
+          id="enquiry-email" name="email"
           required
           placeholder="Your email address"
           className={fieldClass}
@@ -109,21 +109,21 @@ export default function EnquiryForm() {
       </div>
 
       <div>
-        <label className={labelClass}>Business Name</label>
+        <label htmlFor="enquiry-businessName" className={labelClass}>Business Name</label>
         <input
           type="text"
-          name="businessName"
+          id="enquiry-businessName" name="businessName"
           placeholder="Your business name (optional)"
           className={fieldClass}
         />
       </div>
 
       <div>
-        <label className={labelClass}>
+        <label htmlFor="enquiry-message" className={labelClass}>
           Message <span className="text-red-600">*</span>
         </label>
         <textarea
-          name="message"
+          id="enquiry-message" name="message"
           rows={4}
           required
           value={message}

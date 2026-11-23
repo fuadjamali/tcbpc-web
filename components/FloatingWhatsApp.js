@@ -13,7 +13,7 @@ export default async function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-20 flex h-14 w-14 items-center justify-center rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600"
+      className="fixed bottom-6 right-6 z-20 hidden h-14 w-14 md:flex items-center justify-center rounded-full bg-green-500 text-white shadow-lg hover:bg-green-600"
     >
       <IconBrandWhatsapp size={26} />
     </a>

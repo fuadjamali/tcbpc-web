@@ -96,24 +96,40 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
       onMouseLeave={() => setPaused(false)}
     >
       <style>{`
+        /* Slide change: the outgoing photo turns away and slips left, blurred, and is gone before the
+           incoming one turns in from the right (short delay) — no double-exposure crossfade. */
         .ps-shot { position:absolute; inset:0; display:flex; align-items:flex-end; justify-content:center;
-          opacity:0; transform:rotateY(-65deg) translateZ(-100px) scale(.84); transform-origin:50% 60%;
-          transition:opacity .7s ease, transform .9s cubic-bezier(.2,.8,.2,1); pointer-events:none; }
-        .ps-shot.ps-on { opacity:1; transform:none; }
-        .ps-shot.ps-out { opacity:0; transform:rotateY(65deg) translateZ(-100px) scale(.84); }
-        .ps-cut { max-height:100%; max-width:108%; width:auto; height:auto;
+          pointer-events:none; transform-origin:50% 70%;
+          opacity:0; transform:translateX(16%) rotateY(-24deg) scale(.92); filter:blur(6px);
+          transition:opacity .5s ease .18s, transform 1s cubic-bezier(.16,1,.3,1) .18s, filter .55s ease .18s; }
+        .ps-shot.ps-on { opacity:1; transform:none; filter:none; }
+        .ps-shot.ps-out { opacity:0; transform:translateX(-16%) rotateY(24deg) scale(.92); filter:blur(6px);
+          transition:opacity .28s ease, transform .5s cubic-bezier(.7,0,.84,0), filter .28s ease; }
+        /* the frame hugs the image exactly, so the light sweep's silhouette mask lines up with it */
+        .ps-frame { position:relative; display:inline-block; line-height:0; }
+        .ps-cut { display:block; width:auto; height:auto; max-height:var(--ps-h); max-width:min(100%, calc(var(--ps-h) * 1.3));
           filter:drop-shadow(0 0 1px rgba(60,234,199,.5)) drop-shadow(0 2px 2px rgba(0,0,0,.35)) drop-shadow(0 30px 26px rgba(0,0,0,.5));
           -webkit-box-reflect:below 2px linear-gradient(transparent 80%, rgba(255,255,255,.12)); }
-        .ps-sheen { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen;
-          background:linear-gradient(105deg, transparent 35%, rgba(255,255,255,.5) 48%, rgba(255,255,255,.08) 55%, transparent 65%);
-          background-size:260% 100%; background-repeat:no-repeat;
-          -webkit-mask-size:100% 100%; mask-size:100% 100%; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-          animation:ps-sweep ${INTERVAL_MS}ms ease-in-out infinite; }
-        @keyframes ps-sweep { 0% { background-position:130% 0 } 55%,100% { background-position:-40% 0 } }
+        /* "flash" light sweep: one soft, narrow highlight glides across the product once it has landed */
+        .ps-sheen { position:absolute; inset:0; pointer-events:none; mix-blend-mode:screen; opacity:0;
+          background:linear-gradient(115deg, transparent 38%, rgba(255,255,255,.08) 44%, rgba(255,255,255,.7) 50%,
+            rgba(200,255,240,.28) 53%, transparent 60%);
+          background-size:320% 100%; background-repeat:no-repeat; background-position:140% 0;
+          -webkit-mask-size:100% 100%; mask-size:100% 100%; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; }
+        .ps-on .ps-sheen { animation:ps-sweep 1.15s cubic-bezier(.45,0,.2,1) .7s both; }
+        @keyframes ps-sweep { 0% { background-position:140% 0; opacity:0 } 12%,80% { opacity:1 }
+          100% { background-position:-40% 0; opacity:0 } }
+        /* soft glow that blooms behind the product as each photo arrives */
+        .ps-flare { position:absolute; left:50%; bottom:18%; width:78%; max-width:320px; aspect-ratio:1; pointer-events:none;
+          transform:translateX(-50%) scale(.6); opacity:0; border-radius:9999px;
+          background:radial-gradient(circle, rgba(255,255,255,.35) 0%, rgba(60,234,199,.22) 32%, transparent 66%);
+          animation:ps-flare 1.1s ease-out .25s both; }
+        @keyframes ps-flare { 0% { opacity:0; transform:translateX(-50%) scale(.6) } 35% { opacity:.9 }
+          100% { opacity:0; transform:translateX(-50%) scale(1.25) } }
         @keyframes ps-float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-10px) } }
         .ps-float { animation:ps-float 4.5s ease-in-out infinite; }
         @keyframes ps-fill { from { width:0 } to { width:100% } }
-        @media (prefers-reduced-motion: reduce) { .ps-float, .ps-sheen { animation:none } .ps-shot { transition:opacity .3s } }
+        @media (prefers-reduced-motion: reduce) { .ps-float, .ps-on .ps-sheen, .ps-flare { animation:none } .ps-shot, .ps-shot.ps-out { transition:opacity .3s; filter:none; transform:none } }
       `}</style>
 
       <div className="relative" style={{ perspective: "1400px" }}>
@@ -126,9 +142,10 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
           }}
         />
         <div
-          className="relative mx-auto h-[clamp(216px,56vw,var(--ps-size))] w-full"
-          style={{ "--ps-size": `${size}px` }}
+          className="relative mx-auto h-[var(--ps-h)] w-full"
+          style={{ "--ps-h": `clamp(180px, 50vw, ${size}px)` }}
         >
+          {count > 1 && <div key={index} aria-hidden="true" className="ps-flare" />}
           <div ref={tiltRef} className="absolute inset-0 will-change-transform" style={{ transformStyle: "preserve-3d" }}>
             <div className="ps-float absolute inset-0" style={{ transformStyle: "preserve-3d" }}>
               {photos.map((photo, i) => (
@@ -138,7 +155,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
                   aria-hidden={i !== index}
                 >
                   {isCutout(photo) ? (
-                    <span className="relative inline-flex h-full max-w-full items-end justify-center">
+                    <span className="ps-frame">
                       {/* Admin-editable image source — plain <img>, same reasoning as products. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={photo.image} alt={photo.caption || photo.label || ""} className="ps-cut" />
@@ -164,7 +181,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
       </div>
 
       {(labelled || count > 1) && (
-        <div className={`mt-5 flex flex-col items-center gap-3 ${chipsClassName}`}>
+        <div className={`mt-5 hidden flex-col items-center gap-3 sm:flex ${chipsClassName}`}>
           {labelled && (
             <div className="inline-flex flex-wrap justify-center rounded-full border border-white/10 bg-brand-ink/50 p-1" role="group" aria-label="Choose a photo">
               {photos.map((photo, i) =>
@@ -207,7 +224,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
       )}
 
       {(active?.caption || active?.label) && (
-        <p className="mt-3 text-center text-xs font-medium text-brand-cream/85">
+        <p className="mt-3 hidden text-center text-xs font-medium text-brand-cream/85 sm:block">
           {active.caption || active.label}
         </p>
       )}

@@ -36,6 +36,7 @@ import ReferralBanner from "@/components/ReferralBanner";
 import SiteFooter from "@/components/SiteFooter";
 import PortfolioCaseCard from "@/components/PortfolioCaseCard";
 import QuotePrefill from "@/components/QuotePrefill";
+import MobileActionBar from "@/components/MobileActionBar";
 import { getAllLegalPages } from "@/lib/legalPages";
 import { getSectionHeadings } from "@/lib/sectionHeadings";
 import { getNavTree } from "@/lib/navItems";
@@ -1284,6 +1285,13 @@ export default async function Home({ searchParams }) {
           the footer's own WhatsApp CTA, since Feature Config's "Footer" entry is labeled as
           covering both WhatsApp CTAs, not just the footer's own button) */}
       {footerEnabled && <FloatingWhatsApp />}
+      {footerEnabled && (
+        <MobileActionBar
+          phone={contactInfo.phone}
+          whatsappHref={footerWhatsappHref}
+          quoteHref={isEnabled("enquiryForm", moduleStates) ? "#enquiry" : null}
+        />
+      )}
 
       {/* Back-to-top button — stacked above the WhatsApp button, appears after scrolling down. */}
       <BackToTopButton />

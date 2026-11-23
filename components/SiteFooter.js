@@ -21,7 +21,7 @@ export default function SiteFooter({
   return (
     <footer
       id="contact"
-      className="border-t border-white/10 bg-brand-ink px-4 pb-10 pt-14 text-brand-cream/85 sm:px-6 lg:px-8"
+      className="border-t border-white/10 bg-brand-ink px-4 pb-24 pt-14 text-brand-cream/85 md:pb-10 sm:px-6 lg:px-8"
       style={{ order: 999 }}
     >
       <div className="mx-auto max-w-7xl">

@@ -22,6 +22,18 @@ const CARD_ICONS = {
 };
 const FEATURE_ICONS = [IconBolt, IconStack2, IconDiscount2, IconCash];
 
+// Logos for the "accepted payment methods" strip (public/logos/payments/, see ATTRIBUTION.txt).
+// Matched by name, so the list stays admin-editable in Site Text; an unknown name falls back to a
+// plain text pill.
+const PAYMENT_LOGOS = {
+  mastercard: "mastercard",
+  maestro: "maestro",
+  visa: "visa",
+  "apple pay": "apple-pay",
+  "google pay": "google-pay",
+  "samsung pay": "samsung-pay",
+};
+
 function QuoteLink({ href, topic, className, children }) {
   return (
     <a href={href} data-quote-topic={topic} className={className}>
@@ -179,14 +191,29 @@ export default function ProductShowcase({
             </span>
           )}
           <div className="flex flex-wrap items-center justify-center gap-3 text-xs font-bold">
-            {methods.map((method) => (
-              <span
-                key={method}
-                className="rounded-lg border border-foreground/10 bg-background px-3.5 py-1.5"
-              >
-                {method}
-              </span>
-            ))}
+            {methods.map((method) => {
+              const logo = PAYMENT_LOGOS[method.trim().toLowerCase()];
+              return logo ? (
+                // Static local SVG — plain <img>, same reasoning as other images in this file.
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={method}
+                  src={`/logos/payments/${logo}.svg`}
+                  alt={method}
+                  title={method}
+                  width={60}
+                  height={40}
+                  className="h-10 w-[60px] rounded-md border border-foreground/10 bg-white shadow-sm"
+                />
+              ) : (
+                <span
+                  key={method}
+                  className="rounded-lg border border-foreground/10 bg-background px-3.5 py-1.5"
+                >
+                  {method}
+                </span>
+              );
+            })}
           </div>
         </div>
       )}
