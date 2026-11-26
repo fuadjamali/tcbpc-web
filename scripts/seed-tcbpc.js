@@ -69,6 +69,13 @@ async function seed(client) {
   );
   await q(`UPDATE root_alert SET enabled=true, message=$1, updated_at=now() WHERE id=1`, [DISCLOSURE]);
 
+  // Logo: the wide light version for the dark header/footer, the square mark for small slots.
+  await q(`INSERT INTO branding (id) VALUES (1) ON CONFLICT (id) DO NOTHING`);
+  await q(`UPDATE branding SET header_logo_url=$1, logo_url=$2, updated_at=now() WHERE id=1`, [
+    `${IMG}/logo/tc-lockup-light.webp`,
+    `${IMG}/logo/tc-mark.png`,
+  ]);
+
   await q(`DELETE FROM nav_items`);
   const nav = [
     ["Dojo Go Max & Solutions", "#products", false],

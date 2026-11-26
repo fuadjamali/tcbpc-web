@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { IconChevronDown, IconMenu2, IconUserCircle } from "@tabler/icons-react";
 import Logo from "@/components/Logo";
-import { useLogoUrl } from "@/components/LogoContext";
+import { useHeaderLogoUrl, useLogoUrl } from "@/components/LogoContext";
 import ColorThemeSwitcher from "@/components/ColorThemeSwitcher";
 import CartIcon from "@/components/CartIcon";
 import SiteNavDropdown from "@/components/SiteNavDropdown";
@@ -23,6 +23,7 @@ export default function SiteHeader({
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileGroupOpen, setMobileGroupOpen] = useState(null);
   const logoUrl = useLogoUrl();
+  const headerLogoUrl = useHeaderLogoUrl();
   const navItems = nav || [];
   const hasNavCta = navItems.some((item) => item.cta);
   const { line1, line2 } = splitBrandName(businessName);
@@ -35,23 +36,31 @@ export default function SiteHeader({
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="group flex shrink-0 cursor-pointer items-center gap-3 text-left"
         >
-          {logoUrl ? (
-            <Logo className="h-10 w-10 text-white" />
+          {headerLogoUrl ? (
+            // Admin-editable URL — plain <img>.
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={headerLogoUrl} alt={businessName} className="h-11 w-auto sm:h-12" />
           ) : (
-            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-teal text-lg font-extrabold text-brand-ink shadow-md transition-transform group-hover:scale-105">
-              {monogram(businessName)}
-            </span>
-          )}
-          <span>
-            <span className="block text-base font-bold leading-tight tracking-tight sm:text-lg">
-              {line1}
-            </span>
-            {line2 && (
-              <span className="block text-[11px] font-semibold uppercase tracking-widest text-brand-teal">
-                {line2}
+            <>
+              {logoUrl ? (
+                <Logo className="h-10 w-10 text-white" />
+              ) : (
+                <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-teal text-lg font-extrabold text-brand-ink shadow-md transition-transform group-hover:scale-105">
+                  {monogram(businessName)}
+                </span>
+              )}
+              <span>
+                <span className="block text-base font-bold leading-tight tracking-tight sm:text-lg">
+                  {line1}
+                </span>
+                {line2 && (
+                  <span className="block text-[11px] font-semibold uppercase tracking-widest text-brand-teal">
+                    {line2}
+                  </span>
+                )}
               </span>
-            )}
-          </span>
+            </>
+          )}
         </button>
 
         <div className="hidden items-center gap-7 text-sm font-medium text-white/90 lg:flex">

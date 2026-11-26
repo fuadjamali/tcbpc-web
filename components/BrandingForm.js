@@ -10,6 +10,20 @@ export default function BrandingForm({ branding }) {
   return (
     <form action={formAction} className="mt-6 space-y-6">
       <ImageFileInput
+        name="headerLogoFile"
+        label="Header logo (full, with name)"
+        currentImage={branding.header_logo_url}
+        previewClassName="mt-2 h-14 w-auto rounded-lg bg-brand-deep object-contain p-2"
+        helpText="A wide logo that includes the business name, in light colours (it sits on the dark header and footer). Replaces the badge and name text there."
+      />
+      {branding.header_logo_url && (
+        <label className="-mt-3 flex items-center gap-2 text-sm text-muted">
+          <input type="checkbox" name="removeHeaderLogo" className="h-4 w-4 rounded border-border" />
+          Remove the header logo (falls back to the badge and name text)
+        </label>
+      )}
+
+      <ImageFileInput
         name="logoFile"
         label="Logo"
         currentImage={branding.logo_url}

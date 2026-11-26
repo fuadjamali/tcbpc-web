@@ -36,6 +36,7 @@ import ReferralBanner from "@/components/ReferralBanner";
 import SiteFooter from "@/components/SiteFooter";
 import PortfolioCaseCard from "@/components/PortfolioCaseCard";
 import QuotePrefill from "@/components/QuotePrefill";
+import { getBranding } from "@/lib/branding";
 import MobileActionBar from "@/components/MobileActionBar";
 import { getAllLegalPages } from "@/lib/legalPages";
 import { getSectionHeadings } from "@/lib/sectionHeadings";
@@ -1276,6 +1277,7 @@ export default async function Home({ searchParams }) {
           the browser can't scroll far enough and the Enquiry section above it stays in view. */}
       {footerEnabled && (
         <SiteFooter
+          headerLogoUrl={(await getBranding()).header_logo_url}
           businessName={business.name}
           statusText={rootAlertText}
           heading={footer.heading}

@@ -8,10 +8,21 @@ import { createContext, useContext } from "react";
 // app/layout.js, since they change independently and nothing else needs them bundled together.
 const LogoContext = createContext("");
 
-export function LogoProvider({ logoUrl, children }) {
-  return <LogoContext.Provider value={logoUrl}>{children}</LogoContext.Provider>;
+// The wide light-on-dark logo (with the name in it) used by the site header; "" when not set.
+const HeaderLogoContext = createContext("");
+
+export function LogoProvider({ logoUrl, headerLogoUrl, children }) {
+  return (
+    <LogoContext.Provider value={logoUrl}>
+      <HeaderLogoContext.Provider value={headerLogoUrl}>{children}</HeaderLogoContext.Provider>
+    </LogoContext.Provider>
+  );
 }
 
 export function useLogoUrl() {
   return useContext(LogoContext);
+}
+
+export function useHeaderLogoUrl() {
+  return useContext(HeaderLogoContext);
 }

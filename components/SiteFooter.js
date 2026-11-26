@@ -8,6 +8,7 @@ import { monogram } from "@/lib/brand";
 // statement (Site Text → Footer & Payment Methods), copyright and published legal pages.
 export default function SiteFooter({
   businessName,
+  headerLogoUrl,
   statusText,
   heading,
   subheading,
@@ -46,12 +47,18 @@ export default function SiteFooter({
 
         <div className="grid grid-cols-1 gap-10 border-b border-white/10 py-10 md:grid-cols-3">
           <div className="space-y-3">
-            <div className="flex items-center gap-3">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-teal font-extrabold text-brand-ink">
-                {monogram(businessName)}
-              </span>
-              <span className="text-lg font-bold text-white">{businessName}</span>
-            </div>
+            {headerLogoUrl ? (
+              // Admin-editable URL — plain <img>.
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={headerLogoUrl} alt={businessName} className="h-12 w-auto" />
+            ) : (
+              <div className="flex items-center gap-3">
+                <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-teal font-extrabold text-brand-ink">
+                  {monogram(businessName)}
+                </span>
+                <span className="text-lg font-bold text-white">{businessName}</span>
+              </div>
+            )}
             {statusText && <p className="text-xs font-semibold text-brand-teal">{statusText}</p>}
             {tagline && <p className="text-xs text-brand-cream/60">{tagline}</p>}
           </div>

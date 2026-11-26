@@ -466,3 +466,8 @@ the card) when its file is under a `/cutout/` path — e.g. `public/images/tcbpc
 photo is shown in a rounded white frame. The Dojo Go Max cut-outs are built from Dojo's official
 high-resolution images, kept in `docs/refdocs/Dojo Go max/official/` (confirm usage rights with
 Dojo's brand guidelines).
+
+## Logos and favicon
+
+- `/admin/logo` has a **Header logo** (wide, light colours, name included): it replaces the badge and name text in the site header and footer (`branding.header_logo_url`). **Logo** is the square mark used in small slots.
+- Default favicon/app icons are `app/favicon.ico`, `app/icon.png`, `app/apple-icon.png` (TC mark). TC artwork: `public/images/tcbpc/logo/`.
