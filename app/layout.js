@@ -19,6 +19,11 @@ const inter = Inter({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  // Only two admin-only text fields use font-mono; `preload: false` stops Next.js auto-injecting
+  // a <link rel="preload"> for this file in every public page's <head>, where it competes for
+  // bandwidth with the hero image on a throttled mobile connection for no benefit (nothing on the
+  // public site uses it). The @font-face rule still exists and loads normally if ever needed.
+  preload: false,
 });
 
 // Dynamic (not a static `metadata` export) so the browser tab title / SEO title / favicon

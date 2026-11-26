@@ -223,6 +223,7 @@ export default function ProductShowcase({
                   title={method}
                   width={60}
                   height={40}
+                  loading="lazy"
                   className="h-10 w-[60px] rounded-md border border-foreground/10 bg-white shadow-sm"
                 />
               ) : (

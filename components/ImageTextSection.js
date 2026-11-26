@@ -281,6 +281,7 @@ export default function ImageTextSection({ id, data, sectionStyle, maxW = "max-w
           <img
             src={data.image}
             alt=""
+            loading="lazy"
             className="h-full w-full object-contain object-bottom opacity-45 sm:object-cover sm:object-center"
           />
           <div className={`absolute inset-0 ${overlayClass}`} />
@@ -299,7 +300,7 @@ export default function ImageTextSection({ id, data, sectionStyle, maxW = "max-w
         <div className="grid items-center gap-10 md:grid-cols-2">
           <div className={data.image_position === "right" ? "md:order-2" : ""}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={data.image} alt="" className="w-full rounded-2xl object-cover" />
+            <img src={data.image} alt="" loading="lazy" className="w-full rounded-2xl object-cover" />
           </div>
           <div className={data.image_position === "right" ? "md:order-1" : ""}>
             <h2 className="text-3xl font-bold">{data.heading}</h2>

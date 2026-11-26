@@ -90,8 +90,12 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
     setSlide((s) => (s.index === i ? s : { previous: s.index, index: i }));
   }
   const active = photos[index];
+  // Only the true hero stage (priority=true) gets its first photo fetched eagerly/with priority;
+  // every other photo — including the first one in a non-priority stage, e.g. the flagship card's
+  // own "Interactive Preview" panel further down the page — is lazy, so it isn't auto-preloaded
+  // and doesn't compete with the real hero image for bandwidth on a slow connection.
   const imgLoading = (i) =>
-    i === 0 ? (priority ? { fetchPriority: "high" } : {}) : { loading: "lazy" };
+    i === 0 && priority ? { fetchPriority: "high" } : { loading: "lazy" };
 
   return (
     <div

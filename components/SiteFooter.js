@@ -50,7 +50,7 @@ export default function SiteFooter({
             {headerLogoUrl ? (
               // Admin-editable URL — plain <img>.
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={headerLogoUrl} alt={businessName} className="h-12 w-auto" />
+              <img src={headerLogoUrl} alt={businessName} loading="lazy" className="h-12 w-auto" />
             ) : (
               <div className="flex items-center gap-3">
                 <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-teal font-extrabold text-brand-ink">

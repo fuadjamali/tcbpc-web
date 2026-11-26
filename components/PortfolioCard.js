@@ -31,6 +31,7 @@ export default function PortfolioCard({ item }) {
       <img
         src={item.image}
         alt={item.name || ""}
+        loading="lazy"
         className={showWhole ? "h-full w-full object-contain" : "block h-auto w-full"}
       />
     </div>

@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import {
   IconMapPin,
   IconPhone,
@@ -252,6 +253,14 @@ export default async function Home() {
       ? stagePhotos
       : await getProductPhotos(flagship.id)
     : [];
+
+  // The hero's first photo is almost always the page's Largest Contentful Paint element — hint
+  // the browser to start fetching it immediately, before it even reaches that part of the HTML,
+  // instead of waiting for the main bundle/hydration. See components/ProductStage.js's own
+  // fetchPriority="high" on that same image for the matching fetch-priority half of this.
+  if (stagePhotos[0]?.image) {
+    ReactDOM.preload(stagePhotos[0].image, { as: "image", fetchPriority: "high" });
+  }
 
   const footerWhatsappHref = getWhatsappHref(
     socialSettings,
