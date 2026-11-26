@@ -73,7 +73,7 @@ export const revalidate = 3600;
 
 export async function generateMetadata() {
   const business = await getBusinessInfo();
-  const title = `${business.name} — ${business.tagline}`;
+  const title = business.seo_title || `${business.name} — ${business.tagline}`;
   return buildPageMetadata({
     title,
     description: business.description,
@@ -82,7 +82,7 @@ export async function generateMetadata() {
   });
 }
 
-export default async function Home({ searchParams }) {
+export default async function Home() {
   // Sections belonging to a module outside this deployment's plan (or switched off via Feature
   // Config) are forced to null here, so every `{section && (...)}` check below "just works"
   // without any further plan checks.
@@ -194,8 +194,8 @@ export default async function Home({ searchParams }) {
     })
     .filter((item) => item && (item.children || isNavHrefEnabled(item.href)));
 
-  const params = await searchParams;
-  const selectedCategory = params?.category || "";
+  // No searchParams here on purpose: reading them makes the page render on every request,
+  // which cancels the ISR cache above. The category filter works in the browser instead.
 
   const [
     productItems,
@@ -216,7 +216,7 @@ export default async function Home({ searchParams }) {
     portfolioItems,
     certificationItems,
   ] = await Promise.all([
-    getProducts({ category: selectedCategory || undefined }),
+    getProducts(),
     getProductCategories(),
     getReviews(),
     isEnabled("reviews", moduleStates) ? getApprovedTestimonials(6) : Promise.resolve([]),
@@ -642,17 +642,18 @@ export default async function Home({ searchParams }) {
 
         {!flagship && productCategories.length > 0 && (
           <div className="mt-6">
-            <CategoryFilter categories={productCategories} selected={selectedCategory} />
+            <CategoryFilter categories={productCategories} />
           </div>
         )}
 
         {flagship ? null : productItems.length === 0 ? (
-          <p className="mt-10 text-center text-sm text-muted">No products in this category.</p>
+          <p className="mt-10 text-center text-sm text-muted">No products yet.</p>
         ) : (
           <div className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
             {productItems.map((product) => (
               <a
                 key={product.id}
+                data-product-category={product.category || ""}
                 href={`/products/${product.id}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -39,9 +39,24 @@ export default function BusinessInfoForm({ business }) {
       </div>
 
       <div>
+        <label className={labelClass}>Search title (home page)</label>
+        <p className="text-xs text-muted">
+          The headline Google shows for your home page. Keep it under 60 characters. Leave empty to
+          use &quot;Business name — Tagline&quot;.
+        </p>
+        <input
+          type="text"
+          name="seoTitle"
+          maxLength={120}
+          defaultValue={business.seo_title || ""}
+          className={fieldClass}
+        />
+      </div>
+
+      <div>
         <label className={labelClass}>Description</label>
         <p className="text-xs text-muted">
-          Used for SEO and social-share previews (Open Graph / Twitter cards).
+          Used for SEO and social-share previews (Open Graph / Twitter cards). Keep it under 160 characters.
         </p>
         <textarea
           name="description"

@@ -47,7 +47,7 @@ export default function HeroSplit({ slide, photos, stageName, sectionMaxW, heigh
                 />
                 {/* the stage starts above the card so cut-out photos break out over its top edge */}
                 <div className="-mt-14 sm:-mt-24">
-                  <ProductStage photos={photos} size={420}>
+                  <ProductStage photos={photos} size={420} priority>
                     {badges[0] && (
                       <div className="absolute left-0 top-[38%] z-20 hidden items-center gap-1.5 rounded-full border border-brand-teal/40 bg-brand-ink/85 px-3 py-1.5 text-[11px] font-bold text-white shadow-lg backdrop-blur-md sm:flex">
                         <span className="h-2 w-2 animate-ping rounded-full bg-brand-teal" />

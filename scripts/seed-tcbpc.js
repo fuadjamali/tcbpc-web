@@ -58,13 +58,21 @@ async function warmUp(baseUrl) {
 async function seed(client) {
   const q = (text, params) => client.query(text, params);
 
+  // Newer columns, in case the live pages haven't created them yet (lib/businessInfo.js,
+  // lib/branding.js add them lazily too).
+  await q(`ALTER TABLE business_info ADD COLUMN IF NOT EXISTS seo_title VARCHAR(120)`);
+  await q(`ALTER TABLE branding ADD COLUMN IF NOT EXISTS header_logo_url VARCHAR(500)`);
+
   await q(
-    `UPDATE business_info SET name=$1, tagline=$2, description=$3, domain=$4, updated_at=now() WHERE id=1`,
+    `UPDATE business_info SET name=$1, tagline=$2, description=$3, domain=$4, seo_title=$5, updated_at=now() WHERE id=1`,
     [
       "TC Business Payments Consultant",
       "Listen first, recommend second.",
-      `${DISCLOSURE} Free statement reviews, Dojo card machines, EPOS integration and 1-to-1 support for UK businesses.`,
+      // Search-result description: keep under 160 characters.
+      "Free statement review and Dojo card machines for UK businesses. 1-to-1 setup and support from Tausif Chowdhury, working on behalf of Dojo.",
       "businesspaymentsconsultantco.uk",
+      // Search-result title: keep under 60 characters.
+      "Dojo Card Machines UK | TC Business Payments Consultant",
     ]
   );
   await q(`UPDATE root_alert SET enabled=true, message=$1, updated_at=now() WHERE id=1`, [DISCLOSURE]);

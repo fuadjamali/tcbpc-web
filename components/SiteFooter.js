@@ -65,7 +65,7 @@ export default function SiteFooter({
 
           {navLinks.length > 0 && (
             <div>
-              <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Quick Links</h4>
+              <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Quick Links</h3>
               <ul className="space-y-2 text-sm">
                 {navLinks.map((link) => (
                   <li key={link.href}>
@@ -80,9 +80,9 @@ export default function SiteFooter({
 
           {(contact?.phone || contact?.email || contact?.subheading) && (
             <div>
-              <h4 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">
+              <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">
                 {contact.heading || "Contact"}
-              </h4>
+              </h3>
               <ul className="space-y-2.5 text-sm">
                 {contact.phone && (
                   <li>

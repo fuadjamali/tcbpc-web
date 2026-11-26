@@ -16,8 +16,10 @@ export function isCutout(photo) {
 // product's photos (lib/productPhotos.js) cycle every 3 seconds with a 3D swing, float gently and
 // tilt with scroll/mouse. Labelled photos become chips that jump to that photo; small bars show
 // the timing. Hover pauses the cycle; visitors who prefer reduced motion get a still stage.
-// `size` sets the device's box height in px (desktop); it scales down on phones.
-export default function ProductStage({ photos, size = 380, chipsClassName = "", children }) {
+// `size` sets the device's box height in px (desktop); it scales down on phones. `priority` (the
+// hero) makes the browser fetch the first photo straight away, since it is the page's main image;
+// the other photos load lazily.
+export default function ProductStage({ photos, size = 380, chipsClassName = "", priority = false, children }) {
   const [{ index, previous }, setSlide] = useState({ index: 0, previous: null });
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -88,6 +90,8 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
     setSlide((s) => (s.index === i ? s : { previous: s.index, index: i }));
   }
   const active = photos[index];
+  const imgLoading = (i) =>
+    i === 0 ? (priority ? { fetchPriority: "high" } : {}) : { loading: "lazy" };
 
   return (
     <div
@@ -158,7 +162,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
                     <span className="ps-frame">
                       {/* Admin-editable image source — plain <img>, same reasoning as products. */}
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={photo.image} alt={photo.caption || photo.label || ""} className="ps-cut" />
+                      <img src={photo.image} alt={photo.caption || photo.label || ""} className="ps-cut" {...imgLoading(i)} />
                       <span
                         aria-hidden="true"
                         className="ps-sheen"
@@ -168,7 +172,7 @@ export default function ProductStage({ photos, size = 380, chipsClassName = "", 
                   ) : (
                     <span className="mb-4 block w-[72%] max-w-[300px] overflow-hidden rounded-[28px] border-2 border-white/30 bg-white shadow-[0_30px_65px_-12px_rgba(0,0,0,0.75)]">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={photo.image} alt={photo.caption || photo.label || ""} className="block h-auto w-full" />
+                      <img src={photo.image} alt={photo.caption || photo.label || ""} className="block h-auto w-full" {...imgLoading(i)} />
                     </span>
                   )}
                 </div>

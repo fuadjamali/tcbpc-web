@@ -136,7 +136,13 @@ export async function proxy(request) {
     return NextResponse.next();
   }
 
-  return NextResponse.rewrite(new URL("/site-unavailable", request.url), { status: 401 });
+  // Unknown admin/API paths stay a 401 "Site Unavailable". Any other unknown address gets a real
+  // 404 (app/not-found.js): rewriting to a path with no page makes Next render not-found with a
+  // 404 status, which search engines need so they don't index made-up URLs.
+  if (pathname.startsWith("/admin") || pathname.startsWith("/api")) {
+    return NextResponse.rewrite(new URL("/site-unavailable", request.url), { status: 401 });
+  }
+  return NextResponse.rewrite(new URL("/__not-found", request.url));
 }
 
 export const config = {

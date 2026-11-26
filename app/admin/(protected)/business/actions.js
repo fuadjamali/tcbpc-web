@@ -8,12 +8,13 @@ export async function updateBusinessInfoAction(prevState, formData) {
   const tagline = formData.get("tagline")?.toString().trim();
   const description = formData.get("description")?.toString().trim();
   const domain = formData.get("domain")?.toString().trim();
+  const seoTitle = formData.get("seoTitle")?.toString().trim();
 
   if (!name) {
     return { error: "Business name can't be empty." };
   }
 
-  await updateBusinessInfo({ name, tagline, description, domain });
+  await updateBusinessInfo({ name, tagline, description, domain, seoTitle });
 
   // The name shows up almost everywhere (browser tab title, every page header, footer
   // copyright, admin header, SEO tags) — revalidate broadly rather than enumerating every path.
